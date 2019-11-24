@@ -4,13 +4,13 @@ public abstract class Client {
 	private String id;
 	private String name;
 	private String age;
-	private String string;
-	public Client(String id, String name, String age, String string) {
+	private String email;
+	public Client(String id, String name, String age, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.age = age;
-		this.string = string;
+		this.email = email;
 	}
 	public String getId() {
 		return id;
@@ -31,10 +31,10 @@ public abstract class Client {
 		this.age = age;
 	}
 	public String getString() {
-		return string;
+		return email;
 	}
-	public void setString(String string) {
-		this.string = string;
+	public void setString(String email) {
+		this.email = email;
 	}
 	
 }

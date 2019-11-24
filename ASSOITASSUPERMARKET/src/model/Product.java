@@ -5,10 +5,10 @@ import java.util.Calendar;
 public abstract class Product {
 	private String id;
 	private String name;
-	private Calendar bestBefore;
+	private String bestBefore;
 	private double price;
 	private String productType;
-	public Product(String id, String name, Calendar bestBefore, double price, String productType) {
+	public Product(String id, String name, String bestBefore, double price, String productType) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,10 +28,10 @@ public abstract class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Calendar getBestBefore() {
+	public String getBestBefore() {
 		return bestBefore;
 	}
-	public void setBestBefore(Calendar bestBefore) {
+	public void setBestBefore(String bestBefore) {
 		this.bestBefore = bestBefore;
 	}
 	public double getPrice() {

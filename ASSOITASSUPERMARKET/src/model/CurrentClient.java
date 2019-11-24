@@ -4,8 +4,8 @@ public class CurrentClient extends Client{
 	
 	private CurrentClient left; 
 	private CurrentClient right;
-	public CurrentClient(String id, String name, String age, String string) {
-		super(id, name, age, string);
+	public CurrentClient(String id, String name, String age, String email) {
+		super(id, name, age, email);
 		// TODO Auto-generated constructor stub
 	}
 	public CurrentClient getLeft() {

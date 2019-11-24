@@ -3,14 +3,16 @@ package model;
 import logicInterfaces.DateRegistrator;
 
 public abstract class Realstate implements DateRegistrator{
+	private String id;
 	private int quantity;
 	private String buyYear;
 	private String name;
-	public Realstate(int quantity, String buyYear, String name) {
+	public Realstate(int quantity, String buyYear, String name, String id) {
 		super();
 		this.quantity = quantity;
 		this.buyYear = buyYear;
 		this.name = name;
+		this.id = id;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -29,6 +31,18 @@ public abstract class Realstate implements DateRegistrator{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return "Realstate [id=" + id + ", quantity=" + quantity + ", buyYear=" + buyYear + ", name=" + name + "]";
 	}
 	public void addDate() {
 		// TODO Auto-generated method stub

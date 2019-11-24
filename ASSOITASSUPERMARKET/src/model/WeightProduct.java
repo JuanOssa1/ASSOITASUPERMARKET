@@ -24,7 +24,7 @@ public class WeightProduct extends Product {
 	public void setPrevius(WeightProduct previus) {
 		this.previus = previus;
 	}
-	public WeightProduct(String id, String name, Calendar bestBefore, double price, String productType, double weight) {
+	public WeightProduct(String id, String name, String bestBefore, double price, String productType, double weight) {
 		super(id, name, bestBefore, price, productType);
 		this.weight = weight;
 	} 

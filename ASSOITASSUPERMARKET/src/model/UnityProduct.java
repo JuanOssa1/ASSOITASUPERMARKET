@@ -6,7 +6,7 @@ public class UnityProduct extends Product{
 	private int quantity;
 	private UnityProduct next; 
 	private UnityProduct previus;
-	public UnityProduct(String id, String name, Calendar bestBefore, double price, String productType, int quantity) {
+	public UnityProduct(String id, String name, String bestBefore, double price, String productType, int quantity) {
 		super(id, name, bestBefore, price, productType);
 		this.quantity = quantity;
 	}

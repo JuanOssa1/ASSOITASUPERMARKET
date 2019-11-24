@@ -5,12 +5,11 @@ import java.util.Calendar;
 public class LoyalClient extends Client{
 	private int points;
 	private double discountPercent;
-	private Calendar dueCard;
+	private String dueCard;
 	private LoyalClient left; 
 	private LoyalClient right;
-	public LoyalClient(String id, String name, String age, String string, int points, double discountPercent,
-			Calendar dueCard) {
-		super(id, name, age, string);
+	public LoyalClient(String id, String name, String age, String email, int points, double discountPercent, String dueCard) {
+		super(id, name, age, email);
 		this.points = points;
 		this.discountPercent = discountPercent;
 		this.dueCard = dueCard;
@@ -27,10 +26,10 @@ public class LoyalClient extends Client{
 	public void setDiscountPercent(double discountPercent) {
 		this.discountPercent = discountPercent;
 	}
-	public Calendar getDueCard() {
+	public String getDueCard() {
 		return dueCard;
 	}
-	public void setDueCard(Calendar dueCard) {
+	public void setDueCard(String dueCard) {
 		this.dueCard = dueCard;
 	}
 	public LoyalClient getLeft() {

@@ -3,20 +3,28 @@ package model;
 import java.util.Calendar;
 
 public class PublicState extends Realstate{
-	private Calendar maintenance;
+	private String maintenance;
 
-	public PublicState(int quantity, String buyYear, String name, Calendar maintenance) {
-		super(quantity, buyYear, name);
+	public PublicState(int quantity, String buyYear, String name, String maintenance, String id) {
+		super(quantity, buyYear, name, id);
 		this.maintenance = maintenance;
 	}
 
-	public Calendar getMaintenance() {
+	public String getMaintenance() {
 		return maintenance;
 	}
 
-	public void setMaintenance(Calendar maintenance) {
+	public void setMaintenance(String maintenance) {
 		this.maintenance = maintenance;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "PublicState [maintenance=" + maintenance + ", getQuantity()=" + getQuantity() + ", getBuyYear()="
+				+ getBuyYear() + ", getName()=" + getName() + ", getId()=" + getId() + "]";
+	}
+
 	@Override
 	public void addDate() {
 		// TODO Auto-generated method stub
