@@ -41,8 +41,14 @@ public abstract class Worker implements DateRegistrator{
 		this.experience = experience;
 	}
 	public void addDate() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+	}
+	
+	public String getEps() {
+		return eps;
+	}
+	public void setEps(String eps) {
+		this.eps = eps;
 	}
 	@Override
 	public String toString() {

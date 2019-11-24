@@ -23,21 +23,21 @@ class SuperMarketAppTest {
 	
 	private void setUpSceneTestAddition() {
 		superMarket = new SuperMarketApp();
-		superMarket.createNewAdministrator("Carlos", "12346", "Comeva",400000, 7);
-		superMarket.createNewAdministrator("Juam", "12356", "Comeva",500000, 3);
-		superMarket.createNewAdministrator("Victor", "123487", "Comeva",200000, 8);
-		superMarket.createNewManager("Chino", "12334", "Colsanitas", 233344, 12, "1 año");
-		superMarket.createNewManager("Juan", "123234", "Colsanitas", 1000000, 8, "1 año");
-		superMarket.createNewManager("Samuel", "12332334", "Colsanitas", 263331, 15, "1 año");
+		superMarket.createNewAdministrator("Carlos", "12346", "Comeva","400000", "7");
+		superMarket.createNewAdministrator("Juam", "12356", "Comeva","500000", "3");
+		superMarket.createNewAdministrator("Victor", "123487", "Comeva","200000", "8");
+		superMarket.createNewManager("Chino", "12334", "Colsanitas", "233344", "12", "1 año");
+		superMarket.createNewManager("Juan", "123234", "Colsanitas", "1000000", "8", "1 año");
+		superMarket.createNewManager("Samuel", "12332334", "Colsanitas", "263331", "15", "1 año");
 	}
 	private void setUpSceneSameId() {
 		superMarket = new SuperMarketApp(); 
-		superMarket.createNewAdministrator("Carlos", "1", "Comeva",400000, 7);
-		superMarket.createNewAdministrator("Juam", "12", "Comeva",500000, 3);
-		superMarket.createNewAdministrator("Victor", "123", "Comeva",200000, 8);
-		superMarket.createNewManager("Chino", "1", "Colsanitas", 233344, 12, "1 año");
-		superMarket.createNewManager("Juan", "1234", "Colsanitas", 1000000, 8, "1 año");
-		superMarket.createNewManager("Samuel", "12345", "Colsanitas", 263331, 15, "1 año");
+		superMarket.createNewAdministrator("Carlos", "1", "Comeva","400000", "7");
+		superMarket.createNewAdministrator("Juam", "12", "Comeva","500000", "3");
+		superMarket.createNewAdministrator("Victor", "123", "Comeva","200000", "8");
+		superMarket.createNewManager("Chino", "1", "Colsanitas", "233344", "12", "1 año");
+		superMarket.createNewManager("Juan", "1234", "Colsanitas", "1000000", "8", "1 año");
+		superMarket.createNewManager("Samuel", "12345", "Colsanitas", "263331", "15", "1 año");
 	}
 	
 	@Test
