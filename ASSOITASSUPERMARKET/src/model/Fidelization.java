@@ -1,5 +1,8 @@
 package model;
 
+import exceptions.noMatchesException;
+import exceptions.repeatedCustomerException;
+
 public class Fidelization {
 	private LoyalClient rootLoyal;
 	private CurrentClient rootCurrent;
@@ -19,8 +22,7 @@ public class Fidelization {
 		this.rootCurrent = rootCurrent;
 	}
 	//---------------------------------------------------> LOYAL CLIENT 
-	//FALTA HACER VERIFICACION DE QUE LA ID NO ESTE REPETIDA
-	public void insertLoyalClient(String id, String name, String age, String email, int points, double discountPercent, String dueCard) {
+	public void insertLoyalClient(String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws repeatedCustomerException {
 		LoyalClient newLoyalClient = new LoyalClient( id,  name,  age,  email,  points,  discountPercent, dueCard);
 		if(rootLoyal == null) {
 			rootLoyal = newLoyalClient;
@@ -28,19 +30,23 @@ public class Fidelization {
 			insertLoyalClient(rootLoyal, newLoyalClient);
 		}
 	}
-	private void insertLoyalClient(LoyalClient currentRoot, LoyalClient newLoyalClient) {
-		if(currentRoot.getId().compareTo(newLoyalClient.getId())>0) {
-			if(currentRoot.getLeft() == null) {
-				currentRoot.setLeft(newLoyalClient);
+	private void insertLoyalClient(LoyalClient currentRoot, LoyalClient newLoyalClient) throws repeatedCustomerException {
+		if(currentRoot.getId().compareTo(newLoyalClient.getId())!=0) {
+			if(currentRoot.getId().compareTo(newLoyalClient.getId())>0) {
+				if(currentRoot.getLeft() == null) {
+					currentRoot.setLeft(newLoyalClient);
+				} else {
+					insertLoyalClient(currentRoot.getLeft(), newLoyalClient);
+				}
 			} else {
-				insertLoyalClient(currentRoot.getLeft(), newLoyalClient);
+				if(currentRoot.getRight() == null) {
+					currentRoot.setRight(newLoyalClient);
+				} else {
+					insertLoyalClient(currentRoot.getRight(), newLoyalClient);
+				}
 			}
 		} else {
-			if(currentRoot.getRight() == null) {
-				currentRoot.setRight(newLoyalClient);
-			} else {
-				insertLoyalClient(currentRoot.getRight(), newLoyalClient);
-			}
+			throw new repeatedCustomerException("Falla!");
 		}
 	}
 	public String searchLoyalClientWithId(String id) {
@@ -80,8 +86,7 @@ public class Fidelization {
 		return msg;
 	}
 	//---------------------------------------------------> CURRENT CLIENT 
-	//FALTA HACER VERIFICACION DE QUE LA ID NO ESTE REPETIDA
-	public void insertCurrentClient(String id, String name, String age, String email) {
+	public void insertCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
 		CurrentClient newCurrentClient = new CurrentClient( id,  name,  age,  email);
 		if(rootCurrent == null) {
 			rootCurrent = newCurrentClient;
@@ -89,22 +94,26 @@ public class Fidelization {
 			insertCurrentClient(rootCurrent, newCurrentClient);
 		}
 	}
-	private void insertCurrentClient(CurrentClient currentRoot, CurrentClient newCurrentClient) {
-		if(currentRoot.getId().compareTo(newCurrentClient.getId())>0) {
-			if(currentRoot.getLeft() == null) {
-				currentRoot.setLeft(newCurrentClient);
+	private void insertCurrentClient(CurrentClient currentRoot, CurrentClient newCurrentClient) throws repeatedCustomerException {
+		if(currentRoot.getId().compareTo(newCurrentClient.getId())!=0) {
+			if(currentRoot.getId().compareTo(newCurrentClient.getId())>0) {
+				if(currentRoot.getLeft() == null) {
+					currentRoot.setLeft(newCurrentClient);
+				} else {
+					insertCurrentClient(currentRoot.getLeft(), newCurrentClient);
+				}
 			} else {
-				insertCurrentClient(currentRoot.getLeft(), newCurrentClient);
+				if(currentRoot.getRight() == null) {
+					currentRoot.setRight(newCurrentClient);
+				} else {
+					insertCurrentClient(currentRoot.getRight(), newCurrentClient);
+				}
 			}
 		} else {
-			if(currentRoot.getRight() == null) {
-				currentRoot.setRight(newCurrentClient);
-			} else {
-				insertCurrentClient(currentRoot.getRight(), newCurrentClient);
-			}
+			throw new repeatedCustomerException("Falla!");
 		}
 	}
-	public String searchCurrentClientWithId(String id) {
+	public String searchCurrentClientWithId(String id) throws noMatchesException {
 		String msg = "";
 		if(rootCurrent != null) {
 			if(id.equals(rootCurrent.getId())) {
@@ -115,7 +124,7 @@ public class Fidelization {
 		}
 		return msg;
 	}
-	private String searchCurrentClientWithId(CurrentClient currentRoot, String id) {
+	private String searchCurrentClientWithId(CurrentClient currentRoot, String id) throws noMatchesException {
 		String msg = "";
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
@@ -125,7 +134,7 @@ public class Fidelization {
 					msg = searchCurrentClientWithId(currentRoot.getRight(), id);
 				}
 			} else {
-				msg = "No existe esa id";
+				throw new noMatchesException("Failure! Check!");
 			}
 		}else {
 			if(currentRoot.getLeft() != null) {
@@ -135,9 +144,10 @@ public class Fidelization {
 					msg = searchCurrentClientWithId(currentRoot.getLeft(), id);
 				} 
 			} else {
-				msg = "No existe esa id"; 
+				throw new noMatchesException("Failure! Check!"); 
 			}
 		}
 		return msg;
 	}
+	
 }

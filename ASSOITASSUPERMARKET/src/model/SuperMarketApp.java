@@ -16,6 +16,7 @@ public class SuperMarketApp {
 	private ArrayList<Worker> workers;
 	private ArrayList<Realstate> realStates;
 	public static String FLATWORKERS = "marketRecords//worker.txt";
+	public static String FLATREALSTATES = "marketRecords//realStates.txt";
 	//public static String FLATADMINISTRATORS = "marketRecords//administrator.txt";
 	/*
 	private ArrayList<Manager> managers; //ESTO SE SERIALIZA
@@ -145,22 +146,24 @@ public class SuperMarketApp {
 		}
 	}
 	
-	public String createNewPrivateState(int quantity, String buyYear, String name, String id) {
+	public String createNewPrivateState(String quantity, String buyYear, String name, String id) {
 		String msg = ""; 
+		int quantityC = Integer.parseInt(quantity);
 		try {
 			validateAvailabilityOfTheIdRealstate(id);
-			PrivateState privateState = new PrivateState(quantity, buyYear, name, id);
+			PrivateState privateState = new PrivateState(quantityC, buyYear, name, id);
 			realStates.add(privateState);
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
 		}
 		return msg;
 	}
-	public String createNewPublicState(int quantity, String buyYear, String name, String maintennance, String id) {
+	public String createNewPublicState(String quantity, String buyYear, String name, String id, String maintenance) {
 		String msg = ""; 
+		int quantityC = Integer.parseInt(quantity);
 		try {
 			validateAvailabilityOfTheIdRealstate(id);
-			PublicState publicState = new PublicState(quantity, buyYear, name, maintennance, id);
+			PublicState publicState = new PublicState(quantityC, buyYear, name, id, maintenance );
 			realStates.add(publicState);
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
@@ -212,7 +215,6 @@ public class SuperMarketApp {
 			e.printStackTrace();
 			}
 		return msg;
-		
 	}
 	public void writeManagers() {
 		try{
@@ -222,7 +224,7 @@ public class SuperMarketApp {
 			for(int i = 0; i < workers.size();i++) {
 				if(workers.get(i) instanceof Manager) {
 					Manager manager = (Manager) workers.get(i);
-					buffer.write(manager.getName()+","+manager.getId()+","+manager.getEps()+","+manager.getSalary()+","+manager.getExperience());
+					buffer.write(manager.getName()+","+manager.getId()+","+manager.getEps()+","+manager.getSalary()+","+manager.getExperience()+","+manager.getContract());
 				} else {
 					Administrator administrator = (Administrator)workers.get(i);
 					buffer.write(administrator.getName()+","+administrator.getId()+","+administrator.getEps()+","+administrator.getSalary()+","+administrator.getExperience());
@@ -234,45 +236,56 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public void startProgramLoadGamers(){
-		File file = new File(SEARCHROUTE);
-		ArrayList<Gamer> p;
+	//------------------------------------------> SISTEMAS DE CARGA
+		//POR VERFICIAR:
+		//---->CHECK! writeFlatRealStates()
+	public String readFlatRealStates() {	
+		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
-			
-				FileInputStream	fi = new FileInputStream(file);
-				ObjectInputStream co = new ObjectInputStream(fi);
-				p = (ArrayList<Gamer>)co.readObject();
-				setGamers(p); 
-				co.close();
-			}
-			
-		
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}
-	}
-	public void sortGamersScore() {	
-		for(int i = 0; i < gamers.size()-1; i++) {
-			Gamer small = gamers.get(i);
-			int wich = i;
-			for(int j = i + 1; j < gamers.size(); j++) {
-				if(gamers.get(j).getScore() < small.getScore()) {
-					small = gamers.get(j);
-					wich = j;
+			File	file = new File(FLATREALSTATES);
+			FileReader	frReader = new FileReader(file);
+			BufferedReader	bufferRead = new BufferedReader(frReader);
+			String saveString;
+			while( (saveString = bufferRead.readLine()) != null){
+				String[] parts = saveString.split(","); 
+				String quantity = parts[0]; 
+				String buyYear = parts[1];
+				String name = parts[2];
+				String id = parts[3];
+				String maintenance = parts[4];
+				if(maintenance != null) {
+					createNewPublicState( quantity,  buyYear,  name,  id, maintenance );
+				} else {
+					createNewPrivateState( quantity,  buyYear,  name,  id);
 				}
-				Gamer tmp = gamers.get(i);
-				gamers.set(i, small);
-				gamers.set(wich, tmp);
+				 		
+			}	
+			bufferRead.close();
+			frReader.close();	
+		}
+		catch(Exception e){
+			e.printStackTrace();
 			}
+		return msg;
+	}
+	public void writeFlatRealStates() {
+		try{
+			File file = new File(FLATREALSTATES);
+			FileWriter filwri =  new FileWriter(file);
+			BufferedWriter  buffer = new BufferedWriter(filwri);
+			for(int i = 0; i < realStates.size();i++) {
+				if(realStates.get(i) instanceof PublicState) {
+					PublicState publicState = (PublicState) realStates.get(i);
+					buffer.write(publicState.getQuantity()+","+publicState.getBuyYear()+","+publicState.getName()+","+publicState.getId()+","+publicState.getMaintenance());
+				} else {
+					PrivateState privateState = (PrivateState)realStates.get(i);
+					buffer.write(privateState.getQuantity()+","+privateState.getBuyYear()+","+privateState.getName()+","+privateState.getId());
+				}
+			}
+			buffer.close();
+			filwri.close();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
-	
 }

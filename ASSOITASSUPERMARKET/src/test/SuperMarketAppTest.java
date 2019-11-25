@@ -81,22 +81,22 @@ class SuperMarketAppTest {
 	}
 	private void setUpSceneAddRealStates() {
 		superMarket = new SuperMarketApp();
-		superMarket.createNewPublicState(200, "23/11/2019", "Carrito de Supermercado", "23/11/2020","10994");
-		superMarket.createNewPublicState(50, "23/11/2019", "Canasta de Supermercado", "23/11/2020", "10995");
-		superMarket.createNewPublicState(15, "23/11/2019", "Caja registradora", "23/11/2020", "10996");
-		superMarket.createNewPrivateState(5, "23/11/2019", "Carrito de cafe", "11994");
-		superMarket.createNewPrivateState(7, "23/11/2019", "Sofas", "11995");
-		superMarket.createNewPrivateState(8, "23/11/2019", "Camiones", "11996");
+		superMarket.createNewPublicState("200", "23/11/2019", "Carrito de Supermercado","10994","23/11/2020");
+		superMarket.createNewPublicState("50", "23/11/2019", "Canasta de Supermercado", "10995","23/11/2020");
+		superMarket.createNewPublicState("15", "23/11/2019", "Caja registradora", "10996","23/11/2020");
+		superMarket.createNewPrivateState("5", "23/11/2019", "Carrito de cafe", "11994");
+		superMarket.createNewPrivateState("7", "23/11/2019", "Sofas", "11995");
+		superMarket.createNewPrivateState("8", "23/11/2019", "Camiones", "11996");
 	}
 	
 	private void setUpSceneRealStateSameId() {
 		superMarket = new SuperMarketApp();
-		superMarket.createNewPublicState(200, "23/11/2019", "Carrito de Supermercado", "23/11/2020", "1");
-		superMarket.createNewPublicState(50, "23/11/2019", "Canasta de Supermercado", "23/11/2020", "12");
-		superMarket.createNewPublicState(15, "23/11/2019", "Caja registradora", "23/11/2020", "123");
-		superMarket.createNewPrivateState(5, "23/11/2019", "Carrito de cafe", "1234");
-		superMarket.createNewPrivateState(7, "23/11/2019", "Sofas", "12345");
-		superMarket.createNewPrivateState(8, "23/11/2019", "Camiones", "1");
+		superMarket.createNewPublicState("200", "23/11/2019", "Carrito de Supermercado", "1","23/11/2020");
+		superMarket.createNewPublicState("50", "23/11/2019", "Canasta de Supermercado", "12" ,"23/11/2020");
+		superMarket.createNewPublicState("15", "23/11/2019", "Caja registradora","123","23/11/2020");
+		superMarket.createNewPrivateState("5", "23/11/2019", "Carrito de cafe", "1234");
+		superMarket.createNewPrivateState("7", "23/11/2019", "Sofas", "12345");
+		superMarket.createNewPrivateState("8", "23/11/2019", "Camiones", "1");
 	}
 	
 	@Test
@@ -104,9 +104,9 @@ class SuperMarketAppTest {
 		setUpSceneAddRealStates();
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		ArrayList<Realstate> handMaderealState = new ArrayList<Realstate>();
-		PublicState puTest0 = new PublicState(200, "23/11/2019", "Carrito de Supermercado","23/11/2020", "10994");
-		PublicState puTest1 = new PublicState(50, "23/11/2019", "Canasta de Supermercado","23/11/2020", "10995");
-		PublicState puTest2 = new PublicState(15, "23/11/2019", "Caja registradora", "23/11/2020","10996");
+		PublicState puTest0 = new PublicState(200, "23/11/2019", "Carrito de Supermercado", "10994" ,"23/11/2020");
+		PublicState puTest1 = new PublicState(50, "23/11/2019", "Canasta de Supermercado", "10995","23/11/2020");
+		PublicState puTest2 = new PublicState(15, "23/11/2019", "Caja registradora","10996","23/11/2020");
 		PrivateState priTest0 = new PrivateState(5, "23/11/2019", "Carrito de cafe", "11994");
 		PrivateState priTest1 = new PrivateState(7, "23/11/2019", "Sofas", "11995");
 		PrivateState priTest2 = new PrivateState(8, "23/11/2019", "Camiones", "11996");

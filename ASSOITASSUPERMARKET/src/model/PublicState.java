@@ -5,7 +5,7 @@ import java.util.Calendar;
 public class PublicState extends Realstate{
 	private String maintenance;
 
-	public PublicState(int quantity, String buyYear, String name, String maintenance, String id) {
+	public PublicState(int quantity, String buyYear, String name, String id, String maintenance) {
 		super(quantity, buyYear, name, id);
 		this.maintenance = maintenance;
 	}
