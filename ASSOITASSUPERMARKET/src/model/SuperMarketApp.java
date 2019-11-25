@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import exceptions.noMatchesException;
 import exceptions.unavaiableIdException;
 
 public class SuperMarketApp {
@@ -27,6 +28,8 @@ public class SuperMarketApp {
 	public SuperMarketApp() {
 		workers = new ArrayList<Worker>();
 		realStates = new ArrayList<Realstate>();
+		inventory = new Inventory();
+		fidelization = new Fidelization();
 		/*
 		managers = new ArrayList<Manager>();
 		administrators = new ArrayList<Administrator>();
@@ -90,6 +93,7 @@ public class SuperMarketApp {
 	public void setRealStates(ArrayList<Realstate> realStates) {
 		this.realStates = realStates;
 	}
+	//-----------------------> Workers
 	private void validateAvailabilityOfTheId(String id) throws unavaiableIdException {
 		for (int i = 0; i < workers.size(); i++) {
 			if(workers.get(i).getId().equals(id)) {
@@ -97,7 +101,7 @@ public class SuperMarketApp {
 			}
 		}
 	}
-	//-----------------------> Workers
+	//TESTED!
 	public String createNewManager(String name, String id, String eps, String salary, String experience, String contract) {
 		// "Letter C summary of -C-onverted"
 		String msg = "";
@@ -112,6 +116,7 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
+	//TESTED!
 	public String createNewAdministrator(String name, String id, String eps, String salary, String experience) {
 		String msg = ""; 
 		int salaryC = Integer.parseInt(salary);
@@ -125,6 +130,7 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
+	//TESTED!
 	public String deleteWorker(String id) {
 		String msg = "";
 		for (int i = 0; i < workers.size(); i++) {
@@ -145,7 +151,7 @@ public class SuperMarketApp {
 			}
 		}
 	}
-	
+	//TESTED!
 	public String createNewPrivateState(String quantity, String buyYear, String name, String id) {
 		String msg = ""; 
 		int quantityC = Integer.parseInt(quantity);
@@ -158,6 +164,7 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
+	//TESTED!
 	public String createNewPublicState(String quantity, String buyYear, String name, String id, String maintenance) {
 		String msg = ""; 
 		int quantityC = Integer.parseInt(quantity);
@@ -170,7 +177,7 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
-	
+	//TESTED!
 	public String deleteRealState(String id) {
 		String msg = "";
 		for (int i = 0; i < realStates.size(); i++) {
@@ -183,6 +190,114 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
+	//------------------------------------------>INVENTORY
+			//UNITY<----------------------------------------------------------------------------------------------------------------------------------------------------
+	//NOT TESTED!!!!
+	public void addUnityProduct(String id, String name, String bestBefore, String price, String productType, String quantity) {
+		double priceC = Double.parseDouble(price);
+		int quantityC = Integer.parseInt(quantity);
+		try {
+			inventory.addUnityProductToTheList(id, name, bestBefore, priceC, productType, quantityC);
+		} catch (unavaiableIdException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//NOT TESTED!!!!
+	public void searchUnityProduct(String id) {
+		try {
+			inventory.searchUnityProduct(id);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//NOT TESTED!!!!
+	public void updateUnityProduct(String id, String name, String bestBefore, String price, String productType, String quantity) {
+		double priceC = Double.parseDouble(price);
+		int quantityC = Integer.parseInt(quantity);
+		try {
+			inventory.updateUnityProductData(id, name, bestBefore, priceC, productType, quantityC);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//NOT TESTED!!!!
+	public void deleteUnityProduct() {
+		//inventory
+	}
+			//WEIGHT<---------------------------------------------------------------------------------------------------------------------------------------------------
+	//NOT TESTED!!!!
+	public void addWeightProduct(String id, String name, String bestBefore, String price, String productType, String weight) {
+		Double priceC = Double.parseDouble(price);
+		Double weightC = Double.parseDouble(weight);
+		try {
+			inventory.addWeightProductToTheList(id, name, bestBefore, priceC, productType, weightC);
+		} catch (unavaiableIdException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//NOT TESTED!!!!
+	public void searchWeightProduct(String id) {
+		try {
+			inventory.searchWeightProduct(id);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//NOT TESTED!!!!
+	public void updateWeightProduct(String id, String name, String bestBefore, String price, String productType, String weight) {
+		Double priceC = Double.parseDouble(price);
+		Double weightC = Double.parseDouble(weight);
+		try {
+			inventory.updateWeightProductData(id, name, bestBefore, priceC, productType, weightC);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//NOT TESTED!!!!
+	public void deleteWeightProduct() {
+		//inventory
+	}
+	//------------------------------------------------------------------------------------------------------------------------------------------------------->FIDELIZATION
+	//NOT TESTED!!!!
+	public void addLoyalClient() {
+		//fidelization.insertLoyalClient(id, name, age, email, points, discountPercent, dueCard);	
+	}
+	//NOT TESTED!!!!
+	public void searchLoyalClient() {
+		//fidelization.searchLoyalClientWithId(id);
+	}
+	//NOT TESTED!!!!
+	public void updateLoyalClient() {
+		
+	}
+	//NOT TESTED 
+	public void deleteLoyalClient() {
+			
+	}
+			//CURRENT<------------------------------------------------------------------------------------------------------------------------------------------------------
+	//NOT TESTED!!!!
+	public void addCurrentClient() {
+		
+	}
+	//NOT TESTED!!!!
+	public void searchCurrentClient() {
+		
+	}
+	//NOT TESTED!!!!
+	public void updateCurrentClient() {
+		
+	}
+	//NOT TESTED 
+	public void deleteCurrentClient() {
+		
+	}
+	
 	//------------------------------------------> SISTEMAS DE CARGA
 			//POR VERFICIAR:
 			//---->CHECK! writeManagers()

@@ -24,6 +24,7 @@ public class Inventory {
 	//-----------------------------------> ADDER OF UNITIES
 	public void addUnityProductToTheList(String id, String name, String bestBefore, double price, String productType, int quantity) throws unavaiableIdException {
 		validateAvaiablityOfTheId(id);
+		validateAvaiablityOfTheIdWeight(id);
 		UnityProduct unityProduct = new UnityProduct( id,  name,  bestBefore,  price,  productType,  quantity);
 		if(firstUnity == null) {	
 			firstUnity = unityProduct;
@@ -93,12 +94,26 @@ public class Inventory {
 		return msg;
 	}
 	*/
-	public String searchUnityProduct(String name) throws noMatchesException {
+	public String searchUnityProduct(String id) throws noMatchesException {
+		validateExistenceOfId(id);
 		UnityProduct newReference = firstUnity;
 		String msg = "";
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
-			if(newReference.getName().equals(name)) {
+			if(newReference.getId().equals(id)) {
+				msg = newReference.toString();
+				centinel = true;
+			}
+			newReference = newReference.getNext();
+		}
+		return msg;
+	}
+	private void validateExistenceOfId(String id) throws noMatchesException {
+		UnityProduct newReference = firstUnity;
+		String msg = "";
+		boolean centinel = false;
+		while(newReference != null && centinel == false) {
+			if(newReference.getId().equals(id)) {
 				msg = newReference.toString();
 				centinel = true;
 			}
@@ -107,9 +122,9 @@ public class Inventory {
 		if(msg == "") {
 			throw new noMatchesException("Fatal failure! Check!");
 		}
-		return msg;
 	}
-	public String updateUnityProductData(String id, String name, String bestBefore, double price, String productType, int quantity) {
+	public String updateUnityProductData(String id, String name, String bestBefore, double price, String productType, int quantity) throws noMatchesException {
+		validateExistenceOfId(id);
 		UnityProduct unityToUpdate = firstUnity;
 		String msg = "";
 		boolean centinel = false;
@@ -132,7 +147,7 @@ public class Inventory {
 		UnityProduct newReference = firstUnity;
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
-			if(newReference.getName().equals(id)) {
+			if(newReference.getId().equals(id)) {
 				centinel = true;
 				throw new unavaiableIdException("Error!");	
 			}
@@ -167,19 +182,20 @@ public class Inventory {
 			oToOrganize = oToOrganize.getNext();
 			}
 		}
-	//-----------------------------------> ADDER OF UNITIES
-	public void addWeightProductToTheList(String id, String name, String bestBefore, double price, String productType, int quantity) throws unavaiableIdException {
+	//-----------------------------------> ADDER OF WEIGHT
+	public void addWeightProductToTheList(String id, String name, String bestBefore, double price, String productType, double weight) throws unavaiableIdException {
 		validateAvaiablityOfTheId(id);
-		UnityProduct unityProduct = new UnityProduct( id,  name,  bestBefore,  price,  productType,  quantity);
+		validateAvaiablityOfTheIdWeight(id);
+		WeightProduct weightProduct = new WeightProduct( id,  name,  bestBefore,  price,  productType,  weight);
 		if(firstWeight == null) {	
-			//firstWeight = weightProduct;
+			firstWeight = weightProduct;
 		}else {
-			UnityProduct newReference = firstUnity;
+			WeightProduct newReference = firstWeight;
 			while(newReference.getNext()!=null) {
 				newReference = newReference.getNext();
 			}
-			newReference.setNext(unityProduct);
-			unityProduct.setPrevius(newReference);
+			newReference.setNext(weightProduct);
+			weightProduct.setPrevius(newReference);
 		}
 	}
 	/*
@@ -239,12 +255,26 @@ public class Inventory {
 		return msg;
 	}
 	*/
-	public String searchWeightProduct(String name) throws noMatchesException {
-		UnityProduct newReference = firstUnity;
+	public String searchWeightProduct(String id) throws noMatchesException {
+		validateExistenceOfIdWeight(id);
+		WeightProduct newReference = firstWeight;
 		String msg = "";
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
-			if(newReference.getName().equals(name)) {
+			if(newReference.getId().equals(id)) {
+				msg = newReference.toString();
+				centinel = true;
+			}
+			newReference = newReference.getNext();
+		}
+		return msg;
+	}
+	private void validateExistenceOfIdWeight(String id) throws noMatchesException {
+		WeightProduct newReference = firstWeight;
+		String msg = "";
+		boolean centinel = false;
+		while(newReference != null && centinel == false) {
+			if(newReference.getId().equals(id)) {
 				msg = newReference.toString();
 				centinel = true;
 			}
@@ -253,32 +283,32 @@ public class Inventory {
 		if(msg == "") {
 			throw new noMatchesException("Fatal failure! Check!");
 		}
-		return msg;
 	}
-	public String updateWeightProductData(String id, String name, String bestBefore, double price, String productType, int quantity) {
-		UnityProduct unityToUpdate = firstUnity;
+	public String updateWeightProductData(String id, String name, String bestBefore, double price, String productType, double weight) throws noMatchesException {
+		validateExistenceOfIdWeight(id);
+		WeightProduct weightToUpdate = firstWeight;
 		String msg = "";
 		boolean centinel = false;
-		while(unityToUpdate != null && centinel == false) {
-			if(unityToUpdate.getId().equals(id)) {
-					msg ="El personaje actualizado fue:"+" "+ unityToUpdate.toString();
-					unityToUpdate.setId(id);
-					unityToUpdate.setName(name);
-					unityToUpdate.setBestBefore(bestBefore);
-					unityToUpdate.setPrice(price);
-					unityToUpdate.setProductType(productType);
-					unityToUpdate.setQuantity(quantity);
+		while(weightToUpdate != null && centinel == false) {
+			if(weightToUpdate.getId().equals(id)) {
+					msg ="El producto libreado actualizado fue"+" "+ weightToUpdate.toString();
+					weightToUpdate.setId(id);
+					weightToUpdate.setName(name);
+					weightToUpdate.setBestBefore(bestBefore);
+					weightToUpdate.setPrice(price);
+					weightToUpdate.setProductType(productType);
+					weightToUpdate.setWeight(weight);
 					centinel = true;
 			}
-			unityToUpdate = unityToUpdate.getNext();
+			weightToUpdate = weightToUpdate.getNext();
 		}
 		return msg;
 	}
 	private void validateAvaiablityOfTheIdWeight(String id) throws unavaiableIdException{
-		UnityProduct newReference = firstUnity;
+		WeightProduct newReference = firstWeight;
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
-			if(newReference.getName().equals(id)) {
+			if(newReference.getId().equals(id)) {
 				centinel = true;
 				throw new unavaiableIdException("Error!");	
 			}
@@ -286,15 +316,15 @@ public class Inventory {
 		}	
 	}
 	public void organizeListWithBubbleWeight() {
-		UnityProduct newPrevius = null;
-		UnityProduct newNext = null;
-		UnityProduct oToOrganize = firstUnity;
+		WeightProduct newPrevius = null;
+		WeightProduct newNext = null;
+		WeightProduct oToOrganize = firstWeight;
 				while(oToOrganize != null ){
 				newNext = oToOrganize.getNext();
 				newPrevius = oToOrganize.getPrevius();
 				if(newPrevius != null && newNext != null) {
 					if(newPrevius.getName().compareTo(newNext.getName())>0) {
-						firstUnity = oToOrganize;
+						firstWeight = oToOrganize;
 						oToOrganize.getPrevius().setNext(oToOrganize.getNext());
 						oToOrganize.getPrevius().setPrevius(oToOrganize);
 						oToOrganize.getNext().setPrevius(oToOrganize.getPrevius());
@@ -303,7 +333,7 @@ public class Inventory {
 				}
 				else if(newPrevius == null && newNext != null) {
 					if(oToOrganize.getName().compareTo(newNext.getId())>0) {
-						firstUnity = newNext;
+						firstWeight = newNext;
 						newNext.getPrevius().setNext(newNext.getNext());
 						newNext.getPrevius().setPrevius(newNext);
 						newNext.getNext().setPrevius(newNext.getPrevius());

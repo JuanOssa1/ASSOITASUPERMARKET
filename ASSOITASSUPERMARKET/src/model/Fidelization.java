@@ -85,6 +85,47 @@ public class Fidelization {
 		}
 		return msg;
 	}
+	
+	
+	public String updateLoyalClientWithId(String id) {
+		String msg = "";
+		if(rootLoyal != null) {
+			if(id.equals(rootLoyal.getId())) {
+				//msg = rootLoyal.toString();
+				//rootLoyal.set
+			} else {
+				msg = searchLoyalClientWithId(rootLoyal, id);
+			}
+		}
+		return msg;
+	}
+	private String updateLoyalClientWithId(LoyalClient currentRoot, String id) {
+		String msg = "";
+		if(currentRoot.getId().compareTo(id)<0) {
+			if(currentRoot.getRight() != null) {
+				if(currentRoot.getRight().getId().equals(id)) {
+					msg = currentRoot.getRight().toString();
+				} else {
+					msg = searchLoyalClientWithId(currentRoot.getRight(), id);
+				}
+			} else {
+				msg = "No existe esa id";
+			}
+		}else {
+			if(currentRoot.getLeft() != null) {
+				if(currentRoot.getLeft().getId().equals(id)) {
+					msg = currentRoot.getLeft().toString();
+				} else {
+					msg = searchLoyalClientWithId(currentRoot.getLeft(), id);
+				} 
+			} else {
+				msg = "No existe esa id"; 
+			}
+		}
+		return msg;
+	}
+	
+	
 	//---------------------------------------------------> CURRENT CLIENT 
 	public void insertCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
 		CurrentClient newCurrentClient = new CurrentClient( id,  name,  age,  email);

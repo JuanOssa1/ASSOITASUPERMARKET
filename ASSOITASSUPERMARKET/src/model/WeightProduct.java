@@ -6,6 +6,10 @@ public class WeightProduct extends Product {
 	private double weight;
 	private WeightProduct next; 
 	private WeightProduct previus;
+	public WeightProduct(String id, String name, String bestBefore, double price, String productType, double weight) {
+		super(id, name, bestBefore, price, productType);
+		this.weight = weight;
+	} 
 	public double getWeight() {
 		return weight;
 	}
@@ -24,8 +28,4 @@ public class WeightProduct extends Product {
 	public void setPrevius(WeightProduct previus) {
 		this.previus = previus;
 	}
-	public WeightProduct(String id, String name, String bestBefore, double price, String productType, double weight) {
-		super(id, name, bestBefore, price, productType);
-		this.weight = weight;
-	} 
 }
