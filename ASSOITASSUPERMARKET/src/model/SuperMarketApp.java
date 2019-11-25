@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 import exceptions.noMatchesException;
+import exceptions.repeatedCustomerException;
 import exceptions.unavaiableIdException;
 
 public class SuperMarketApp {
@@ -265,16 +266,35 @@ public class SuperMarketApp {
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------------------->FIDELIZATION
 	//NOT TESTED!!!!
-	public void addLoyalClient() {
-		//fidelization.insertLoyalClient(id, name, age, email, points, discountPercent, dueCard);	
+	public void addLoyalClient(String id, String name, String age, String email, String points, String discountPercent, String dueCard) {
+		int pointsC = Integer.parseInt(points);
+		double discountPercentC = Double.parseDouble(discountPercent);
+		try {
+			fidelization.insertLoyalClient( id,  name,  age,  email,  pointsC,  discountPercentC, dueCard);
+		} catch (repeatedCustomerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	//NOT TESTED!!!!
-	public void searchLoyalClient() {
-		//fidelization.searchLoyalClientWithId(id);
+	public void searchLoyalClient(String id) {
+		try {
+			fidelization.searchLoyalClientWithId(id);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//NOT TESTED!!!!
-	public void updateLoyalClient() {
-		
+	public void updateLoyalClient(String id, String name, String age, String email, String points, String discountPercent, String dueCard) {
+		int pointsC = Integer.parseInt(points);
+		double discountPercentC = Double.parseDouble(discountPercent);
+		try {
+			fidelization.updateLoyalClientWithId(id, name, age, email, pointsC, discountPercentC, dueCard);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//NOT TESTED 
 	public void deleteLoyalClient() {
@@ -282,16 +302,31 @@ public class SuperMarketApp {
 	}
 			//CURRENT<------------------------------------------------------------------------------------------------------------------------------------------------------
 	//NOT TESTED!!!!
-	public void addCurrentClient() {
-		
+	public void addCurrentClient(String id, String name, String age, String email) {
+		try {
+			fidelization.insertCurrentClient(id, name, age, email);
+		} catch (repeatedCustomerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//NOT TESTED!!!!
-	public void searchCurrentClient() {
-		
+	public void searchCurrentClient(String id) {
+		try {
+			fidelization.searchCurrentClientWithId(id);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//NOT TESTED!!!!
-	public void updateCurrentClient() {
-		
+	public void updateCurrentClient(String id, String name, String age, String email) {
+		try {
+			fidelization.updateCurrentClientWithId(id, name, age, email);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//NOT TESTED 
 	public void deleteCurrentClient() {

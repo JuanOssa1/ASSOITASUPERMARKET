@@ -2,8 +2,9 @@ package model;
 
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
+import logicInterfaces.ClientUpdater;
 
-public class Fidelization {
+public class Fidelization implements ClientUpdater{
 	private LoyalClient rootLoyal;
 	private CurrentClient rootCurrent;
 	public Fidelization() {
@@ -49,7 +50,7 @@ public class Fidelization {
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
-	public String searchLoyalClientWithId(String id) {
+	public String searchLoyalClientWithId(String id) throws noMatchesException {
 		String msg = "";
 		if(rootLoyal != null) {
 			if(id.equals(rootLoyal.getId())) {
@@ -60,7 +61,7 @@ public class Fidelization {
 		}
 		return msg;
 	}
-	private String searchLoyalClientWithId(LoyalClient currentRoot, String id) {
+	private String searchLoyalClientWithId(LoyalClient currentRoot, String id) throws noMatchesException {
 		String msg = "";
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
@@ -70,7 +71,7 @@ public class Fidelization {
 					msg = searchLoyalClientWithId(currentRoot.getRight(), id);
 				}
 			} else {
-				msg = "No existe esa id";
+				throw new noMatchesException("Failure! Check!");
 			}
 		}else {
 			if(currentRoot.getLeft() != null) {
@@ -80,51 +81,54 @@ public class Fidelization {
 					msg = searchLoyalClientWithId(currentRoot.getLeft(), id);
 				} 
 			} else {
-				msg = "No existe esa id"; 
+				throw new noMatchesException("Failure! Check!");
 			}
 		}
 		return msg;
 	}
 	
 	
-	public String updateLoyalClientWithId(String id) {
-		String msg = "";
+	public void updateLoyalClientWithId(String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException {
 		if(rootLoyal != null) {
 			if(id.equals(rootLoyal.getId())) {
-				//msg = rootLoyal.toString();
-				//rootLoyal.set
+				updateInformartionLoyal(rootLoyal, name, age, email, points, discountPercent, dueCard);
 			} else {
-				msg = searchLoyalClientWithId(rootLoyal, id);
+				updateLoyalClientWithId(rootLoyal, id, name, age, email, points, discountPercent, dueCard);
 			}
 		}
-		return msg;
 	}
-	private String updateLoyalClientWithId(LoyalClient currentRoot, String id) {
-		String msg = "";
+	private void updateLoyalClientWithId(LoyalClient currentRoot, String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException {
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
 				if(currentRoot.getRight().getId().equals(id)) {
-					msg = currentRoot.getRight().toString();
+					updateInformartionLoyal(currentRoot.getRight(), name, age, email, points, discountPercent, dueCard);
 				} else {
-					msg = searchLoyalClientWithId(currentRoot.getRight(), id);
+					updateLoyalClientWithId(currentRoot.getRight(), id, name, age, email, points, discountPercent, dueCard);
 				}
 			} else {
-				msg = "No existe esa id";
+				throw new noMatchesException("FAILURE!!!! CHECK!!");
 			}
 		}else {
 			if(currentRoot.getLeft() != null) {
 				if(currentRoot.getLeft().getId().equals(id)) {
-					msg = currentRoot.getLeft().toString();
+					updateInformartionLoyal(currentRoot.getLeft(), name, age, email, points, discountPercent, dueCard);
 				} else {
-					msg = searchLoyalClientWithId(currentRoot.getLeft(), id);
+					searchLoyalClientWithId(currentRoot.getLeft(), id);
 				} 
 			} else {
-				msg = "No existe esa id"; 
+				throw new noMatchesException("FAILURE!!!! CHECK!!");
 			}
 		}
-		return msg;
 	}
-	
+	@Override
+	public void updateInformartionLoyal(LoyalClient toUpdate, String name, String age, String email, int points, double discountPercent, String dueCard) {
+		toUpdate.setName(name);
+		toUpdate.setAge(age);
+		toUpdate.setEmail(email);
+		toUpdate.setPoints(points);
+		toUpdate.setDiscountPercent(discountPercent);
+		toUpdate.setDueCard(dueCard);
+	}
 	
 	//---------------------------------------------------> CURRENT CLIENT 
 	public void insertCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
@@ -190,5 +194,44 @@ public class Fidelization {
 		}
 		return msg;
 	}
+	public void updateCurrentClientWithId(String id, String name, String age, String email) throws noMatchesException {
+		if(rootCurrent != null) {
+			if(id.equals(rootCurrent.getId())) {
+				updateInformartionCurrent(rootCurrent, name, age, email);
+			} else {
+				updateCurrentClientWithId(rootCurrent, id, name, age, email);
+			}
+		}
+	}
+	private void updateCurrentClientWithId(CurrentClient currentRoot, String id, String name, String age, String email) throws noMatchesException {
+		if(currentRoot.getId().compareTo(id)<0) {
+			if(currentRoot.getRight() != null) {
+				if(currentRoot.getRight().getId().equals(id)) {
+					updateInformartionCurrent(currentRoot.getRight(), name, age, email);
+				} else {
+					updateCurrentClientWithId(currentRoot.getRight(), id, name, age, email);
+				}
+			} else {
+				throw new noMatchesException("FAILURE!!!! CHECK!!");
+			}
+		}else {
+			if(currentRoot.getLeft() != null) {
+				if(currentRoot.getLeft().getId().equals(id)) {
+					updateInformartionCurrent(currentRoot.getLeft(), name, age, email);
+				} else {
+					updateCurrentClientWithId(currentRoot.getLeft(), id, name, age, email);
+				} 
+			} else {
+				throw new noMatchesException("FAILURE!!!! CHECK!!");
+			}
+		}
+	}
+	@Override
+	public void updateInformartionCurrent(CurrentClient toUpdate,String name, String age, String email) {
+		toUpdate.setName(name);
+		toUpdate.setAge(age);
+		toUpdate.setEmail(email);
+	}
+	
 	
 }
