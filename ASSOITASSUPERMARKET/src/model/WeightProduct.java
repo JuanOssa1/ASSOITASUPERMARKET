@@ -30,13 +30,19 @@ public class WeightProduct extends Product {
 	public void setPrevius(WeightProduct previus) {
 		this.previus = previus;
 	}
-	public double update(double requiredQuantity) throws insufficientQuantityException {
-		double quantity =0;
+	
+	@Override
+	public String toString() {
+		return "WeightProduct [weight=" + weight + ", getId()=" + getId() + ", getName()=" + getName()
+				+ ", getBestBefore()=" + getBestBefore() + ", getPrice()=" + getPrice() + ", getProductType()="
+				+ getProductType() + "]";
+	}
+	public void update(double requiredQuantity) throws insufficientQuantityException {
 		if(weight-requiredQuantity < 0) {
 			throw new insufficientQuantityException("Epic Failure");
 		}else {
-			quantity = weight - requiredQuantity;
+			weight = weight - requiredQuantity;
 		}
-		return quantity;
+		
 	}
 }

@@ -51,11 +51,11 @@ public class Fidelization implements ClientUpdater{
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
-	public String searchLoyalClientWithId(String id) throws noMatchesException, NullPointerException {
-		String msg = "";
+	public LoyalClient searchLoyalClientWithId(String id) throws noMatchesException, NullPointerException {
+		LoyalClient msg = null;
 		if(rootLoyal != null) {
 			if(id.equals(rootLoyal.getId())) {
-				msg = rootLoyal.toString();
+				msg = rootLoyal;
 			} else {
 				msg = searchLoyalClientWithId(rootLoyal, id);
 			}
@@ -64,12 +64,12 @@ public class Fidelization implements ClientUpdater{
 		}
 		return msg;
 	}
-	private String searchLoyalClientWithId(LoyalClient currentRoot, String id) throws noMatchesException {
-		String msg = "";
+	private LoyalClient searchLoyalClientWithId(LoyalClient currentRoot, String id) throws noMatchesException {
+		LoyalClient msg = null;
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
 				if(currentRoot.getRight().getId().equals(id)) {
-					msg = currentRoot.getRight().toString();
+					msg = currentRoot.getRight()/*.toString()*/;
 				} else {
 					msg = searchLoyalClientWithId(currentRoot.getRight(), id);
 				}
@@ -79,7 +79,7 @@ public class Fidelization implements ClientUpdater{
 		}else {
 			if(currentRoot.getLeft() != null) {
 				if(currentRoot.getLeft().getId().equals(id)) {
-					msg = currentRoot.getLeft().toString();
+					msg = currentRoot.getLeft()/*.toString()*/;
 				} else {
 					msg = searchLoyalClientWithId(currentRoot.getLeft(), id);
 				} 
@@ -163,11 +163,11 @@ public class Fidelization implements ClientUpdater{
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
-	public String searchCurrentClientWithId(String id) throws noMatchesException, NullPointerException {
-		String msg = "";
+	public CurrentClient searchCurrentClientWithId(String id) throws noMatchesException, NullPointerException {
+		CurrentClient msg = null;
 		if(rootCurrent != null) {
 			if(id.equals(rootCurrent.getId())) {
-				msg = rootCurrent.toString();
+				msg = rootCurrent/*.toString()*/;
 			} else {
 				msg = searchCurrentClientWithId(rootCurrent, id);
 			}
@@ -176,12 +176,12 @@ public class Fidelization implements ClientUpdater{
 		}
 		return msg;
 	}
-	private String searchCurrentClientWithId(CurrentClient currentRoot, String id) throws noMatchesException {
-		String msg = "";
+	private CurrentClient searchCurrentClientWithId(CurrentClient currentRoot, String id) throws noMatchesException {
+		CurrentClient msg = null;
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
 				if(currentRoot.getRight().getId().equals(id)) {
-					msg = currentRoot.getRight().toString();
+					msg = currentRoot.getRight()/*.toString()*/;
 				} else {
 					msg = searchCurrentClientWithId(currentRoot.getRight(), id);
 				}
@@ -191,7 +191,7 @@ public class Fidelization implements ClientUpdater{
 		}else {
 			if(currentRoot.getLeft() != null) {
 				if(currentRoot.getLeft().getId().equals(id)) {
-					msg = currentRoot.getLeft().toString();
+					msg = currentRoot.getLeft()/*.toString()*/;
 				} else {
 					msg = searchCurrentClientWithId(currentRoot.getLeft(), id);
 				} 

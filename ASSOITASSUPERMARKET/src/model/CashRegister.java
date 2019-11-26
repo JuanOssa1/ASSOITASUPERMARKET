@@ -10,8 +10,8 @@ import logicInterfaces.InvoiceUpdater;
 public class CashRegister implements InvoiceUpdater{
 	private CommercialInvoice firstInvoice;
 	private SuperMarketApp superMarket;
-	public CashRegister() {
-		superMarket = new SuperMarketApp();
+	public CashRegister(/*SuperMarketApp superMarket*/) {
+		/*this.superMarket = superMarket;*/
 	}
 	public CommercialInvoice getInvoiceRoot() {
 		return firstInvoice;
@@ -25,7 +25,8 @@ public class CashRegister implements InvoiceUpdater{
 	public void setSuperMarket(SuperMarketApp superMarket) {
 		this.superMarket = superMarket;
 	}
-	public void addInvoiceProductToTheList(String date/*, double totalPrice*/, String paymentType, String factureNumber/*, ArrayList<Product> products*/, Client client) throws unavaiableIdException {
+	
+	public void addInvoiceProductToTheList(String date/*, double totalPrice*/, String paymentType, String factureNumber, ArrayList<Product> products, Client client) throws unavaiableIdException {
 		validateAvaiablityOfTheFactureNumber(factureNumber);
 		CommercialInvoice commercialInvoice = new CommercialInvoice(date, /*totalPrice,*/paymentType, factureNumber, products, client);
 		if(firstInvoice == null) {	
@@ -40,15 +41,16 @@ public class CashRegister implements InvoiceUpdater{
 		}
 		
 	}
-	public String searchInvoice(String factureNumber) throws noMatchesException {
+	
+	public CommercialInvoice searchInvoice(String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
 		CommercialInvoice newReference = firstInvoice;
-		String msg = "";
+		CommercialInvoice msg = null;
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
 			if(newReference.getFactureNumber().equals(factureNumber)) {
-				msg = newReference.toString();
-				centinel = true;
+				msg = newReference/*.toString()*/;
+				centinel = true;//<----Borrar si falla
 			}
 			newReference = newReference.getNext();
 		}
@@ -131,12 +133,22 @@ public class CashRegister implements InvoiceUpdater{
 		toUpdate.setPaymentType(paymentType);
 		toUpdate.setFactureNumber(factureNumber);
 	}
-	private void addWeightProductsToTheInvoice(ArrayList<Product> products, String id) {
-		WeightProduct weight = superMarket.searchWeightProduct(id);
-		products.add(weight);
+	/*
+	public void addProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) throws noMatchesException {
+		CommercialInvoice invoice = searchInvoice(invoiceNumber);
+		Product product = superMarket.searchGeneralProducts(productId);
+		if(product instanceof WeightProduct) {
+			superMarket.updateQuantityWeight(productId, requiredQuantity);
+			WeightProduct tmpWeight = (WeightProduct) product;
+			tmpWeight.setWeight(requiredQuantity);
+			invoice.getProducts().add(tmpWeight);
+		} else {
+			int requiredQuantityC = (int) requiredQuantity;
+			superMarket.updateQuantityUnity(productId, requiredQuantityC);
+			UnityProduct tmpUnity = (UnityProduct) product;
+			tmpUnity.setQuantity(requiredQuantityC);
+			invoice.getProducts().add(tmpUnity);
+		}
 	}
-	private void addUnitytProductsToTheInvoice(ArrayList<Product> products, String id) {
-		UnityProduct unity = superMarket.searchUnityProduct(id);
-		products.add(unity);
-	}
+	*/
 }

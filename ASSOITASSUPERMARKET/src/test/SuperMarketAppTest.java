@@ -11,8 +11,10 @@ import org.junit.platform.commons.util.CollectionUtils;
 
 import exceptions.unavaiableIdException;
 import model.Administrator;
+import model.Client;
 import model.Manager;
 import model.PrivateState;
+import model.Product;
 import model.PublicState;
 import model.Realstate;
 import model.SuperMarketApp;
@@ -138,5 +140,31 @@ class SuperMarketAppTest {
 		superMarket.deleteRealState("1");
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=10994], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=10995], PublicState [maintenance=23/11/2020, getQuantity()=15, getBuyYear()=23/11/2019, getName()=Caja registradora, getId()=10996], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=11994], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=11995], PrivateState [getQuantity()=8, getBuyYear()=23/11/2019, getName()=Camiones, getId()=11996]]", realStates.toString());
+	}
+	private void setUpSceneGeneralSearchClient() {
+		superMarket = new SuperMarketApp();
+		superMarket.addLoyalClient("1", "Juam", "22", "juan2233", "2222", "0.2", "MasterCard");
+		superMarket.addCurrentClient("2", "Juan", "22", "maza@eded");
+	}
+	@Test
+	void testGeneralSearch() {
+		setUpSceneGeneralSearchClient();
+		Client client0 = superMarket.searchGeneralClient("1");
+		Client client1 = superMarket.searchGeneralClient("2");
+		assertEquals("LoyalClient [points=2222, discountPercent=0.2, dueCard=MasterCard, getId()=1, getName()=Juam, getAge()=22, getEmail()=juan2233]", client0.toString());
+		assertEquals("Client [id=2, name=Juan, age=22, email=maza@eded]",client1.toString());
+	}
+	private void setUpSceneGeneralSearchProduct() {
+		superMarket = new SuperMarketApp();
+		superMarket.addUnityProduct("1", "panela", "hoy", "120000", "dulce", "10");
+		superMarket.addWeightProduct("2", "carne", "hoy", "12333", "proteina", "120000");
+	}
+	@Test
+	void testGeneralSearchProduct() {
+		setUpSceneGeneralSearchProduct();
+		Product product0 = superMarket.searchGeneralProducts("1");
+		Product product1 = superMarket.searchGeneralProducts("2");
+		assertEquals("UnityProduct [quantity=10, getId()=1, getName()=panela, getBestBefore()=hoy, getPrice()=120000.0, getProductType()=dulce]", product0.toString());
+		assertEquals("WeightProduct [weight=120000.0, getId()=2, getName()=carne, getBestBefore()=hoy, getPrice()=12333.0, getProductType()=proteina]", product1.toString());
 	}
 }

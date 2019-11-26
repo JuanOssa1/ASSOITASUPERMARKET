@@ -46,6 +46,11 @@ public abstract class Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", bestBefore=" + bestBefore + ", price=" + price
+				+ ", productType=" + productType + "]";
+	}
 	
 
 }

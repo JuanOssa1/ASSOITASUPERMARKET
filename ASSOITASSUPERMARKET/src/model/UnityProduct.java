@@ -30,6 +30,13 @@ public class UnityProduct extends Product{
 	public void setPrevius(UnityProduct previus) {
 		this.previus = previus;
 	}
+	
+	@Override
+	public String toString() {
+		return "UnityProduct [quantity=" + quantity + ", getId()=" + getId() + ", getName()=" + getName()
+				+ ", getBestBefore()=" + getBestBefore() + ", getPrice()=" + getPrice() + ", getProductType()="
+				+ getProductType() + "]";
+	}
 	public void update(int requiredQuantity) throws insufficientQuantityException {
 		if(quantity-requiredQuantity < 0) {
 			throw new insufficientQuantityException("Epic Failure");

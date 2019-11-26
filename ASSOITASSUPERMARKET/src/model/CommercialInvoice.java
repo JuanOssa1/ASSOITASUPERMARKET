@@ -11,6 +11,7 @@ public class CommercialInvoice {
 	private CommercialInvoice previus;
 	private Client client;
 	private ArrayList<Product> products;
+	public static final double IVA = 0.19;
 	public CommercialInvoice(String date,/* double totalPrice,*/ String paymentType, String factureNumber, ArrayList<Product> products, Client client) {
 		super();
 		this.date = date;
@@ -19,7 +20,7 @@ public class CommercialInvoice {
 		this.factureNumber = factureNumber;
 		//products = new ArrayList<Product>();
 		this.products = products;
-		products = new ArrayList<Product>();
+		this.products = /*new ArrayList<Product>()*/ products;
 	}
 	public CommercialInvoice getPrevius() {
 		return previus;
@@ -68,6 +69,41 @@ public class CommercialInvoice {
 	}
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
+	}
+	public double calculateLoyalDiscount() {
+		double discount = 0;
+		if(client instanceof LoyalClient) {
+			discount = ((LoyalClient) client).getDiscountPercent();
+		}
+		return discount;
+	}
+	public double subTotal() {
+		double totalWeight = 0;
+		double totalUnity = 0;
+		double total = 0;
+		for (int i = 0; i < products.size(); i++) {
+			if(products.get(i) instanceof WeightProduct) {
+				//Manager manager = (Manager) workers.get(i);
+				WeightProduct weight = (WeightProduct) products.get(i);
+				totalWeight = weight.getPrice()*weight.getWeight();
+			} else {
+				UnityProduct unity = (UnityProduct) products.get(i);
+				totalUnity = unity.getPrice()*unity.getQuantity();
+			}
+		}
+		total = totalUnity + totalWeight;
+		return total;
+	}
+	public double calculateSavings() {
+		return subTotal()*calculateLoyalDiscount();
+	}
+	public double calculateIVA() {
+		double tax = subTotal()*IVA;
+		return tax;
+	}
+	public double total() {
+		double total = (subTotal()-calculateSavings())+calculateIVA();
+		return total;
 	}
 	
 }

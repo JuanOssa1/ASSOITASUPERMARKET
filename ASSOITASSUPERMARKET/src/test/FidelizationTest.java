@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.thereAreNoRecordsException;
+import model.CurrentClient;
 import model.Fidelization;
 import model.LoyalClient;
 
@@ -38,14 +39,14 @@ class FidelizationTest {
 	void testInsertLoyalClient() {
 		try {
 			setUpSceneLoyalClient();
-			String clientInfo0 = fidelization.searchLoyalClientWithId("1");
-			String clientInfo1= fidelization.searchLoyalClientWithId("2");
-			String clientInfo2 = fidelization.searchLoyalClientWithId("3");
-			String clientInfo3 = fidelization.searchLoyalClientWithId("4");
-			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=121, getId()=1, getName()=Juan, getAge()=18, getEmail()=juan.ossa@hotmail.com]",clientInfo0);
-			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=1222, getId()=2, getName()=Carlos, getAge()=14, getEmail()=carlitos@yahoo.com]",clientInfo1);
-			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=123334, getId()=3, getName()=Pedro, getAge()=12, getEmail()=pedro@gmail.com]",clientInfo2);
-			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=12444, getId()=4, getName()=Victor, getAge()=22, getEmail()=victor@4chan.com]",clientInfo3);
+			LoyalClient clientInfo0 = fidelization.searchLoyalClientWithId("1");
+			LoyalClient clientInfo1= fidelization.searchLoyalClientWithId("2");
+			LoyalClient clientInfo2 = fidelization.searchLoyalClientWithId("3");
+			LoyalClient clientInfo3 = fidelization.searchLoyalClientWithId("4");
+			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=121, getId()=1, getName()=Juan, getAge()=18, getEmail()=juan.ossa@hotmail.com]",clientInfo0.toString());
+			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=1222, getId()=2, getName()=Carlos, getAge()=14, getEmail()=carlitos@yahoo.com]",clientInfo1.toString());
+			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=123334, getId()=3, getName()=Pedro, getAge()=12, getEmail()=pedro@gmail.com]",clientInfo2.toString());
+			assertEquals("LoyalClient [points=1233, discountPercent=0.3, dueCard=12444, getId()=4, getName()=Victor, getAge()=22, getEmail()=victor@4chan.com]",clientInfo3.toString());
 		} catch (repeatedCustomerException | noMatchesException | NullPointerException e) {
 			fail();
 			e.printStackTrace();
@@ -68,9 +69,9 @@ class FidelizationTest {
 	void testUpdateInfo() {
 		try {
 			setUpSceneLoyalClient();
-			String infoBeforeUpdate = fidelization.searchLoyalClientWithId("2");
+			String infoBeforeUpdate = fidelization.searchLoyalClientWithId("2").toString();
 			fidelization.updateLoyalClientWithId("2", "Alberto", "22", "carlosbakan@hotmail.com", 1234344, 0.1, "122343");
-			String infoAfterUpdate = fidelization.searchLoyalClientWithId("2");
+			String infoAfterUpdate = fidelization.searchLoyalClientWithId("2").toString();
 			assertNotEquals(infoBeforeUpdate, infoAfterUpdate);
 		} catch (repeatedCustomerException | noMatchesException | NullPointerException e) {
 			fail();
@@ -138,14 +139,14 @@ class FidelizationTest {
 	void testInsertCurrentClient() {
 		try {
 			setUpSceneCurrentClient();
-			String clientInfo0 = fidelization.searchCurrentClientWithId("1");
-			String clientInfo1= fidelization.searchCurrentClientWithId("2");
-			String clientInfo2 = fidelization.searchCurrentClientWithId("3");
-			String clientInfo3 = fidelization.searchCurrentClientWithId("4");
-			assertEquals("Client [id=1, name=Juan, age=18, email=juan.ossa@hotmail.com]",clientInfo0);
-			assertEquals("Client [id=2, name=Carlos, age=14, email=carlitos@yahoo.com]",clientInfo1);
-			assertEquals("Client [id=3, name=Pedro, age=12, email=pedro@gmail.com]",clientInfo2);
-			assertEquals("Client [id=4, name=Victor, age=22, email=victor@4chan.com]",clientInfo3);
+			CurrentClient clientInfo0 = fidelization.searchCurrentClientWithId("1");
+			CurrentClient clientInfo1= fidelization.searchCurrentClientWithId("2");
+			CurrentClient clientInfo2 = fidelization.searchCurrentClientWithId("3");
+			CurrentClient clientInfo3 = fidelization.searchCurrentClientWithId("4");
+			assertEquals("Client [id=1, name=Juan, age=18, email=juan.ossa@hotmail.com]",clientInfo0.toString());
+			assertEquals("Client [id=2, name=Carlos, age=14, email=carlitos@yahoo.com]",clientInfo1.toString());
+			assertEquals("Client [id=3, name=Pedro, age=12, email=pedro@gmail.com]",clientInfo2.toString());
+			assertEquals("Client [id=4, name=Victor, age=22, email=victor@4chan.com]",clientInfo3.toString());
 		} catch (repeatedCustomerException | noMatchesException | NullPointerException e) {
 			fail();
 			e.printStackTrace();
@@ -168,9 +169,9 @@ class FidelizationTest {
 	void testUpdateInfoCurrent() {
 		try {
 			setUpSceneCurrentClient();
-			String infoBeforeUpdate = fidelization.searchCurrentClientWithId("2");
+			String infoBeforeUpdate = fidelization.searchCurrentClientWithId("2").toString();
 			fidelization.updateCurrentClientWithId("2", "Alberto", "22", "carlosbakan@hotmail.com");
-			String infoAfterUpdate = fidelization.searchCurrentClientWithId("2");
+			String infoAfterUpdate = fidelization.searchCurrentClientWithId("2").toString();
 			assertNotEquals(infoBeforeUpdate, infoAfterUpdate);
 		} catch (repeatedCustomerException | noMatchesException | NullPointerException e) {
 			fail();
