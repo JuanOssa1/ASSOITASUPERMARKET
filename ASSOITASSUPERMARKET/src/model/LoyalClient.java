@@ -44,5 +44,12 @@ public class LoyalClient extends Client{
 	public void setRight(LoyalClient right) {
 		this.right = right;
 	}
+	@Override
+	public String toString() {
+		return "LoyalClient [points=" + points + ", discountPercent=" + discountPercent + ", dueCard=" + dueCard
+				+ ", getId()=" + getId() + ", getName()=" + getName() + ", getAge()=" + getAge() + ", getEmail()="
+				+ getEmail() + "]";
+	}
+	
 	
 }

@@ -7,8 +7,8 @@ public class CommercialInvoice {
 	private double totalPrice;
 	private String paymentType;
 	private String factureNumber;
-	private CommercialInvoice left; 
-	private CommercialInvoice right;
+	private CommercialInvoice next; 
+	private CommercialInvoice previus;
 	private Client client;
 	private ArrayList<Product> products;
 	public CommercialInvoice(String date, double totalPrice, String paymentType, String factureNumber) {
@@ -19,17 +19,17 @@ public class CommercialInvoice {
 		this.factureNumber = factureNumber;
 		products = new ArrayList<Product>();
 	}
-	public CommercialInvoice getLeft() {
-		return left;
+	public CommercialInvoice getPrevius() {
+		return previus;
 	}
-	public void setLeft(CommercialInvoice left) {
-		this.left = left;
+	public void setPrevius(CommercialInvoice previus) {
+		this.previus = previus;
 	}
-	public CommercialInvoice getRight() {
-		return right;
+	public CommercialInvoice getNext() {
+		return next;
 	}
-	public void setRight(CommercialInvoice right) {
-		this.right = right;
+	public void setNext(CommercialInvoice next) {
+		this.next = next;
 	}
 	public String getDate() {
 		return date;

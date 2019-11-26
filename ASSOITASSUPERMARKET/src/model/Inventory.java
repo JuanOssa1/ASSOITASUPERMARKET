@@ -162,7 +162,7 @@ public class Inventory {
 				newNext = oToOrganize.getNext();
 				newPrevius = oToOrganize.getPrevius();
 				if(newPrevius != null && newNext != null) {
-					if(newPrevius.getName().compareTo(newNext.getName())>0) {
+					if(newPrevius.getId().compareTo(newNext.getId())>0) {
 						firstUnity = oToOrganize;
 						oToOrganize.getPrevius().setNext(oToOrganize.getNext());
 						oToOrganize.getPrevius().setPrevius(oToOrganize);
@@ -171,7 +171,7 @@ public class Inventory {
 					}
 				}
 				else if(newPrevius == null && newNext != null) {
-					if(oToOrganize.getName().compareTo(newNext.getId())>0) {
+					if(oToOrganize.getId().compareTo(newNext.getId())>0) {
 						firstUnity = newNext;
 						newNext.getPrevius().setNext(newNext.getNext());
 						newNext.getPrevius().setPrevius(newNext);
@@ -323,7 +323,7 @@ public class Inventory {
 				newNext = oToOrganize.getNext();
 				newPrevius = oToOrganize.getPrevius();
 				if(newPrevius != null && newNext != null) {
-					if(newPrevius.getName().compareTo(newNext.getName())>0) {
+					if(newPrevius.getId().compareTo(newNext.getId())>0) {
 						firstWeight = oToOrganize;
 						oToOrganize.getPrevius().setNext(oToOrganize.getNext());
 						oToOrganize.getPrevius().setPrevius(oToOrganize);
@@ -332,7 +332,7 @@ public class Inventory {
 					}
 				}
 				else if(newPrevius == null && newNext != null) {
-					if(oToOrganize.getName().compareTo(newNext.getId())>0) {
+					if(oToOrganize.getId().compareTo(newNext.getId())>0) {
 						firstWeight = newNext;
 						newNext.getPrevius().setNext(newNext.getNext());
 						newNext.getPrevius().setPrevius(newNext);

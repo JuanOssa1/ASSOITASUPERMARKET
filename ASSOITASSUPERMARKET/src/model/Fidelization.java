@@ -2,6 +2,7 @@ package model;
 
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
+import exceptions.thereAreNoRecordsException;
 import logicInterfaces.ClientUpdater;
 
 public class Fidelization implements ClientUpdater{
@@ -50,7 +51,7 @@ public class Fidelization implements ClientUpdater{
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
-	public String searchLoyalClientWithId(String id) throws noMatchesException {
+	public String searchLoyalClientWithId(String id) throws noMatchesException, NullPointerException {
 		String msg = "";
 		if(rootLoyal != null) {
 			if(id.equals(rootLoyal.getId())) {
@@ -58,6 +59,8 @@ public class Fidelization implements ClientUpdater{
 			} else {
 				msg = searchLoyalClientWithId(rootLoyal, id);
 			}
+		} else {
+			throw new NullPointerException("Big Failure");
 		}
 		return msg;
 	}
@@ -88,13 +91,15 @@ public class Fidelization implements ClientUpdater{
 	}
 	
 	
-	public void updateLoyalClientWithId(String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException {
+	public void updateLoyalClientWithId(String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException, NullPointerException {
 		if(rootLoyal != null) {
 			if(id.equals(rootLoyal.getId())) {
 				updateInformartionLoyal(rootLoyal, name, age, email, points, discountPercent, dueCard);
 			} else {
 				updateLoyalClientWithId(rootLoyal, id, name, age, email, points, discountPercent, dueCard);
 			}
+		} else {
+			throw new NullPointerException("No info");
 		}
 	}
 	private void updateLoyalClientWithId(LoyalClient currentRoot, String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException {
@@ -158,7 +163,7 @@ public class Fidelization implements ClientUpdater{
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
-	public String searchCurrentClientWithId(String id) throws noMatchesException {
+	public String searchCurrentClientWithId(String id) throws noMatchesException, NullPointerException {
 		String msg = "";
 		if(rootCurrent != null) {
 			if(id.equals(rootCurrent.getId())) {
@@ -166,6 +171,8 @@ public class Fidelization implements ClientUpdater{
 			} else {
 				msg = searchCurrentClientWithId(rootCurrent, id);
 			}
+		} else {
+			throw new NullPointerException("Big Failure");
 		}
 		return msg;
 	}
@@ -194,13 +201,15 @@ public class Fidelization implements ClientUpdater{
 		}
 		return msg;
 	}
-	public void updateCurrentClientWithId(String id, String name, String age, String email) throws noMatchesException {
+	public void updateCurrentClientWithId(String id, String name, String age, String email) throws noMatchesException, NullPointerException {
 		if(rootCurrent != null) {
 			if(id.equals(rootCurrent.getId())) {
 				updateInformartionCurrent(rootCurrent, name, age, email);
 			} else {
 				updateCurrentClientWithId(rootCurrent, id, name, age, email);
 			}
+		} else {
+			throw new NullPointerException("No info");
 		}
 	}
 	private void updateCurrentClientWithId(CurrentClient currentRoot, String id, String name, String age, String email) throws noMatchesException {

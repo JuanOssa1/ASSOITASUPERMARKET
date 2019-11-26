@@ -10,5 +10,6 @@ class InventoryTest {
 	void test() {
 		fail("Not yet implemented");
 	}
+	
 
 }

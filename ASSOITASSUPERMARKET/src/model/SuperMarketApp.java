@@ -3,12 +3,19 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
+import exceptions.thereAreNoRecordsException;
 import exceptions.unavaiableIdException;
 
 public class SuperMarketApp {
@@ -19,24 +26,15 @@ public class SuperMarketApp {
 	private ArrayList<Realstate> realStates;
 	public static String FLATWORKERS = "marketRecords//worker.txt";
 	public static String FLATREALSTATES = "marketRecords//realStates.txt";
-	//public static String FLATADMINISTRATORS = "marketRecords//administrator.txt";
-	/*
-	private ArrayList<Manager> managers; //ESTO SE SERIALIZA
-	private ArrayList<Administrator> administrators; //ESTO SE SERIALIZA
-	private ArrayList<PublicState> publicStates; //ESTO SE SERIALIZA
-	private ArrayList<PrivateState> privateStates; //ESTO SE SERIALIZA
-	*/
+	public static String SERIALIZEINVENTORY = "marketRecords//inventory.dat";
+	public static String SERIALIZEFIDELIZATION = "marketRecords//fidelization.dat";
+	public static String SERIALIZECASHREGISTER = "marketRecords//cashRegister.dat";
 	public SuperMarketApp() {
 		workers = new ArrayList<Worker>();
 		realStates = new ArrayList<Realstate>();
 		inventory = new Inventory();
 		fidelization = new Fidelization();
-		/*
-		managers = new ArrayList<Manager>();
-		administrators = new ArrayList<Administrator>();
-		publicStates = new ArrayList<PublicState>();
-		privateStates = new ArrayList<PrivateState>();
-		*/
+		loadEverythig();
 	}
 	public Inventory getInventory() {
 		return inventory;
@@ -56,32 +54,6 @@ public class SuperMarketApp {
 	public void setCashRegister(CashRegister cashRegister) {
 		this.cashRegister = cashRegister;
 	}
-	/*
-	public ArrayList<Manager> getManagers() {
-		return managers;
-	}
-	public void setManagers(ArrayList<Manager> managers) {
-		this.managers = managers;
-	}
-	public ArrayList<Administrator> getAdministrators() {
-		return administrators;
-	}
-	public void setAdministrators(ArrayList<Administrator> administrators) {
-		this.administrators = administrators;
-	}
-	public ArrayList<PublicState> getPublicStates() {
-		return publicStates;
-	}
-	public void setPublicStates(ArrayList<PublicState> publicStates) {
-		this.publicStates = publicStates;
-	}
-	public ArrayList<PrivateState> getPrivateStates() {
-		return privateStates;
-	}
-	public void setPrivateStates(ArrayList<PrivateState> privateStates) {
-		this.privateStates = privateStates;
-	}
-	*/
 	public ArrayList<Worker> getWorkers() {
 		return workers;
 	}
@@ -283,6 +255,9 @@ public class SuperMarketApp {
 		} catch (noMatchesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	//NOT TESTED!!!!
@@ -292,6 +267,9 @@ public class SuperMarketApp {
 		try {
 			fidelization.updateLoyalClientWithId(id, name, age, email, pointsC, discountPercentC, dueCard);
 		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -317,6 +295,9 @@ public class SuperMarketApp {
 		} catch (noMatchesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	//NOT TESTED!!!!
@@ -324,6 +305,9 @@ public class SuperMarketApp {
 		try {
 			fidelization.updateCurrentClientWithId(id, name, age, email);
 		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -336,7 +320,7 @@ public class SuperMarketApp {
 	//------------------------------------------> SISTEMAS DE CARGA
 			//POR VERFICIAR:
 			//---->CHECK! writeManagers()
-	public String readManagers() {	
+	public String loadManagers() {	
 		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
 			File	file = new File(FLATWORKERS);
@@ -366,7 +350,7 @@ public class SuperMarketApp {
 			}
 		return msg;
 	}
-	public void writeManagers() {
+	public void saveManagers() {
 		try{
 			File file = new File(FLATWORKERS);
 			FileWriter filwri =  new FileWriter(file);
@@ -386,10 +370,14 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+
 	//------------------------------------------> SISTEMAS DE CARGA
 		//POR VERFICIAR:
 		//---->CHECK! writeFlatRealStates()
-	public String readFlatRealStates() {	
+	public String loadRealStates() {	
 		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
 			File	file = new File(FLATREALSTATES);
@@ -418,7 +406,7 @@ public class SuperMarketApp {
 			}
 		return msg;
 	}
-	public void writeFlatRealStates() {
+	public void saveRealStates() {
 		try{
 			File file = new File(FLATREALSTATES);
 			FileWriter filwri =  new FileWriter(file);
@@ -437,5 +425,127 @@ public class SuperMarketApp {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	//----------------------------------->SISTEMAS DE SERIALIZACION INVENTORY
+	public void saveInventory()  {
+		try {
+			File fl = new File(SERIALIZEINVENTORY);
+			ObjectOutputStream duct = new ObjectOutputStream(new FileOutputStream(fl));
+			duct.writeObject(inventory);
+			duct.close();
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadInventory(){
+		File file = new File(SERIALIZEINVENTORY);
+		Inventory temporalInventory;
+		try {
+				FileInputStream	fi = new FileInputStream(file);
+				ObjectInputStream co = new ObjectInputStream(fi);
+				temporalInventory = (Inventory) co.readObject();
+				inventory = temporalInventory;
+				co.close();
+			}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	//----------------------------------->SISTEMAS DE SERIALIZACION FIDELIZATION
+	public void saveFidelization()  {
+		try {
+			File fl = new File(SERIALIZEFIDELIZATION);
+			ObjectOutputStream duct = new ObjectOutputStream(new FileOutputStream(fl));
+			duct.writeObject(fidelization);
+			duct.close();
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+	public void loadFidelization(){
+		File file = new File(SERIALIZEFIDELIZATION);
+		Fidelization temporalFidelization;
+		try {
+				FileInputStream	fi = new FileInputStream(file);
+				ObjectInputStream co = new ObjectInputStream(fi);
+				temporalFidelization = (Fidelization) co.readObject();
+				fidelization = temporalFidelization;
+				co.close();
+			}	
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	//----------------------------------->SISTEMAS DE SERIALIZACION CASHREGISTER
+	public void saveCashRegister()  {
+		try {
+			File fl = new File(SERIALIZECASHREGISTER);
+			ObjectOutputStream duct = new ObjectOutputStream(new FileOutputStream(fl));
+			duct.writeObject(cashRegister);
+			duct.close();
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}	
+	public void loadCashRegisater(){
+		File file = new File(SERIALIZECASHREGISTER);
+		CashRegister temporalCashRegister;
+		try {
+				FileInputStream	fi = new FileInputStream(file);
+				ObjectInputStream co = new ObjectInputStream(fi);
+				temporalCashRegister = (CashRegister) co.readObject();
+				cashRegister = temporalCashRegister; 
+				co.close();
+			}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	//SISTEMA GENERAL DE CARGA DE DATOS <-------------------------------------------------------------------------------------------------------------------
+	public void loadEverythig() {
+		loadCashRegisater();
+		loadFidelization();
+		loadInventory();
+		loadRealStates();
+		loadManagers();
+	}
+	//SISTEMA GENERAL DE GUARDADO DE DATOS <----------------------------------------------------------------------------------------------------------------
+	public void saveEverything() {
+		saveCashRegister();
+		saveFidelization();
+		saveInventory();
+		saveRealStates();
+		saveManagers();
 	}
 }
