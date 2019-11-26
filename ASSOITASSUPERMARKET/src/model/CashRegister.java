@@ -25,9 +25,9 @@ public class CashRegister implements InvoiceUpdater{
 	public void setSuperMarket(SuperMarketApp superMarket) {
 		this.superMarket = superMarket;
 	}
-	public void addInvoiceProductToTheList(String date, double totalPrice, String paymentType, String factureNumber/*, ArrayList<Product> products, Client client*/) throws unavaiableIdException {
+	public void addInvoiceProductToTheList(String date/*, double totalPrice*/, String paymentType, String factureNumber/*, ArrayList<Product> products*/, Client client) throws unavaiableIdException {
 		validateAvaiablityOfTheFactureNumber(factureNumber);
-		CommercialInvoice commercialInvoice = new CommercialInvoice(date, totalPrice,paymentType, factureNumber/*, products, client*/);
+		CommercialInvoice commercialInvoice = new CommercialInvoice(date, /*totalPrice,*/paymentType, factureNumber, products, client);
 		if(firstInvoice == null) {	
 			firstInvoice = commercialInvoice;
 		}else {
@@ -38,6 +38,7 @@ public class CashRegister implements InvoiceUpdater{
 			newReference.setNext(commercialInvoice);
 			commercialInvoice.setPrevius(newReference);
 		}
+		
 	}
 	public String searchInvoice(String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
@@ -130,8 +131,12 @@ public class CashRegister implements InvoiceUpdater{
 		toUpdate.setPaymentType(paymentType);
 		toUpdate.setFactureNumber(factureNumber);
 	}
-	
-	public void createInVoice(String id, double requiredQuantity) {
-		
+	private void addWeightProductsToTheInvoice(ArrayList<Product> products, String id) {
+		WeightProduct weight = superMarket.searchWeightProduct(id);
+		products.add(weight);
+	}
+	private void addUnitytProductsToTheInvoice(ArrayList<Product> products, String id) {
+		UnityProduct unity = superMarket.searchUnityProduct(id);
+		products.add(unity);
 	}
 }

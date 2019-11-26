@@ -179,13 +179,15 @@ public class SuperMarketApp {
 		}
 	}
 	//NOT TESTED!!!!
-	public void searchUnityProduct(String id) {
+	public UnityProduct searchUnityProduct(String id) {
+		UnityProduct unity = null;
 		try {
 			inventory.searchUnityProduct(id);
 		} catch (noMatchesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return unity;
 	}
 	//NOT TESTED!!!!
 	public void updateUnityProduct(String id, String name, String bestBefore, String price, String productType, String quantity) {
@@ -215,13 +217,15 @@ public class SuperMarketApp {
 		}
 	}
 	//NOT TESTED!!!!
-	public void searchWeightProduct(String id) {
+	public WeightProduct searchWeightProduct(String id) {
+		WeightProduct weight = null;
 		try {
 			inventory.searchWeightProduct(id);
 		} catch (noMatchesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return weight;
 	}
 	//NOT TESTED!!!!
 	public void updateWeightProduct(String id, String name, String bestBefore, String price, String productType, String weight) {
@@ -316,6 +320,7 @@ public class SuperMarketApp {
 	}
 	//NOT TESTED 
 	public void deleteCurrentClient(String id, double requiredQuantity) {
+		/*
 		try {
 			inventory.updateWeight(id, requiredQuantity);
 			cashRegister.createInVoice(id, requiredQuantity);
@@ -324,7 +329,7 @@ public class SuperMarketApp {
 		} catch (insufficientQuantityException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 	}
 	public WeightProduct updateQuantityWeight(String id, double requiredQuantity) {
 		WeightProduct productW = null;
@@ -351,6 +356,14 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 		return productU;
+	}
+	//------------------------------------------>CashRegister
+	public void createInvoice(String productId) {
+		WeightProduct weight = searchWeightProduct(productId);
+		weight.setWeight(weight);
+		ArrayList<Product> products = new ArrayList<Product>();
+		
+		cashRegister.addInvoiceProductToTheList(date, paymentType, factureNumber, products, client);
 	}
 	//------------------------------------------> SISTEMAS DE CARGA
 			//POR VERFICIAR:

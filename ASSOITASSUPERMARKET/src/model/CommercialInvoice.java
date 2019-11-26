@@ -11,12 +11,14 @@ public class CommercialInvoice {
 	private CommercialInvoice previus;
 	private Client client;
 	private ArrayList<Product> products;
-	public CommercialInvoice(String date, double totalPrice, String paymentType, String factureNumber/*, ArrayList<Product> products, Client client*/) {
+	public CommercialInvoice(String date,/* double totalPrice,*/ String paymentType, String factureNumber, ArrayList<Product> products, Client client) {
 		super();
 		this.date = date;
-		this.totalPrice = totalPrice;
+		/*this.totalPrice = totalPrice;*/
 		this.paymentType = paymentType;
 		this.factureNumber = factureNumber;
+		//products = new ArrayList<Product>();
+		this.products = products;
 		products = new ArrayList<Product>();
 	}
 	public CommercialInvoice getPrevius() {
