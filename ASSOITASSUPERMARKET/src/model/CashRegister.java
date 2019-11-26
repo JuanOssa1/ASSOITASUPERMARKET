@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.unavaiableIdException;
@@ -9,7 +11,7 @@ public class CashRegister implements InvoiceUpdater{
 	private CommercialInvoice firstInvoice;
 	private SuperMarketApp superMarket;
 	public CashRegister() {
-		
+		superMarket = new SuperMarketApp();
 	}
 	public CommercialInvoice getInvoiceRoot() {
 		return firstInvoice;
@@ -23,9 +25,9 @@ public class CashRegister implements InvoiceUpdater{
 	public void setSuperMarket(SuperMarketApp superMarket) {
 		this.superMarket = superMarket;
 	}
-	public void addUnityProductToTheList(String date, double totalPrice, String paymentType, String factureNumber) throws unavaiableIdException {
+	public void addInvoiceProductToTheList(String date, double totalPrice, String paymentType, String factureNumber/*, ArrayList<Product> products, Client client*/) throws unavaiableIdException {
 		validateAvaiablityOfTheFactureNumber(factureNumber);
-		CommercialInvoice commercialInvoice = new CommercialInvoice(date, totalPrice,paymentType, factureNumber);
+		CommercialInvoice commercialInvoice = new CommercialInvoice(date, totalPrice,paymentType, factureNumber/*, products, client*/);
 		if(firstInvoice == null) {	
 			firstInvoice = commercialInvoice;
 		}else {
@@ -37,7 +39,7 @@ public class CashRegister implements InvoiceUpdater{
 			commercialInvoice.setPrevius(newReference);
 		}
 	}
-	public String searchUnityProduct(String factureNumber) throws noMatchesException {
+	public String searchInvoice(String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
 		CommercialInvoice newReference = firstInvoice;
 		String msg = "";
@@ -66,7 +68,7 @@ public class CashRegister implements InvoiceUpdater{
 			throw new noMatchesException("Fatal failure! Check!");
 		}
 	}
-	public String updateUnityProductData(String date, double totalPrice, String paymentType, String factureNumber) throws noMatchesException {
+	public String updateInvoiceData(String date, double totalPrice, String paymentType, String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
 		CommercialInvoice commercialInvoiceToUpdate = firstInvoice;
 		String msg = "";
@@ -129,4 +131,7 @@ public class CashRegister implements InvoiceUpdater{
 		toUpdate.setFactureNumber(factureNumber);
 	}
 	
+	public void createInVoice(String id, double requiredQuantity) {
+		
+	}
 }

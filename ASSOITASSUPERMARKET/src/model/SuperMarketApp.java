@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import exceptions.insufficientQuantityException;
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.thereAreNoRecordsException;
@@ -34,6 +35,7 @@ public class SuperMarketApp {
 		realStates = new ArrayList<Realstate>();
 		inventory = new Inventory();
 		fidelization = new Fidelization();
+		cashRegister = new CashRegister();
 		loadEverythig();
 	}
 	public Inventory getInventory() {
@@ -237,7 +239,7 @@ public class SuperMarketApp {
 		//inventory
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------------------->FIDELIZATION
-	//NOT TESTED!!!!
+	//TESTED!!!!
 	public void addLoyalClient(String id, String name, String age, String email, String points, String discountPercent, String dueCard) {
 		int pointsC = Integer.parseInt(points);
 		double discountPercentC = Double.parseDouble(discountPercent);
@@ -248,7 +250,7 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}	
 	}
-	//NOT TESTED!!!!
+	//TESTED!!!!
 	public void searchLoyalClient(String id) {
 		try {
 			fidelization.searchLoyalClientWithId(id);
@@ -260,7 +262,7 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	//NOT TESTED!!!!
+	//TESTED!!!!
 	public void updateLoyalClient(String id, String name, String age, String email, String points, String discountPercent, String dueCard) {
 		int pointsC = Integer.parseInt(points);
 		double discountPercentC = Double.parseDouble(discountPercent);
@@ -274,12 +276,12 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	//NOT TESTED 
+	//TESTED 
 	public void deleteLoyalClient() {
 			
 	}
 			//CURRENT<------------------------------------------------------------------------------------------------------------------------------------------------------
-	//NOT TESTED!!!!
+	//TESTED!!!!
 	public void addCurrentClient(String id, String name, String age, String email) {
 		try {
 			fidelization.insertCurrentClient(id, name, age, email);
@@ -288,7 +290,7 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	//NOT TESTED!!!!
+	//TESTED!!!!
 	public void searchCurrentClient(String id) {
 		try {
 			fidelization.searchCurrentClientWithId(id);
@@ -300,7 +302,7 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	//NOT TESTED!!!!
+	//TESTED!!!!
 	public void updateCurrentClient(String id, String name, String age, String email) {
 		try {
 			fidelization.updateCurrentClientWithId(id, name, age, email);
@@ -313,10 +315,25 @@ public class SuperMarketApp {
 		}
 	}
 	//NOT TESTED 
-	public void deleteCurrentClient() {
+	public void deleteCurrentClient(String id, double requiredQuantity) {
+		try {
+			inventory.updateWeight(id, requiredQuantity);
+			cashRegister.createInVoice(id, requiredQuantity);
+		} catch (noMatchesException e) {
+			e.printStackTrace();
+		} catch (insufficientQuantityException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
+	
+	
+	
+	
+	public void createInVoice(String id, double requiredQuantity) {
+		
+	}
 	//------------------------------------------> SISTEMAS DE CARGA
 			//POR VERFICIAR:
 			//---->CHECK! writeManagers()

@@ -11,7 +11,7 @@ public class CommercialInvoice {
 	private CommercialInvoice previus;
 	private Client client;
 	private ArrayList<Product> products;
-	public CommercialInvoice(String date, double totalPrice, String paymentType, String factureNumber) {
+	public CommercialInvoice(String date, double totalPrice, String paymentType, String factureNumber/*, ArrayList<Product> products, Client client*/) {
 		super();
 		this.date = date;
 		this.totalPrice = totalPrice;

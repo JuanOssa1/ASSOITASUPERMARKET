@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.insufficientQuantityException;
 import exceptions.noMatchesException;
 import exceptions.unavaiableIdException;
 
@@ -255,14 +256,14 @@ public class Inventory {
 		return msg;
 	}
 	*/
-	public String searchWeightProduct(String id) throws noMatchesException {
+	public WeightProduct searchWeightProduct(String id) throws noMatchesException {
 		validateExistenceOfIdWeight(id);
 		WeightProduct newReference = firstWeight;
-		String msg = "";
+		WeightProduct msg = null;
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
 			if(newReference.getId().equals(id)) {
-				msg = newReference.toString();
+				msg = newReference;
 				centinel = true;
 			}
 			newReference = newReference.getNext();
@@ -343,4 +344,12 @@ public class Inventory {
 			oToOrganize = oToOrganize.getNext();
 			}
 		}
+	public void updateWeight(String id, double requiredQuantity) throws noMatchesException, insufficientQuantityException {
+		WeightProduct toUpdate = searchWeightProduct(id);
+		if((toUpdate.getWeight()-requiredQuantity)<0) {
+			throw new insufficientQuantityException("Epic Failure");
+		} else {
+			toUpdate.setWeight(toUpdate.getWeight()-requiredQuantity);
+		}
+	}
 }
