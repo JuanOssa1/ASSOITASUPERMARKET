@@ -95,14 +95,14 @@ public class Inventory {
 		return msg;
 	}
 	*/
-	public String searchUnityProduct(String id) throws noMatchesException {
+	public UnityProduct searchUnityProduct(String id) throws noMatchesException {
 		validateExistenceOfId(id);
 		UnityProduct newReference = firstUnity;
-		String msg = "";
+		UnityProduct msg = null;
 		boolean centinel = false;
 		while(newReference != null && centinel == false) {
 			if(newReference.getId().equals(id)) {
-				msg = newReference.toString();
+				msg = newReference;
 				centinel = true;
 			}
 			newReference = newReference.getNext();
@@ -344,6 +344,7 @@ public class Inventory {
 			oToOrganize = oToOrganize.getNext();
 			}
 		}
+	/*
 	public void updateWeight(String id, double requiredQuantity) throws noMatchesException, insufficientQuantityException {
 		WeightProduct toUpdate = searchWeightProduct(id);
 		if((toUpdate.getWeight()-requiredQuantity)<0) {
@@ -351,5 +352,16 @@ public class Inventory {
 		} else {
 			toUpdate.setWeight(toUpdate.getWeight()-requiredQuantity);
 		}
+	}
+	*/
+	public WeightProduct updateWeight(String id, double requiredQuantity) throws noMatchesException, insufficientQuantityException {
+		WeightProduct toUpdate = searchWeightProduct(id);
+		toUpdate.update(requiredQuantity);
+		return toUpdate;
+	}
+	public UnityProduct updateUnity(String id, int requiredQuantity) throws noMatchesException, insufficientQuantityException {
+		UnityProduct toUpdate = searchUnityProduct(id);
+		toUpdate.update(requiredQuantity);
+		return toUpdate;
 	}
 }

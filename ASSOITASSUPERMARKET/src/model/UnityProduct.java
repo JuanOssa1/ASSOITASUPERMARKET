@@ -2,6 +2,8 @@ package model;
 
 import java.util.Calendar;
 
+import exceptions.insufficientQuantityException;
+
 public class UnityProduct extends Product{
 	private int quantity;
 	private UnityProduct next; 
@@ -28,5 +30,11 @@ public class UnityProduct extends Product{
 	public void setPrevius(UnityProduct previus) {
 		this.previus = previus;
 	}
-	
+	public void update(int requiredQuantity) throws insufficientQuantityException {
+		if(quantity-requiredQuantity < 0) {
+			throw new insufficientQuantityException("Epic Failure");
+		}else {
+			quantity = quantity - requiredQuantity;
+		}
+	}
 }

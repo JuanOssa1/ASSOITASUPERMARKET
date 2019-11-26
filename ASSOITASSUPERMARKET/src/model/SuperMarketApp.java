@@ -326,13 +326,31 @@ public class SuperMarketApp {
 		}
 		
 	}
-	
-	
-	
-	
-	
-	public void createInVoice(String id, double requiredQuantity) {
-		
+	public WeightProduct updateQuantityWeight(String id, double requiredQuantity) {
+		WeightProduct productW = null;
+		try {
+			productW = inventory.updateWeight(id, requiredQuantity);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (insufficientQuantityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return productW;
+	}
+	public UnityProduct updateQuantityUnity(String id, int requiredQuantity) {
+		UnityProduct productU = null;
+		try {
+			productU = inventory.updateUnity(id, requiredQuantity);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (insufficientQuantityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return productU;
 	}
 	//------------------------------------------> SISTEMAS DE CARGA
 			//POR VERFICIAR:

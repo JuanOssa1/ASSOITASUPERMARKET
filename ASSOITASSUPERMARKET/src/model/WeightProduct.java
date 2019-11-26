@@ -2,6 +2,8 @@ package model;
 
 import java.util.Calendar;
 
+import exceptions.insufficientQuantityException;
+
 public class WeightProduct extends Product {
 	private double weight;
 	private WeightProduct next; 
@@ -27,5 +29,12 @@ public class WeightProduct extends Product {
 	}
 	public void setPrevius(WeightProduct previus) {
 		this.previus = previus;
+	}
+	public void update(double requiredQuantity) throws insufficientQuantityException {
+		if(weight-requiredQuantity < 0) {
+			throw new insufficientQuantityException("Epic Failure");
+		}else {
+			weight = weight - requiredQuantity;
+		}
 	}
 }
