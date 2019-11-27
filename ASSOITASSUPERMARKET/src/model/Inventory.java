@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 import exceptions.insufficientQuantityException;
 import exceptions.noMatchesException;
 import exceptions.unavaiableIdException;
 
-public class Inventory {
+public class Inventory implements Serializable{
 	private UnityProduct firstUnity;
 	private WeightProduct firstWeight;
 	public Inventory() {

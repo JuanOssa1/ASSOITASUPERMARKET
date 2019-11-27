@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import exceptions.noMatchesException;
@@ -7,7 +8,7 @@ import exceptions.repeatedCustomerException;
 import exceptions.unavaiableIdException;
 import logicInterfaces.InvoiceUpdater;
 
-public class CashRegister implements InvoiceUpdater{
+public class CashRegister implements InvoiceUpdater, Serializable{
 	private CommercialInvoice firstInvoice;
 	private SuperMarketApp superMarket;
 	public CashRegister(/*SuperMarketApp superMarket*/) {

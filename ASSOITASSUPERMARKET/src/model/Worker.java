@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
+
 import logicInterfaces.DateRegistrator;
 
-public abstract class Worker implements DateRegistrator{
+public abstract class Worker implements DateRegistrator, Serializable{
 	private String name;
 	private String id;
 	private String eps;

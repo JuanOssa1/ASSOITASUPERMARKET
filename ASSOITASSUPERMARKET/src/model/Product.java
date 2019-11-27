@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public abstract class Product {
+public abstract class Product implements Serializable {
 	private String id;
 	private String name;
 	private String bestBefore;

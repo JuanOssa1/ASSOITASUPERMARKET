@@ -1,6 +1,8 @@
 package model;
 
-public class PrivateState extends Realstate{
+import java.io.Serializable;
+
+public class PrivateState extends Realstate implements Serializable{
 	public PrivateState(int quantity, String buyYear, String name, String id) {
 		super(quantity, buyYear, name, id);
 	}

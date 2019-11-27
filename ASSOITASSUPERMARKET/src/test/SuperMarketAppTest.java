@@ -155,13 +155,13 @@ class SuperMarketAppTest {
 		assertEquals("LoyalClient [points=2222, discountPercent=0.2, dueCard=MasterCard, getId()=1, getName()=Juam, getAge()=22, getEmail()=juan2233]", client0.toString());
 		assertEquals("CurrentClient [getId()=2, getName()=Juan, getAge()=22, getEmail()=maza@eded]",client1.toString());
 	}
-	private void setUpSceneGeneralSearchProduct() {
+	private void setUpSceneGeneralSearchProduct() throws unavaiableIdException {
 		superMarket = new SuperMarketApp();
 		superMarket.addUnityProduct("1", "panela", "hoy", "120000", "dulce", "10");
 		superMarket.addWeightProduct("2", "carne", "hoy", "12333", "proteina", "120000");
 	}
 	@Test
-	void testGeneralSearchProduct() {
+	void testGeneralSearchProduct() throws unavaiableIdException {
 		setUpSceneGeneralSearchProduct();
 		Product product0 = superMarket.searchGeneralProducts("1");
 		Product product1 = superMarket.searchGeneralProducts("2");

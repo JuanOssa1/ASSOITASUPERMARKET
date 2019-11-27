@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class PublicState extends Realstate{
+public class PublicState extends Realstate implements Serializable{
 	private String maintenance;
 
 	public PublicState(int quantity, String buyYear, String name, String id, String maintenance) {

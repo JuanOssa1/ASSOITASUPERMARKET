@@ -1,6 +1,8 @@
 package model;
 
-public class CurrentClient extends Client{
+import java.io.Serializable;
+
+public class CurrentClient extends Client implements Serializable{ 
 	
 	private CurrentClient left; 
 	private CurrentClient right;

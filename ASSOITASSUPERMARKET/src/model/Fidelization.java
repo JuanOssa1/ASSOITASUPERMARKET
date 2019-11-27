@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.thereAreNoRecordsException;
 import logicInterfaces.ClientUpdater;
 
-public class Fidelization implements ClientUpdater{
+public class Fidelization implements ClientUpdater, Serializable{
 	private LoyalClient rootLoyal;
 	private CurrentClient rootCurrent;
 	public Fidelization() {

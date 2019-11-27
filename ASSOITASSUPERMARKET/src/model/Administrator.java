@@ -1,6 +1,8 @@
 package model;
 
-public class Administrator extends Worker{
+import java.io.Serializable;
+
+public class Administrator extends Worker implements Serializable{
 
 	public Administrator(String name, String id, String eps, int salary, int experience) {
 		super(name, id, eps,  salary, experience);

@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import exceptions.insufficientQuantityException;
 
-public class WeightProduct extends Product {
+public class WeightProduct extends Product implements Serializable {
 	private double weight;
 	private WeightProduct next; 
 	private WeightProduct previus;

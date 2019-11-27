@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class LoyalClient extends Client{
+public class LoyalClient extends Client implements Serializable{
 	private int points;
 	private double discountPercent;
 	private String dueCard;

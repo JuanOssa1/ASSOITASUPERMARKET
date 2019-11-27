@@ -1,10 +1,12 @@
 package model;
 
-import java.util.Calendar;
+
+
+import java.io.Serializable;
 
 import exceptions.insufficientQuantityException;
 
-public class UnityProduct extends Product{
+public class UnityProduct extends Product implements Serializable{
 	private int quantity;
 	private UnityProduct next; 
 	private UnityProduct previus;

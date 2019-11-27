@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CommercialInvoice {
+public class CommercialInvoice implements Serializable{
 	private String date;
 	private double totalPrice;
 	private String paymentType;

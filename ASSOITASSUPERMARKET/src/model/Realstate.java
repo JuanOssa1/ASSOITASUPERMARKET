@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
+
 import logicInterfaces.DateRegistrator;
 
-public abstract class Realstate implements DateRegistrator{
+public abstract class Realstate implements DateRegistrator, Serializable{
 	private String id;
 	private int quantity;
 	private String buyYear;

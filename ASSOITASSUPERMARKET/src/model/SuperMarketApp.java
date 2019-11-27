@@ -193,14 +193,13 @@ public class SuperMarketApp {
 	// UNITY<----------------------------------------------------------------------------------------------------------------------------------------------------
 	// NOT TESTED!!!!
 	public void addUnityProduct(String id, String name, String bestBefore, String price, String productType,
-			String quantity) {
+			String quantity) throws unavaiableIdException {
 		double priceC = Double.parseDouble(price);
 		int quantityC = Integer.parseInt(quantity);
 		try {
 			inventory.addUnityProductToTheList(id, name, bestBefore, priceC, productType, quantityC);
 		} catch (unavaiableIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new unavaiableIdException("Fail");
 		}
 	}
 
@@ -237,14 +236,13 @@ public class SuperMarketApp {
 	// WEIGHT<---------------------------------------------------------------------------------------------------------------------------------------------------
 	// NOT TESTED!!!!
 	public void addWeightProduct(String id, String name, String bestBefore, String price, String productType,
-			String weight) {
+			String weight) throws unavaiableIdException {
 		Double priceC = Double.parseDouble(price);
 		Double weightC = Double.parseDouble(weight);
 		try {
 			inventory.addWeightProductToTheList(id, name, bestBefore, priceC, productType, weightC);
 		} catch (unavaiableIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new unavaiableIdException("Fail");
 		}
 	}
 
@@ -405,7 +403,7 @@ public class SuperMarketApp {
 
 	// ------------------------------------------>CASH REGISTER
 	public void createInvoice(String productId, double requiredQuantity, String date, String paymentType,
-		String factureNumber, String clientId) {
+		String factureNumber, String clientId) throws noMatchesException, insufficientQuantityException {
 		ArrayList<Product> products = new ArrayList<Product>();
 		if (searchGeneralProducts(productId) instanceof WeightProduct) {
 			try {
@@ -414,10 +412,9 @@ public class SuperMarketApp {
 				tmpWeight.setWeight(requiredQuantity);
 				products.add(tmpWeight);
 			} catch (noMatchesException e) {
-
-				e.printStackTrace();
+				throw new noMatchesException("");
 			} catch (insufficientQuantityException e) {
-				e.printStackTrace();
+				throw new insufficientQuantityException("");
 			}
 		} else {
 			int requiredQuantityC = (int) requiredQuantity;
@@ -427,9 +424,9 @@ public class SuperMarketApp {
 				tmpUnity.setQuantity(requiredQuantityC);
 				products.add(tmpUnity);
 			} catch (noMatchesException e) {
-				e.printStackTrace();
+				throw new noMatchesException("");
 			} catch (insufficientQuantityException e) {
-				e.printStackTrace();
+				throw new insufficientQuantityException("");
 			}
 		}
 		Client client = searchGeneralClient(clientId);
