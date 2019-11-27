@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.CollectionUtils;
 
+import exceptions.repeatedCustomerException;
 import exceptions.unavaiableIdException;
 import model.Administrator;
 import model.Client;
@@ -141,13 +142,13 @@ class SuperMarketAppTest {
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=10994], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=10995], PublicState [maintenance=23/11/2020, getQuantity()=15, getBuyYear()=23/11/2019, getName()=Caja registradora, getId()=10996], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=11994], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=11995], PrivateState [getQuantity()=8, getBuyYear()=23/11/2019, getName()=Camiones, getId()=11996]]", realStates.toString());
 	}
-	private void setUpSceneGeneralSearchClient() {
+	private void setUpSceneGeneralSearchClient() throws repeatedCustomerException {
 		superMarket = new SuperMarketApp();
 		superMarket.addLoyalClient("1", "Juam", "22", "juan2233", "2222", "0.2", "MasterCard");
 		superMarket.addCurrentClient("2", "Juan", "22", "maza@eded");
 	}
 	@Test
-	void testGeneralSearch() {
+	void testGeneralSearch() throws repeatedCustomerException {
 		setUpSceneGeneralSearchClient();
 		Client client0 = superMarket.searchGeneralClient("1");
 		Client client1 = superMarket.searchGeneralClient("2");

@@ -293,10 +293,10 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!!!!
-	public Client searchLoyalClient(String id) {
-		Client client = null;
+	public String searchLoyalClient(String id) {
+		String client = null;
 		try {
-			client = fidelization.searchLoyalClientWithId(id);
+			client = fidelization.searchLoyalClientWithId(id).toString();
 		} catch (noMatchesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -339,9 +339,10 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!!!!
-	public void searchCurrentClient(String id) {
+	public String searchCurrentClient(String id) {
+		String msg = "";
 		try {
-			fidelization.searchCurrentClientWithId(id);
+			 msg = fidelization.searchCurrentClientWithId(id).toString();
 		} catch (noMatchesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -349,6 +350,7 @@ public class SuperMarketApp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return msg;
 	}
 
 	// TESTED!!!!
