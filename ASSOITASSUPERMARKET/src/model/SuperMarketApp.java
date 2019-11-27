@@ -18,6 +18,8 @@ import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.thereAreNoRecordsException;
 import exceptions.unavaiableIdException;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class SuperMarketApp {
 	private Inventory inventory; // ESTO SE SERIALIZA
@@ -25,6 +27,7 @@ public class SuperMarketApp {
 	private CashRegister cashRegister; // ESTO SE SERIALIZA
 	private ArrayList<Worker> workers;
 	private ArrayList<Realstate> realStates;
+	private MediaPlayer mediaPlayer;
 	public static String FLATWORKERS = "marketRecords//worker.txt";
 	public static String FLATREALSTATES = "marketRecords//realStates.txt";
 	public static String SERIALIZEINVENTORY = "marketRecords//inventory.dat";
@@ -521,7 +524,7 @@ public class SuperMarketApp {
 		}
 		return product;
 	}
-
+	
 	// ------------------------------------------> SISTEMAS DE CARGA
 	// POR VERFICIAR:
 	// ---->CHECK! writeManagers()
@@ -576,6 +579,13 @@ public class SuperMarketApp {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public void playCrazyFrog() {	
+		String path = "pictures//amigosTraiganCerveza.mp3";
+		Media media = new Media(new File(path).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.5);
+		mediaPlayer.play();
 	}
 
 	// ------------------------------------------> SISTEMAS DE CARGA

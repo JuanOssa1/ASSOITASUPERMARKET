@@ -155,6 +155,7 @@ public class Inventory {
 			newReference = newReference.getNext();
 		}	
 	}
+	/*
 	public void organizeListWithBubble() {
 		UnityProduct newPrevius = null;
 		UnityProduct newNext = null;
@@ -183,6 +184,7 @@ public class Inventory {
 			oToOrganize = oToOrganize.getNext();
 			}
 		}
+	*/
 	//-----------------------------------> ADDER OF WEIGHT
 	public void addWeightProductToTheList(String id, String name, String bestBefore, double price, String productType, double weight) throws unavaiableIdException {
 		validateAvaiablityOfTheId(id);
@@ -316,6 +318,7 @@ public class Inventory {
 			newReference = newReference.getNext();
 		}	
 	}
+	/*
 	public void organizeListWithBubbleWeight() {
 		WeightProduct newPrevius = null;
 		WeightProduct newNext = null;
