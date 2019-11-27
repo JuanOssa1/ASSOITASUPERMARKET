@@ -30,9 +30,9 @@ public class SuperMarketApp {
 	private MediaPlayer mediaPlayer;
 	public static String FLATWORKERS = "marketRecords//worker.txt";
 	public static String FLATREALSTATES = "marketRecords//realStates.txt";
-	public static String SERIALIZEINVENTORY = "marketRecords//inventory.dat";
-	public static String SERIALIZEFIDELIZATION = "marketRecords//fidelization.dat";
-	public static String SERIALIZECASHREGISTER = "marketRecords//cashRegister.dat";
+	public static String SERIALIZEINVENTORY = "./marketRecords/inventory.dat";
+	public static String SERIALIZEFIDELIZATION = "./marketRecords/fidelization.dat";
+	public static String SERIALIZECASHREGISTER = "./marketRecords/cashRegister.dat";
 
 	public SuperMarketApp() {
 		workers = new ArrayList<Worker>();
@@ -40,7 +40,7 @@ public class SuperMarketApp {
 		inventory = new Inventory();
 		fidelization = new Fidelization();
 		cashRegister = new CashRegister(/*this*/);
-		loadEverythig();
+		//loadEverythig();
 	}
 
 	public Inventory getInventory() {
@@ -93,8 +93,8 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
-	public String createNewManager(String name, String id, String eps, String salary, String experience,
-			String contract) {
+	public void createNewManager(String name, String id, String eps, String salary, String experience,
+			String contract) throws unavaiableIdException {
 		// "Letter C summary of -C-onverted"
 		String msg = "";
 		int salaryC = Integer.parseInt(salary);
@@ -105,12 +105,13 @@ public class SuperMarketApp {
 			workers.add(manager);
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
+			throw new unavaiableIdException("Error");
 		}
-		return msg;
+		//return msg;
 	}
 
 	// TESTED!
-	public String createNewAdministrator(String name, String id, String eps, String salary, String experience) {
+	public String createNewAdministrator(String name, String id, String eps, String salary, String experience) throws unavaiableIdException {
 		String msg = "";
 		int salaryC = Integer.parseInt(salary);
 		int experienceC = Integer.parseInt(experience);
@@ -120,6 +121,7 @@ public class SuperMarketApp {
 			workers.add(administrator);
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
+			throw new unavaiableIdException("Error");
 		}
 		return msg;
 	}
@@ -148,7 +150,7 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
-	public String createNewPrivateState(String quantity, String buyYear, String name, String id) {
+	public void createNewPrivateState(String quantity, String buyYear, String name, String id) throws unavaiableIdException {
 		String msg = "";
 		int quantityC = Integer.parseInt(quantity);
 		try {
@@ -157,22 +159,24 @@ public class SuperMarketApp {
 			realStates.add(privateState);
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
+			throw new unavaiableIdException("Error");
 		}
-		return msg;
+		//return msg;
 	}
 
 	// TESTED!
-	public String createNewPublicState(String quantity, String buyYear, String name, String id, String maintenance) {
-		String msg = "";
+	public void createNewPublicState(String quantity, String buyYear, String name, String id, String maintenance) throws unavaiableIdException {
+		String msg = "Aniadido Exitosamente";
 		int quantityC = Integer.parseInt(quantity);
 		try {
 			validateAvailabilityOfTheIdRealstate(id);
 			PublicState publicState = new PublicState(quantityC, buyYear, name, id, maintenance);
 			realStates.add(publicState);
 		} catch (unavaiableIdException e) {
-			msg = "El id " + id + " ya se encuentra usado";
+			//msg = "El id " + id + " ya se encuentra usado";
+			throw new unavaiableIdException("Error");
 		}
-		return msg;
+		//return msg;
 	}
 
 	// TESTED!
@@ -437,7 +441,7 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	public void addMoreProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) {
+	public void addMoreProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) throws noMatchesException {
 		 CommercialInvoice invoice = null;
 		try {
 			invoice = cashRegister.searchInvoice(invoiceNumber);
@@ -478,7 +482,7 @@ public class SuperMarketApp {
 	}
 	// ------------------------------------------>CODIGO GENERICO
 	//TESTED!
-	public Client searchGeneralClient(String id) {
+	public Client searchGeneralClient(String id) throws noMatchesException {
 		Client client = null;
 		boolean validator = false;
 		try {
@@ -494,13 +498,13 @@ public class SuperMarketApp {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			} catch (noMatchesException e) {
-				e.printStackTrace();
+				throw new noMatchesException("Info");
 			}
 		}
 		return client;
 	}
 	//TESTED!
-	public Product searchGeneralProducts(String id) {
+	public Product searchGeneralProducts(String id) throws noMatchesException {
 		Product product = null;
 		boolean validator = false;
 		try {
@@ -516,7 +520,7 @@ public class SuperMarketApp {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			} catch (noMatchesException e) {
-				e.printStackTrace();
+				throw new noMatchesException("Info");
 			}
 		}
 		return product;
@@ -696,7 +700,7 @@ public class SuperMarketApp {
 			fidelization = temporalFidelization;
 			co.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -744,7 +748,7 @@ public class SuperMarketApp {
 		loadInventory();
 		loadRealStates();
 		loadManagers();
-	}
+	} 
 
 	// SISTEMA GENERAL DE GUARDADO DE DATOS
 	// <----------------------------------------------------------------------------------------------------------------

@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.CollectionUtils;
 
+import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.unavaiableIdException;
 import model.Administrator;
@@ -24,7 +25,7 @@ import model.Worker;
 class SuperMarketAppTest {
 	private SuperMarketApp superMarket;
 	
-	private void setUpSceneTestAddition() {
+	private void setUpSceneTestAddition() throws unavaiableIdException {
 		superMarket = new SuperMarketApp();
 		superMarket.createNewAdministrator("Carlos", "12346", "Comeva","400000", "7");
 		superMarket.createNewAdministrator("Juam", "12356", "Comeva","500000", "3");
@@ -33,7 +34,7 @@ class SuperMarketAppTest {
 		superMarket.createNewManager("Juan", "123234", "Colsanitas", "1000000", "8", "1 año");
 		superMarket.createNewManager("Samuel", "12332334", "Colsanitas", "263331", "15", "1 año");
 	}
-	private void setUpSceneSameId() {
+	private void setUpSceneSameId() throws unavaiableIdException {
 		superMarket = new SuperMarketApp(); 
 		superMarket.createNewAdministrator("Carlos", "1", "Comeva","400000", "7");
 		superMarket.createNewAdministrator("Juam", "12", "Comeva","500000", "3");
@@ -44,7 +45,7 @@ class SuperMarketAppTest {
 	}
 	
 	@Test
-	void testAddition() {
+	void testAddition() throws unavaiableIdException {
 		setUpSceneTestAddition();
 		ArrayList<Worker> workers = superMarket.getWorkers();
 		ArrayList<Worker> handMadeWorker = new ArrayList<Worker>();
@@ -63,26 +64,26 @@ class SuperMarketAppTest {
 		assertEquals(workers.toString(), handMadeWorker.toString());
 	}
 	@Test
-	 void testAddSameId() {
+	 void testAddSameId() throws unavaiableIdException {
 		setUpSceneSameId();
 		ArrayList<Worker> workers = superMarket.getWorkers();
 		assertEquals("[Administrator [getName()=Carlos, getId()=1, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12, getSalary()=500000, getExperience()=3, Administrator [getName()=Victor, getId()=123, getSalary()=200000, getExperience()=8, Manager [contract=1 año, getName()=Juan, getId()=1234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12345, getSalary()=263331, getExperience()=15]", workers.toString());
 	}
 	@Test
-	 void testDelete() {
+	 void testDelete() throws unavaiableIdException {
 		setUpSceneTestAddition();
 		superMarket.deleteWorker("123487");
 		ArrayList<Worker> workers = superMarket.getWorkers();
 		assertEquals("[Administrator [getName()=Carlos, getId()=12346, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12356, getSalary()=500000, getExperience()=3, Manager [contract=1 año, getName()=Chino, getId()=12334, getSalary()=233344, getExperience()=12, Manager [contract=1 año, getName()=Juan, getId()=123234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12332334, getSalary()=263331, getExperience()=15]",workers.toString());
 	}
 	@Test
-	 void testDeleteNoneExistentId() {
+	 void testDeleteNoneExistentId() throws unavaiableIdException {
 		setUpSceneTestAddition();
 		superMarket.deleteWorker("9999");
 		ArrayList<Worker> workers = superMarket.getWorkers();
 		assertEquals("[Administrator [getName()=Carlos, getId()=12346, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12356, getSalary()=500000, getExperience()=3, Administrator [getName()=Victor, getId()=123487, getSalary()=200000, getExperience()=8, Manager [contract=1 año, getName()=Chino, getId()=12334, getSalary()=233344, getExperience()=12, Manager [contract=1 año, getName()=Juan, getId()=123234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12332334, getSalary()=263331, getExperience()=15]",workers.toString());
 	}
-	private void setUpSceneAddRealStates() {
+	private void setUpSceneAddRealStates() throws unavaiableIdException {
 		superMarket = new SuperMarketApp();
 		superMarket.createNewPublicState("200", "23/11/2019", "Carrito de Supermercado","10994","23/11/2020");
 		superMarket.createNewPublicState("50", "23/11/2019", "Canasta de Supermercado", "10995","23/11/2020");
@@ -92,7 +93,7 @@ class SuperMarketAppTest {
 		superMarket.createNewPrivateState("8", "23/11/2019", "Camiones", "11996");
 	}
 	
-	private void setUpSceneRealStateSameId() {
+	private void setUpSceneRealStateSameId() throws unavaiableIdException {
 		superMarket = new SuperMarketApp();
 		superMarket.createNewPublicState("200", "23/11/2019", "Carrito de Supermercado", "1","23/11/2020");
 		superMarket.createNewPublicState("50", "23/11/2019", "Canasta de Supermercado", "12" ,"23/11/2020");
@@ -103,7 +104,7 @@ class SuperMarketAppTest {
 	}
 	
 	@Test
-	void testAdittionRealStates() {
+	void testAdittionRealStates() throws unavaiableIdException {
 		setUpSceneAddRealStates();
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		ArrayList<Realstate> handMaderealState = new ArrayList<Realstate>();
@@ -123,32 +124,32 @@ class SuperMarketAppTest {
 	}
 	
 	@Test
-	 void testAddSameIdRealState() {
+	 void testAddSameIdRealState() throws unavaiableIdException {
 		setUpSceneRealStateSameId();
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=1], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=12], PublicState [maintenance=23/11/2020, getQuantity()=15, getBuyYear()=23/11/2019, getName()=Caja registradora, getId()=123], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=1234], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=12345]]",realStates.toString());
 	}
 	@Test
-	void testDeleteRealState() {
+	void testDeleteRealState() throws unavaiableIdException {
 		setUpSceneAddRealStates();
 		superMarket.deleteRealState("10996");
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=10994], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=10995], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=11994], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=11995], PrivateState [getQuantity()=8, getBuyYear()=23/11/2019, getName()=Camiones, getId()=11996]]", realStates.toString());
 	}
 	@Test
-	void testDeleteNoneExistendIdRealState() {
+	void testDeleteNoneExistendIdRealState() throws unavaiableIdException {
 		setUpSceneAddRealStates();
 		superMarket.deleteRealState("1");
 		ArrayList<Realstate> realStates = superMarket.getRealStates();
 		assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=10994], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=10995], PublicState [maintenance=23/11/2020, getQuantity()=15, getBuyYear()=23/11/2019, getName()=Caja registradora, getId()=10996], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=11994], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=11995], PrivateState [getQuantity()=8, getBuyYear()=23/11/2019, getName()=Camiones, getId()=11996]]", realStates.toString());
-	}
+	} 
 	private void setUpSceneGeneralSearchClient() throws repeatedCustomerException {
 		superMarket = new SuperMarketApp();
 		superMarket.addLoyalClient("1", "Juam", "22", "juan2233", "2222", "0.2", "MasterCard");
 		superMarket.addCurrentClient("2", "Juan", "22", "maza@eded");
 	}
 	@Test
-	void testGeneralSearch() throws repeatedCustomerException {
+	void testGeneralSearch() throws repeatedCustomerException, noMatchesException {
 		setUpSceneGeneralSearchClient();
 		Client client0 = superMarket.searchGeneralClient("1");
 		Client client1 = superMarket.searchGeneralClient("2");
@@ -161,7 +162,7 @@ class SuperMarketAppTest {
 		superMarket.addWeightProduct("2", "carne", "hoy", "12333", "proteina", "120000");
 	}
 	@Test
-	void testGeneralSearchProduct() throws unavaiableIdException {
+	void testGeneralSearchProduct() throws unavaiableIdException, noMatchesException {
 		setUpSceneGeneralSearchProduct();
 		Product product0 = superMarket.searchGeneralProducts("1");
 		Product product1 = superMarket.searchGeneralProducts("2");
