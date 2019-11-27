@@ -402,12 +402,8 @@ public class SuperMarketApp {
 
 	// ------------------------------------------>CASH REGISTER
 	public void createInvoice(String productId, double requiredQuantity, String date, String paymentType,
-			String factureNumber, String clientId) {
-		// WeightProduct tmpWeight = null;
-		// UnityProduct tmpUnity = null;
-		// Client client = null;
+		String factureNumber, String clientId) {
 		ArrayList<Product> products = new ArrayList<Product>();
-		// workers.get(i) instanceof Manager
 		if (searchGeneralProducts(productId) instanceof WeightProduct) {
 			try {
 				inventory.updateWeight(productId, requiredQuantity);
@@ -441,28 +437,11 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	/*
-	 * CommercialInvoice invoice = searchInvoice(invoiceNumber);
-		Product product = superMarket.searchGeneralProducts(productId);
-		if(product instanceof WeightProduct) {
-			superMarket.updateQuantityWeight(productId, requiredQuantity);
-			WeightProduct tmpWeight = (WeightProduct) product;
-			tmpWeight.setWeight(requiredQuantity);
-			invoice.getProducts().add(tmpWeight);
-		} else {
-			int requiredQuantityC = (int) requiredQuantity;
-			superMarket.updateQuantityUnity(productId, requiredQuantityC);
-			UnityProduct tmpUnity = (UnityProduct) product;
-			tmpUnity.setQuantity(requiredQuantityC);
-			invoice.getProducts().add(tmpUnity);
-		}
-	 */
 	public void addMoreProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) {
 		 CommercialInvoice invoice = null;
 		try {
 			invoice = cashRegister.searchInvoice(invoiceNumber);
 		} catch (noMatchesException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		 Product product = searchGeneralProducts(productId);
@@ -478,9 +457,27 @@ public class SuperMarketApp {
 				tmpUnity.setQuantity(requiredQuantityC);
 				invoice.getProducts().add(tmpUnity);
 			}
-		//cashRegister.addProductsToTheInvoice(invoiceNumber, productId, requiredQuantity);
+	}
+	public void updateInvoiceInformation(String date, String paymentType, String factureNumber) {
+		try {
+			/*CommercialInvoice commercial = */cashRegister.updateInvoiceData(date, paymentType, factureNumber);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public String printInvoice(String facturenumber) {
+		String msg = "";
+		try {
+			msg = cashRegister.printCommercialInvoice(facturenumber);
+		} catch (noMatchesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return msg;
 	}
 	// ------------------------------------------>CODIGO GENERICO
+	//TESTED!
 	public Client searchGeneralClient(String id) {
 		Client client = null;
 		boolean validator = false;
@@ -502,7 +499,7 @@ public class SuperMarketApp {
 		}
 		return client;
 	}
-
+	//TESTED!
 	public Product searchGeneralProducts(String id) {
 		Product product = null;
 		boolean validator = false;

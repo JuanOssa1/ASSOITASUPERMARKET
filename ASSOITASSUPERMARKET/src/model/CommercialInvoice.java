@@ -101,9 +101,23 @@ public class CommercialInvoice {
 		double tax = subTotal()*IVA;
 		return tax;
 	}
-	public double total() {
-		double total = (subTotal()-calculateSavings())+calculateIVA();
-		return total;
+	public /*double*/ void total() {
+		//double total = (subTotal()-calculateSavings())+calculateIVA();
+		//return total;
+		totalPrice =  (subTotal()-calculateSavings())+calculateIVA();
 	}
-	
+	public String printProducts() {
+		String msg = "";
+		for (int i = 0; i < products.size(); i++) {
+			if(products.get(i) instanceof WeightProduct) {
+				//Manager manager = (Manager) workers.get(i);
+				WeightProduct weight = (WeightProduct) products.get(i);
+				msg = weight.toString() + "\n";
+			} else {
+				UnityProduct unity = (UnityProduct) products.get(i);
+				msg = unity.toString() + "\n";
+			}
+		}
+		return msg;
+	}
 }

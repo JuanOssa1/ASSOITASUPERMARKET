@@ -71,20 +71,20 @@ public class CashRegister implements InvoiceUpdater{
 			throw new noMatchesException("Fatal failure! Check!");
 		}
 	}
-	public String updateInvoiceData(String date, double totalPrice, String paymentType, String factureNumber) throws noMatchesException {
+	public void updateInvoiceData(String date, String paymentType, String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
 		CommercialInvoice commercialInvoiceToUpdate = firstInvoice;
 		String msg = "";
 		boolean centinel = false;
 		while(commercialInvoiceToUpdate != null && centinel == false) {
 			if(commercialInvoiceToUpdate.getFactureNumber().equals(factureNumber)) {
-					msg ="El personaje actualizado fue:"+" "+ commercialInvoiceToUpdate.toString();
-					updateInformartionInvoice(commercialInvoiceToUpdate,  date,  totalPrice,  paymentType,  factureNumber );
+				//	msg ="El personaje actualizado fue:"+" "+ commercialInvoiceToUpdate.toString();
+					updateInformartionInvoice(commercialInvoiceToUpdate,  date,  paymentType);
 					centinel = true;
 			}
 			commercialInvoiceToUpdate = commercialInvoiceToUpdate.getNext();
 		}
-		return msg;
+		//return msg;
 	}
 	private void validateAvaiablityOfTheFactureNumber(String factureNumber) throws unavaiableIdException{
 		CommercialInvoice newCommercialInvoice = firstInvoice;
@@ -126,12 +126,15 @@ public class CashRegister implements InvoiceUpdater{
 			}
 		}
 	@Override
-	public void updateInformartionInvoice(CommercialInvoice toUpdate, String date, double totalPrice,
-		String paymentType, String factureNumber) {
+	public void updateInformartionInvoice(CommercialInvoice toUpdate, String date, String paymentType) {
 		toUpdate.setDate(date);
-		toUpdate.setTotalPrice(totalPrice);
 		toUpdate.setPaymentType(paymentType);
-		toUpdate.setFactureNumber(factureNumber);
+	}
+	public String printCommercialInvoice(String factureNumber) throws noMatchesException {
+		String msg = "";
+		CommercialInvoice invoice = searchInvoice(factureNumber);
+		msg = invoice.printProducts() + "\n" +invoice.printProducts() + "\n" +invoice.subTotal() +"\n"+invoice.calculateSavings()+"\n" + invoice.getTotalPrice();
+		return msg;	
 	}
 	/*
 	public void addProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) throws noMatchesException {
