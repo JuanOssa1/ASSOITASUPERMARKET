@@ -153,7 +153,7 @@ class SuperMarketAppTest {
 		Client client0 = superMarket.searchGeneralClient("1");
 		Client client1 = superMarket.searchGeneralClient("2");
 		assertEquals("LoyalClient [points=2222, discountPercent=0.2, dueCard=MasterCard, getId()=1, getName()=Juam, getAge()=22, getEmail()=juan2233]", client0.toString());
-		assertEquals("Client [id=2, name=Juan, age=22, email=maza@eded]",client1.toString());
+		assertEquals("CurrentClient [getId()=2, getName()=Juan, getAge()=22, getEmail()=maza@eded]",client1.toString());
 	}
 	private void setUpSceneGeneralSearchProduct() {
 		superMarket = new SuperMarketApp();

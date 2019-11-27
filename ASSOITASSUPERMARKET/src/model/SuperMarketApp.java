@@ -281,14 +281,13 @@ public class SuperMarketApp {
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------->FIDELIZATION
 	// TESTED!!!!
 	public void addLoyalClient(String id, String name, String age, String email, String points, String discountPercent,
-			String dueCard) {
+			String dueCard) throws repeatedCustomerException {
 		int pointsC = Integer.parseInt(points);
 		double discountPercentC = Double.parseDouble(discountPercent);
 		try {
 			fidelization.insertLoyalClient(id, name, age, email, pointsC, discountPercentC, dueCard);
 		} catch (repeatedCustomerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new repeatedCustomerException("Error");
 		}
 	}
 
