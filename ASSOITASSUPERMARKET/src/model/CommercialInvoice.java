@@ -21,6 +21,7 @@ public class CommercialInvoice {
 		//products = new ArrayList<Product>();
 		this.products = products;
 		this.products = /*new ArrayList<Product>()*/ products;
+		this.client = client;
 	}
 	public CommercialInvoice getPrevius() {
 		return previus;
@@ -120,4 +121,10 @@ public class CommercialInvoice {
 		}
 		return msg;
 	}
+	@Override
+	public String toString() {
+		return "CommercialInvoice [date=" + date + ", totalPrice=" + totalPrice + ", paymentType=" + paymentType
+				+ ", factureNumber=" + factureNumber + ", client=" + client + ", products=" + products + "]";
+	}
+	
 }

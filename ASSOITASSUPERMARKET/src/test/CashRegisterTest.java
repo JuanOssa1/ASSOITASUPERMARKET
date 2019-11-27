@@ -2,44 +2,42 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import exceptions.noMatchesException;
 import exceptions.unavaiableIdException;
 import model.CashRegister;
+import model.CommercialInvoice;
+import model.CurrentClient;
 import model.Inventory;
+import model.LoyalClient;
+import model.Product;
 import model.UnityProduct;
 import model.WeightProduct;
 
 class CashRegisterTest {
-	/*
+	
 	private CashRegister cash;
 	private void setUpSceneInsert() throws unavaiableIdException {
 		cash = new CashRegister();
-		
-		inventory.addUnityProductToTheList("1", "Papas margarita", "hoy", 1000, "Carbohidrato", 20);
-		inventory.addUnityProductToTheList("2", "Cerveza", "maniana", 2000, "Cebada", 20);
-		inventory.addUnityProductToTheList("3", "agua", "ayer", 3000, "hidratante", 20);
-		inventory.addWeightProductToTheList("4", "carne", "1 mes", 2500, "proteina", 20000);
-		inventory.addWeightProductToTheList("5", "verdura", "1 mes", 2500, "proteina", 20000);
-		inventory.addWeightProductToTheList("6", "naranjas", "1 mes", 2600, "proteina", 20000);
+		LoyalClient client = new LoyalClient("1", "pedro", "juan@fff", "1234", 2333, 0.2, "12333");
+		CurrentClient current = new CurrentClient("1223","carlos","20", "carlos@drr");
+		ArrayList<Product> products = new ArrayList<Product>(); 
+		UnityProduct product0 = new UnityProduct("casa", "carro", "moto", 23.3, "hola", 3);
+		products.add(product0);
+		cash.addInvoiceProductToTheList("12/12/12", "Efectivo", "1", products, client);
+		cash.addInvoiceProductToTheList("13/11/19", "Debito", "2", products, current);
 	}
 	@Test
 	void testInsertAndSearch() {
 		try {
 			setUpSceneInsert();
-			UnityProduct unity0 = inventory.searchUnityProduct("1");
-			UnityProduct unity1 = inventory.searchUnityProduct("2");
-			UnityProduct unity2 = inventory.searchUnityProduct("3");
-			WeightProduct weight0 = inventory.searchWeightProduct("4");
-			WeightProduct weight1 = inventory.searchWeightProduct("5");
-			WeightProduct weight2 = inventory.searchWeightProduct("6");
-			assertEquals("UnityProduct [quantity=20, getId()=1, getName()=Papas margarita, getBestBefore()=hoy, getPrice()=1000.0, getProductType()=Carbohidrato]", unity0.toString());
-			assertEquals("UnityProduct [quantity=20, getId()=2, getName()=Cerveza, getBestBefore()=maniana, getPrice()=2000.0, getProductType()=Cebada]", unity1.toString());
-			assertEquals("UnityProduct [quantity=20, getId()=3, getName()=agua, getBestBefore()=ayer, getPrice()=3000.0, getProductType()=hidratante]", unity2.toString());
-			assertEquals("WeightProduct [weight=20000.0, getId()=4, getName()=carne, getBestBefore()=1 mes, getPrice()=2500.0, getProductType()=proteina]", weight0.toString());
-			assertEquals("WeightProduct [weight=20000.0, getId()=5, getName()=verdura, getBestBefore()=1 mes, getPrice()=2500.0, getProductType()=proteina]", weight1.toString());
-			assertEquals("WeightProduct [weight=20000.0, getId()=6, getName()=naranjas, getBestBefore()=1 mes, getPrice()=2600.0, getProductType()=proteina]", weight2.toString());
+			CommercialInvoice invoice0= cash.searchInvoice("1");
+			CommercialInvoice invoice1= cash.searchInvoice("2");
+			assertEquals("CommercialInvoice [date=12/12/12, totalPrice=0.0, paymentType=Efectivo, factureNumber=1, client=LoyalClient [points=2333, discountPercent=0.2, dueCard=12333, getId()=1, getName()=pedro, getAge()=juan@fff, getEmail()=1234], products=[UnityProduct [quantity=3, getId()=casa, getName()=carro, getBestBefore()=moto, getPrice()=23.3, getProductType()=hola]]]", invoice0.toString());
+			assertEquals("CommercialInvoice [date=13/11/19, totalPrice=0.0, paymentType=Debito, factureNumber=2, client=CurrentClient [getId()=1223, getName()=carlos, getAge()=20, getEmail()=carlos@drr], products=[UnityProduct [quantity=3, getId()=casa, getName()=carro, getBestBefore()=moto, getPrice()=23.3, getProductType()=hola]]]", invoice1.toString());
 		} catch (unavaiableIdException e) {
 			fail("No se esperaba exception");
 		} catch (noMatchesException e) {
@@ -47,10 +45,10 @@ class CashRegisterTest {
 		}
 	}
 	@Test
-	void testSearchNoneExistIdException() {
+	void testSearchNoneExistInvoice() {
 		try {
 			setUpSceneInsert();
-			inventory.searchUnityProduct("31");
+			cash.searchInvoice("55");
 			fail("Se esperaba exception noMatches");
 		} catch (unavaiableIdException e) {
 			fail("Se esperaba exception noMatches");
@@ -58,27 +56,34 @@ class CashRegisterTest {
 			System.out.println("Pass!");
 		}
 	}
-	private void setUpSceneRepeadtedIdUnity() throws unavaiableIdException {
-		inventory = new Inventory();
-		inventory.addUnityProductToTheList("2", "Papas margarita", "hoy", 1000, "Carbohidrato", 20);
-		inventory.addUnityProductToTheList("2", "Cerveza", "maniana", 2000, "Cebada", 20);
+	
+	private void setUpSceneRepeadtedInvoice() throws unavaiableIdException {
+		cash = new CashRegister();
+		LoyalClient client = new LoyalClient("1", "pedro", "juan@fff", "1234", 2333, 0.2, "12333");
+		CurrentClient current = new CurrentClient("1223","carlos","20", "carlos@drr");
+		ArrayList<Product> products = new ArrayList<Product>(); 
+		UnityProduct product0 = new UnityProduct("casa", "carro", "moto", 23.3, "hola", 3);
+		products.add(product0);
+		cash.addInvoiceProductToTheList("12/12/12", "Efectivo", "2", products, client);
+		cash.addInvoiceProductToTheList("13/11/19", "Debito", "2", products, current);
 	}
+	
 	@Test 
-	void testRepeatedIdExceptionUnity() {
+	void testRepeatedIdExceptionInvoice() {
 		try {
-			setUpSceneRepeadtedIdUnity();
+			setUpSceneRepeadtedInvoice();
 			fail("Se esperaba excepcion id no disponible");
 		} catch (unavaiableIdException e) {
 			System.out.println("Pass!");
 		}
 	}
 	@Test
-	void testUpdateInfoUnity() {
+	void testUpdateInfoInvoice() {
 		try {
 			setUpSceneInsert();
-			String infoBeforeUpdate = inventory.searchUnityProduct("2").toString();
-			inventory.updateUnityProductData("2", "Jairo emilio en gotas", "Un mes", 1223, "Natural", 55);
-			String infoAfterUpdate = inventory.searchUnityProduct("2").toString();
+			String infoBeforeUpdate = cash.searchInvoice("1").toString();
+			cash.updateInvoiceData("hoy", "efectivo", "1");
+			String infoAfterUpdate = cash.searchInvoice("1").toString();
 			assertNotEquals(infoBeforeUpdate,infoAfterUpdate);
 		} catch (unavaiableIdException e) {
 			fail();
@@ -86,5 +91,4 @@ class CashRegisterTest {
 			fail();
 		}
 	}
-	*/
 }

@@ -20,6 +20,11 @@ public class CurrentClient extends Client{
 	public void setRight(CurrentClient right) {
 		this.right = right;
 	}
+	@Override
+	public String toString() {
+		return "CurrentClient [getId()=" + getId() + ", getName()=" + getName() + ", getAge()=" + getAge()
+				+ ", getEmail()=" + getEmail() + "]";
+	}
 	
 
 }
