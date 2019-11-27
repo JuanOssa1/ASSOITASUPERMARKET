@@ -330,12 +330,11 @@ public class SuperMarketApp {
 
 	// CURRENT<------------------------------------------------------------------------------------------------------------------------------------------------------
 	// TESTED!!!!
-	public void addCurrentClient(String id, String name, String age, String email) {
+	public void addCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
 		try {
 			fidelization.insertCurrentClient(id, name, age, email);
 		} catch (repeatedCustomerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new repeatedCustomerException("Error");
 		}
 	}
 
