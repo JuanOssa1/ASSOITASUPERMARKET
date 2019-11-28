@@ -38,7 +38,7 @@ public class SuperMarketApp {
 	public SuperMarketApp() { 
 		workers = new ArrayList<Worker>();
 		realStates = new ArrayList<Realstate>();
-		inventory = new Inventory();
+		inventory = new Inventory(); 
 		fidelization = new Fidelization();
 		cashRegister = new CashRegister(/*this*/);
 		//loadEverythig();
@@ -183,7 +183,7 @@ public class SuperMarketApp {
 		return msg;
 	}
 
-	// --------------------------> Realstates
+	// --------------------------> Realstates 
 	/**
 	 * Description: Valida si una id ya esta usada o no
 	 * @param id Id que quiero comprobar

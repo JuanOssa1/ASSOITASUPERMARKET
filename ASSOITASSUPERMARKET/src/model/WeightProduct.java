@@ -33,11 +33,19 @@ public class WeightProduct extends Product implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Description: Convierte a String cada uno de los valores de los atributos de un objetp weighpriduct
+	 */
 	public String toString() {
 		return "WeightProduct [weight=" + weight + ", getId()=" + getId() + ", getName()=" + getName()
 				+ ", getBestBefore()=" + getBestBefore() + ", getPrice()=" + getPrice() + ", getProductType()="
 				+ getProductType() + "]";
 	}
+	/**
+	 * Description: Permite actualizar la cantidad disponible en inventrio de un producto tipo weight
+	 * @param requiredQuantity
+	 * @throws insufficientQuantityException
+	 */
 	public void update(double requiredQuantity) throws insufficientQuantityException {
 		if(weight-requiredQuantity < 0) {
 			throw new insufficientQuantityException("Epic Failure");
@@ -46,4 +54,13 @@ public class WeightProduct extends Product implements Serializable {
 		}
 		
 	}
+	/**
+	 * Description: Permite acceder al valor de los atributos de un objeto tipo WeightProduct
+	 * gets()*
+	 */
+	
+	/**
+	 * Description: Permite modificar el valor de los atributos de un objeto tipo WeightProduct
+	 * sets()*
+	 */
 }

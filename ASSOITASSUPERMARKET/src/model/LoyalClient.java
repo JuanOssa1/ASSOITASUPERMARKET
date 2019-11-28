@@ -61,5 +61,5 @@ public class LoyalClient extends Client implements Serializable{
 	 */
 	/**
 	 * Description: Permite modificar los valores de los atributos de un objeto loyal client
-	 */
+	 */ 
 }

@@ -53,10 +53,22 @@ public abstract class Worker implements DateRegistrator, Serializable{
 		this.eps = eps;
 	}
 	@Override
+	/**
+	 * Description: Convierte todos los valores de los atributos de un objeto que es worker a String
+	 */
 	public String toString() {
 		return "Worker [name=" + name + ", id=" + id + ", eps=" + eps + ", salary=" + salary + ", experience="
 				+ experience + "]";
 	}
 	
+	/**
+	 * Description: Permite acceder a los valores genricos que son de tipo Worker
+	 * gets()*
+	 */
+	
+	/**
+	 * Description: Permite modificsr los valores genricos que son de tipo Worker
+	 * gets()*
+	 */
 	
 }

@@ -50,4 +50,13 @@ public abstract class Realstate implements DateRegistrator, Serializable{
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * Description: Permite acceder al valor de los atributos genericos de tipo Product
+	 * gets()*
+	 */
+	
+	/**
+	 * Description: Permite modificar los atributos genericos de tipo producto
+	 * sets()*
+	 */
 }

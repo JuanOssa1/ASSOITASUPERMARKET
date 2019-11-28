@@ -32,13 +32,20 @@ public class UnityProduct extends Product implements Serializable{
 	public void setPrevius(UnityProduct previus) {
 		this.previus = previus;
 	}
-	
+	/**
+	 * Description: Convierte el valor de todos los atributos de un objeto unityProduct a String
+	 */
 	@Override
 	public String toString() {
 		return "UnityProduct [quantity=" + quantity + ", getId()=" + getId() + ", getName()=" + getName()
-				+ ", getBestBefore()=" + getBestBefore() + ", getPrice()=" + getPrice() + ", getProductType()="
+				+ ", getBestBefore()=" + getBestBefore() + ", getPrice()=" + getPrice() + ", getProductType()=" 
 				+ getProductType() + "]";
 	}
+	/**
+	 * Description: Permite actualizar el peso cuando un usuario compra un producto
+	 * @param requiredQuantity
+	 * @throws insufficientQuantityException
+	 */
 	public void update(int requiredQuantity) throws insufficientQuantityException {
 		if(quantity-requiredQuantity < 0) {
 			throw new insufficientQuantityException("Epic Failure");
@@ -46,4 +53,14 @@ public class UnityProduct extends Product implements Serializable{
 			quantity = quantity - requiredQuantity;
 		}
 	}
+	/**
+	 * Description: Permite acceder al valor de los atributos de tipo UnityProduct
+	 * gets()*
+	 */
+	
+	
+	/**
+	 * Description: Permite modificar el valor de los atributos de tipo UnityProduct
+	 * sets()*
+	 */
 }

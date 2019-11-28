@@ -1,6 +1,6 @@
 package logicInterfaces;
 
-import model.CommercialInvoice;
+
 import model.WeightProduct;
 
 public interface ProductUpdater {

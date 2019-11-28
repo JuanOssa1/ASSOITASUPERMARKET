@@ -10,16 +10,24 @@ public class PublicState extends Realstate implements Serializable{
 		super(quantity, buyYear, name, id);
 		this.maintenance = maintenance;
 	}
-
+	/**
+	 * Description: Permite obtener el manteninimiento de un objeto public state
+	 * @return
+	 */
 	public String getMaintenance() {
 		return maintenance;
 	}
-
+	/**
+	 * Description: Permite modificar el manteniminento de un objeto tipo public state
+	 * @param maintenance
+	 */
 	public void setMaintenance(String maintenance) {
 		this.maintenance = maintenance;
 	}
 	
-	
+	/**
+	 * Description: Converte a String el valor de todos los atributos de un objeto PublicState
+	 */
 	@Override
 	public String toString() {
 		return "PublicState [maintenance=" + maintenance + ", getQuantity()=" + getQuantity() + ", getBuyYear()="
