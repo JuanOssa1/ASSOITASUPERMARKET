@@ -13,9 +13,9 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 	private SuperMarketApp superMarket;
 	public CashRegister(/*SuperMarketApp superMarket*/) {
 		/*this.superMarket = superMarket;*/
-		this.firstInvoice = null;
+		this.firstInvoice = null; 
 	}
-	public CommercialInvoice getInvoiceRoot() {
+	public CommercialInvoice getInvoiceRoot() { 
 		return firstInvoice; 
 	}
 	public void setInvoiceRoot(CommercialInvoice invoiceRoot) {
@@ -28,7 +28,7 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 		this.superMarket = superMarket;
 	}
 	/**
-	 * Description: Permite agregar productos a una factura
+	 * Description: Permite crear una factura y agregar un producto por primera vez
 	 * @param date
 	 * @param paymentType
 	 * @param factureNumber
@@ -52,9 +52,9 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 		
 	}
 	/**
-	 * Descripcion: Permite buscar una factua en la lista de facturas
+	 * Descripcion: Permite buscar una factura en la lista de facturas
 	 * @param factureNumber
-	 * @return
+	 * @return Factura que con cuerda con la id
 	 * @throws noMatchesException
 	 */
 	public CommercialInvoice searchInvoice(String factureNumber) throws noMatchesException {
@@ -167,10 +167,16 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 		toUpdate.setDate(date);
 		toUpdate.setPaymentType(paymentType);
 	}
+	/**
+	 * Description: Devuelve en un String cada uno de los productos y los costos parciales y totales de la factura
+	 * @param factureNumber
+	 * @return La informacion de la factura que concuerda con la id
+	 * @throws noMatchesException
+	 */
 	public String printCommercialInvoice(String factureNumber) throws noMatchesException {
 		String msg = "";
 		CommercialInvoice invoice = searchInvoice(factureNumber);
-		msg = invoice.printProducts() + "\n" +invoice.printProducts() + "\n" +invoice.subTotal() +"\n"+invoice.calculateSavings()+"\n" + invoice.getTotalPrice();
+		msg = invoice.printProducts()+ "\n" +invoice.subTotal() +"\n"+invoice.calculateSavings()+"\n" + invoice.getTotalPrice();
 		return msg;	
 	}
 	/*

@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.CollectionUtils;
 
+import exceptions.insufficientQuantityException;
 import exceptions.noMatchesException;
 import exceptions.repeatedCustomerException;
 import exceptions.unavaiableIdException;
@@ -25,7 +26,7 @@ import model.Worker;
 class SuperMarketAppTest {
 	private SuperMarketApp superMarket;
 	
-	private void setUpSceneTestAddition() throws unavaiableIdException {
+	private void setUpSceneTestAddition() throws unavaiableIdException, noMatchesException, insufficientQuantityException, repeatedCustomerException {
 		superMarket = new SuperMarketApp();
 		superMarket.createNewAdministrator("Carlos", "12346", "Comeva","400000", "7");
 		superMarket.createNewAdministrator("Juam", "12356", "Comeva","500000", "3");
@@ -33,19 +34,23 @@ class SuperMarketAppTest {
 		superMarket.createNewManager("Chino", "12334", "Colsanitas", "233344", "12", "1 año");
 		superMarket.createNewManager("Juan", "123234", "Colsanitas", "1000000", "8", "1 año");
 		superMarket.createNewManager("Samuel", "12332334", "Colsanitas", "263331", "15", "1 año");
+		superMarket.addLoyalClient("12", "Alberto", "12", "carlos@daid", "322", "2019", "masterCrad2233");
+		//superMarket.add
+		superMarket.addUnityProduct("1", "Carro", "No aplica", "12000", "Familiar", "5");
+		superMarket.createInvoice("1", "4", "2019", "Efecivo", "1", "12");
 	}
 	private void setUpSceneSameId() throws unavaiableIdException {
 		superMarket = new SuperMarketApp(); 
 		superMarket.createNewAdministrator("Carlos", "1", "Comeva","400000", "7");
 		superMarket.createNewAdministrator("Juam", "12", "Comeva","500000", "3");
 		superMarket.createNewAdministrator("Victor", "123", "Comeva","200000", "8");
-		superMarket.createNewManager("Chino", "1", "Colsanitas", "233344", "12", "1 año");
+		superMarket.createNewManager("Chino", "1", "Colsanitas", "233344", "12", "1 año"); 
 		superMarket.createNewManager("Juan", "1234", "Colsanitas", "1000000", "8", "1 año");
 		superMarket.createNewManager("Samuel", "12345", "Colsanitas", "263331", "15", "1 año");
 	}
 	
 	@Test
-	void testAddition() throws unavaiableIdException {
+	void testAddition() throws unavaiableIdException, noMatchesException, insufficientQuantityException, repeatedCustomerException {
 		setUpSceneTestAddition();
 		ArrayList<Worker> workers = superMarket.getWorkers();
 		ArrayList<Worker> handMadeWorker = new ArrayList<Worker>();
@@ -64,23 +69,28 @@ class SuperMarketAppTest {
 		assertEquals(workers.toString(), handMadeWorker.toString());
 	}
 	@Test
-	 void testAddSameId() throws unavaiableIdException {
-		setUpSceneSameId();
-		ArrayList<Worker> workers = superMarket.getWorkers();
-		assertEquals("[Administrator [getName()=Carlos, getId()=1, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12, getSalary()=500000, getExperience()=3, Administrator [getName()=Victor, getId()=123, getSalary()=200000, getExperience()=8, Manager [contract=1 año, getName()=Juan, getId()=1234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12345, getSalary()=263331, getExperience()=15]", workers.toString());
+	 void testAddSameId() {
+		try {
+			setUpSceneSameId();
+			ArrayList<Worker> workers = superMarket.getWorkers();
+			assertEquals("[Administrator [getName()=Carlos, getId()=1, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12, getSalary()=500000, getExperience()=3, Administrator [getName()=Victor, getId()=123, getSalary()=200000, getExperience()=8, Manager [contract=1 año, getName()=Juan, getId()=1234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12345, getSalary()=263331, getExperience()=15]", workers.toString());
+			fail();
+		} catch (unavaiableIdException e) {
+			System.out.println("Pass!");
+		}
 	}
 	@Test
-	 void testDelete() throws unavaiableIdException {
+	 void testDelete() throws unavaiableIdException, noMatchesException, insufficientQuantityException, repeatedCustomerException {
 		setUpSceneTestAddition();
 		superMarket.deleteWorker("123487");
 		ArrayList<Worker> workers = superMarket.getWorkers();
 		assertEquals("[Administrator [getName()=Carlos, getId()=12346, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12356, getSalary()=500000, getExperience()=3, Manager [contract=1 año, getName()=Chino, getId()=12334, getSalary()=233344, getExperience()=12, Manager [contract=1 año, getName()=Juan, getId()=123234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12332334, getSalary()=263331, getExperience()=15]",workers.toString());
 	}
 	@Test
-	 void testDeleteNoneExistentId() throws unavaiableIdException {
+	 void testDeleteNoneExistentId() throws unavaiableIdException, noMatchesException, insufficientQuantityException, repeatedCustomerException {
 		setUpSceneTestAddition();
 		superMarket.deleteWorker("9999");
-		ArrayList<Worker> workers = superMarket.getWorkers();
+		ArrayList<Worker> workers = superMarket.getWorkers(); 
 		assertEquals("[Administrator [getName()=Carlos, getId()=12346, getSalary()=400000, getExperience()=7, Administrator [getName()=Juam, getId()=12356, getSalary()=500000, getExperience()=3, Administrator [getName()=Victor, getId()=123487, getSalary()=200000, getExperience()=8, Manager [contract=1 año, getName()=Chino, getId()=12334, getSalary()=233344, getExperience()=12, Manager [contract=1 año, getName()=Juan, getId()=123234, getSalary()=1000000, getExperience()=8, Manager [contract=1 año, getName()=Samuel, getId()=12332334, getSalary()=263331, getExperience()=15]",workers.toString());
 	}
 	private void setUpSceneAddRealStates() throws unavaiableIdException {
@@ -124,10 +134,16 @@ class SuperMarketAppTest {
 	}
 	
 	@Test
-	 void testAddSameIdRealState() throws unavaiableIdException {
-		setUpSceneRealStateSameId();
-		ArrayList<Realstate> realStates = superMarket.getRealStates();
-		assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=1], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=12], PublicState [maintenance=23/11/2020, getQuantity()=15, getBuyYear()=23/11/2019, getName()=Caja registradora, getId()=123], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=1234], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=12345]]",realStates.toString());
+	 void testAddSameIdRealState() {
+		try {
+			setUpSceneRealStateSameId();
+			ArrayList<Realstate> realStates = superMarket.getRealStates();
+			assertEquals("[PublicState [maintenance=23/11/2020, getQuantity()=200, getBuyYear()=23/11/2019, getName()=Carrito de Supermercado, getId()=1], PublicState [maintenance=23/11/2020, getQuantity()=50, getBuyYear()=23/11/2019, getName()=Canasta de Supermercado, getId()=12], PublicState [maintenance=23/11/2020, getQuantity()=15, getBuyYear()=23/11/2019, getName()=Caja registradora, getId()=123], PrivateState [getQuantity()=5, getBuyYear()=23/11/2019, getName()=Carrito de cafe, getId()=1234], PrivateState [getQuantity()=7, getBuyYear()=23/11/2019, getName()=Sofas, getId()=12345]]",realStates.toString());
+			fail();
+		} catch (unavaiableIdException e) {
+			System.out.println("Pass!");
+		}
+		
 	}
 	@Test
 	void testDeleteRealState() throws unavaiableIdException {
@@ -169,4 +185,27 @@ class SuperMarketAppTest {
 		assertEquals("UnityProduct [quantity=10, getId()=1, getName()=panela, getBestBefore()=hoy, getPrice()=120000.0, getProductType()=dulce]", product0.toString());
 		assertEquals("WeightProduct [weight=120000.0, getId()=2, getName()=carne, getBestBefore()=hoy, getPrice()=12333.0, getProductType()=proteina]", product1.toString());
 	}
+	/*
+	@Test
+	void testValueChange()  {
+		try {
+			setUpSceneTestAddition();
+		} catch (unavaiableIdException e) {
+			fail();
+		} catch (noMatchesException e) {
+			fail();
+		} catch (insufficientQuantityException e) {
+			fail();
+		} catch (repeatedCustomerException e) {
+			fail();
+		}
+		try {
+			superMarket.addMoreProductsToTheInvoice("1", "1", 1);
+			superMarket.printInvoice("1");
+			assertEquals(0,superMarket.printInvoice("1"));
+		} catch (noMatchesException e) {
+			fail();
+		}
+	}
+	*/
 }

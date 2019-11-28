@@ -17,7 +17,7 @@ public abstract class Realstate implements DateRegistrator, Serializable{
 		this.id = id;
 	}
 	public int getQuantity() {
-		return quantity;
+		return quantity; 
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;

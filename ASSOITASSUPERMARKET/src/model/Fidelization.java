@@ -13,19 +13,46 @@ public class Fidelization implements ClientUpdater, Serializable{
 	public Fidelization() {
 		
 	}
+	/**
+	 * Description: Permite obtener la raiz dl arbl de los clientes de tipo leal
+	 * @return raiz del arbol
+	 */
 	public LoyalClient getRootLoyal() {
 		return rootLoyal;
 	}
-	public void setRootLoyal(LoyalClient rootLoyal) {
+	/**
+	 * Description: Permite modificar el calor de la raiz del arbol de clientes leales
+	 * @param rootLoyal nuevo cliete leal que quiero agregar como raiz
+	 */
+	public void setRootLoyal(LoyalClient rootLoyal) { 
 		this.rootLoyal = rootLoyal;
 	}
+	/**
+	 * Description: Permite obtener la raiz del arbol de los clientes de tipo corriente
+	 * @return raiz del arbol
+	 */
 	public CurrentClient getRootCurrent() {
 		return rootCurrent;
 	}
+	/**
+	 * Description: Permite modificar el calor de la raiz del arbol de clientes corrientes
+	 * @param rootLoyal nuevo cliete corriente que quiero agregar como raiz
+	 */
 	public void setRootCurrent(CurrentClient rootCurrent) {
 		this.rootCurrent = rootCurrent;
 	}
 	//---------------------------------------------------> LOYAL CLIENT 
+	/**
+	 * Description: Permite insertar y crear un nuevo cliente de tipo leal al arbol ABB de clientes leales
+	 * @param id Id del cliente leal que quiero agregar 
+	 * @param name nombre del cliente leal que quiero agregar 
+	 * @param age edad del cliente leal que quiero agregar 
+	 * @param email correo del cliente leal que quiero agregar 
+	 * @param points puntos acumulados del cliente leal que quiero agregar 
+	 * @param discountPercent porcentaje de descuento por se cliente fiel del cliente leal que quiero agregar 
+	 * @param dueCard informacion de uso o no de la tarjeta del cliente leal que quiero agregar 
+	 * @throws repeatedCustomerException
+	 */
 	public void insertLoyalClient(String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws repeatedCustomerException {
 		LoyalClient newLoyalClient = new LoyalClient( id,  name,  age,  email,  points,  discountPercent, dueCard);
 		if(rootLoyal == null) {
@@ -34,6 +61,12 @@ public class Fidelization implements ClientUpdater, Serializable{
 			insertLoyalClient(rootLoyal, newLoyalClient); 
 		}
 	}
+	/**
+	 * Description: Dado el caso de que la raiz no sea nula entrara a este metodo recursivo para buscar el lugar indicado para agrgar el nuevo cliente leal al Arbol ABB
+	 * @param currentRoot Raiz actual del arbol abb
+	 * @param newLoyalClient Objeto de tipo cliente leal a insertar 
+	 * @throws repeatedCustomerException si el cliente que se quiere registar tiene una id iguama la de un cliente aniadido antes lanzara esta exception
+	 */
 	private void insertLoyalClient(LoyalClient currentRoot, LoyalClient newLoyalClient) throws repeatedCustomerException {
 		if(currentRoot.getId().compareTo(newLoyalClient.getId())!=0) {
 			if(currentRoot.getId().compareTo(newLoyalClient.getId())>0) {
@@ -53,6 +86,13 @@ public class Fidelization implements ClientUpdater, Serializable{
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
+	/**
+	 * Description: Permite buscar un cliente leal agregado antes al Arbol ABB 
+	 * @param id Del cliente que se quiere buscar
+	 * @return Objeto de tipo cliente leal encontrado
+	 * @throws noMatchesException si la id del cliente buscado no existe 
+	 * @throws NullPointerException
+	 */
 	public LoyalClient searchLoyalClientWithId(String id) throws noMatchesException, NullPointerException {
 		LoyalClient msg = null;
 		if(rootLoyal != null) {
@@ -66,6 +106,13 @@ public class Fidelization implements ClientUpdater, Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Si 
+	 * @param currentRoot
+	 * @param id
+	 * @return
+	 * @throws noMatchesException
+	 */
 	private LoyalClient searchLoyalClientWithId(LoyalClient currentRoot, String id) throws noMatchesException {
 		LoyalClient msg = null;
 		if(currentRoot.getId().compareTo(id)<0) {

@@ -43,7 +43,7 @@ public class SuperMarketApp {
 		cashRegister = new CashRegister(/*this*/);
 		//loadEverythig();
 	}
-
+ 
 	public Inventory getInventory() {
 		return inventory;
 	}
@@ -420,7 +420,7 @@ public class SuperMarketApp {
 
 	// ------------------------------------------>CASH REGISTER
 	public void createInvoice(String productId, String requiredQuantity, String date, String paymentType,
-		String factureNumber, String clientId) throws noMatchesException, insufficientQuantityException {
+		String factureNumber, String clientId) throws noMatchesException, insufficientQuantityException, NullPointerException {
 		double requiredQuantityC = Double.parseDouble(requiredQuantity);
 		ArrayList<Product> products = new ArrayList<Product>();
 		if (searchGeneralProducts(productId) instanceof WeightProduct) {
@@ -466,13 +466,13 @@ public class SuperMarketApp {
 		 if(product instanceof WeightProduct) {
 				updateQuantityWeight(productId, requiredQuantity);
 				WeightProduct tmpWeight = (WeightProduct) product;
-				tmpWeight.setWeight(requiredQuantity);
+				tmpWeight.setWeight(tmpWeight.getWeight()-requiredQuantity);
 				invoice.getProducts().add(tmpWeight);
 			} else {
 				int requiredQuantityC = (int) requiredQuantity;
 				updateQuantityUnity(productId, requiredQuantityC);
 				UnityProduct tmpUnity = (UnityProduct) product;
-				tmpUnity.setQuantity(requiredQuantityC);
+				tmpUnity.setQuantity(tmpUnity.getQuantity()-requiredQuantityC);
 				invoice.getProducts().add(tmpUnity);
 			}
 	}
@@ -484,13 +484,12 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	} 
-	public String printInvoice(String facturenumber) {
+	public String printInvoice(String facturenumber) throws noMatchesException {
 		String msg = "";
 		try {
 			msg = cashRegister.printCommercialInvoice(facturenumber);
 		} catch (noMatchesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new noMatchesException("Failure");
 		}
 		return msg;
 	}
