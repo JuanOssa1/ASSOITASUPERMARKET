@@ -29,7 +29,8 @@ public class SuperMarketApp {
 	private ArrayList<Realstate> realStates;
 	private MediaPlayer mediaPlayer;
 	public static String FLATWORKERS = "marketRecords//worker.txt";
-	public static String FLATREALSTATES = "marketRecords//realStates.txt";
+	public static String FLATPUBLICSTATES = "marketRecords//realStates.txt";
+	public static String FLATPRIVATESTATES = "marketRecords//privateStates.txt";
 	public static String SERIALIZEINVENTORY = "./marketRecords/inventory.dat";
 	public static String SERIALIZEFIDELIZATION = "./marketRecords/fidelization.dat";
 	public static String SERIALIZECASHREGISTER = "./marketRecords/cashRegister.dat";
@@ -106,6 +107,8 @@ public class SuperMarketApp {
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
 			throw new unavaiableIdException("Error");
+		} catch (NumberFormatException e) {
+			
 		}
 		//return msg;
 	}
@@ -122,6 +125,8 @@ public class SuperMarketApp {
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
 			throw new unavaiableIdException("Error");
+		} catch (NumberFormatException e) {
+			
 		}
 		return msg;
 	}
@@ -160,6 +165,8 @@ public class SuperMarketApp {
 		} catch (unavaiableIdException e) {
 			msg = "El id " + id + " ya se encuentra usado";
 			throw new unavaiableIdException("Error");
+		} catch (NumberFormatException e) {
+			
 		}
 		//return msg;
 	}
@@ -175,6 +182,8 @@ public class SuperMarketApp {
 		} catch (unavaiableIdException e) {
 			//msg = "El id " + id + " ya se encuentra usado";
 			throw new unavaiableIdException("Error");
+		} catch (NumberFormatException e) {
+			
 		}
 		//return msg;
 	}
@@ -233,8 +242,12 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
-	public void deleteUnityProduct() {
-		// inventory
+	public void deleteUnityProduct(String id) throws noMatchesException {
+		try {
+			inventory.deleteUnityProduct(id);
+		} catch (noMatchesException e) {
+			throw new noMatchesException("Error");
+		}
 	}
 
 	// WEIGHT<---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -270,14 +283,19 @@ public class SuperMarketApp {
 		try {
 			inventory.updateWeightProductData(id, name, bestBefore, priceC, productType, weightC);
 		} catch (noMatchesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+		} catch (NumberFormatException e) {
+			
 		}
 	}
 
 	// NOT TESTED!!!!
-	public void deleteWeightProduct() {
-		// inventory
+	public void deleteWeightProduct(String id) throws noMatchesException {
+		try {
+			inventory.deleteWeightProduct(id);
+		} catch (noMatchesException e) {
+			throw new noMatchesException("Error!");
+		}
 	}
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------->FIDELIZATION
@@ -321,14 +339,10 @@ public class SuperMarketApp {
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			
 		}
 	}
-
-	// TESTED
-	public void deleteLoyalClient() {
-
-	}
-
 	// CURRENT<------------------------------------------------------------------------------------------------------------------------------------------------------
 	// TESTED!!!!
 	public void addCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
@@ -338,7 +352,6 @@ public class SuperMarketApp {
 			throw new repeatedCustomerException("Error");
 		}
 	}
-
 	// TESTED!!!!
 	public String searchCurrentClient(String id) {
 		String msg = "";
@@ -593,10 +606,10 @@ public class SuperMarketApp {
 	// ------------------------------------------> SISTEMAS DE CARGA
 	// POR VERFICIAR:
 	// ---->CHECK! writeFlatRealStates()
-	public String loadRealStates() {
+	public String loadRealPublic() {
 		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
-			File file = new File(FLATREALSTATES);
+			File file = new File(FLATPUBLICSTATES);
 			FileReader frReader = new FileReader(file);
 			BufferedReader bufferRead = new BufferedReader(frReader);
 			String saveString;
@@ -607,12 +620,7 @@ public class SuperMarketApp {
 				String name = parts[2];
 				String id = parts[3];
 				String maintenance = parts[4];
-				if (maintenance != null) {
-					createNewPublicState(quantity, buyYear, name, id, maintenance);
-				} else {
-					createNewPrivateState(quantity, buyYear, name, id);
-				}
-
+				createNewPublicState(quantity, buyYear, name, id, maintenance);
 			}
 			bufferRead.close();
 			frReader.close();
@@ -621,22 +629,56 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
-
-	public void saveRealStates() {
+	public void saveRealStatesPublic() {
 		try {
-			File file = new File(FLATREALSTATES);
+			File file = new File(FLATPUBLICSTATES);
 			FileWriter filwri = new FileWriter(file);
 			BufferedWriter buffer = new BufferedWriter(filwri);
 			for (int i = 0; i < realStates.size(); i++) {
-				if (realStates.get(i) instanceof PublicState) {
+				if(realStates.get(i) instanceof PublicState) {
 					PublicState publicState = (PublicState) realStates.get(i);
 					buffer.write(publicState.getQuantity() + "," + publicState.getBuyYear() + ","
-							+ publicState.getName() + "," + publicState.getId() + "," + publicState.getMaintenance());
-				} else {
-					PrivateState privateState = (PrivateState) realStates.get(i);
+							+ publicState.getName() + "," + publicState.getId() + "," + publicState.getMaintenance()+"\n");
+				}		
+			}
+			buffer.close();
+			filwri.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
+	public String loadRealPrivate() {
+		String msg = "DATOS CARGADOS CON EXITO!!!";
+		try {
+			File file = new File(FLATPRIVATESTATES);
+			FileReader frReader = new FileReader(file);
+			BufferedReader bufferRead = new BufferedReader(frReader);
+			String saveString;
+			while ((saveString = bufferRead.readLine()) != null) {
+				String[] parts = saveString.split(",");
+				String quantity = parts[0];
+				String buyYear = parts[1];
+				String name = parts[2];
+				String id = parts[3];
+				createNewPrivateState(quantity, buyYear, name, id);
+			}
+			bufferRead.close();
+			frReader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	public void saveRealStatesPrivate() {
+		try {
+			File file = new File(FLATPRIVATESTATES);
+			FileWriter filwri = new FileWriter(file);
+			BufferedWriter buffer = new BufferedWriter(filwri);
+			for (int i = 0; i < realStates.size(); i++) {
+				if(realStates.get(i) instanceof PrivateState) {}
+				PrivateState privateState = (PrivateState) realStates.get(i);
 					buffer.write(privateState.getQuantity() + "," + privateState.getBuyYear() + ","
-							+ privateState.getName() + "," + privateState.getId());
-				}
+							+ privateState.getName() + "," + privateState.getId() +"\n");
 			}
 			buffer.close();
 			filwri.close();
@@ -644,7 +686,8 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	// ----------------------------------->SISTEMAS DE SERIALIZACION INVENTORY
 	public void saveInventory() {
 		try {
@@ -747,7 +790,8 @@ public class SuperMarketApp {
 		loadCashRegisater();
 		loadFidelization();
 		loadInventory();
-		loadRealStates();
+		loadRealPublic();
+		loadRealPrivate();
 		loadManagers();
 	} 
 
@@ -757,7 +801,8 @@ public class SuperMarketApp {
 		saveCashRegister();
 		saveFidelization();
 		saveInventory();
-		saveRealStates();
+		saveRealStatesPublic();
+		saveRealStatesPrivate();
 		saveManagers();
 	}
 }
