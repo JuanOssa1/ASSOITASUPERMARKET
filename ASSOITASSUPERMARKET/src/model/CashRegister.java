@@ -11,7 +11,7 @@ import logicInterfaces.InvoiceUpdater;
 public class CashRegister implements InvoiceUpdater, Serializable{
 	private CommercialInvoice firstInvoice;
 	private SuperMarketApp superMarket;
-	public CashRegister(/*SuperMarketApp superMarket*/) {
+	public CashRegister(/*SuperMarketApp superMarket*/) { 
 		/*this.superMarket = superMarket;*/
 		this.firstInvoice = null; 
 	}

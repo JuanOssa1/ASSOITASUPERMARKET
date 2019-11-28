@@ -24,5 +24,12 @@ public class Manager extends Worker implements Serializable{
 		return "Manager [contract=" + contract + ", getName()=" + getName() + ", getId()=" + getId() + ", getSalary()="
 				+ getSalary() + ", getExperience()=" + getExperience();
 	}
-	
+	/**
+	 * Description: Permite acceder al valor de los atributos de un objeto Manager
+	 * gets()*
+	 */
+	/**
+	 * Description: Permite modificar los valores de los atributos de un objeto Manager
+	 * sets()*
+	 */
 }

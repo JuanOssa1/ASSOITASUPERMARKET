@@ -26,7 +26,7 @@ public class LoyalClient extends Client implements Serializable{
 	}
 	public void setDiscountPercent(double discountPercent) {
 		this.discountPercent = discountPercent;
-	}
+	} 
 	public String getDueCard() {
 		return dueCard;
 	}
@@ -46,11 +46,20 @@ public class LoyalClient extends Client implements Serializable{
 		this.right = right;
 	}
 	@Override
+	/**
+	 * Description: Convierte todos los valores de los atributos de loyal client a String
+	 */
 	public String toString() {
 		return "LoyalClient [points=" + points + ", discountPercent=" + discountPercent + ", dueCard=" + dueCard
 				+ ", getId()=" + getId() + ", getName()=" + getName() + ", getAge()=" + getAge() + ", getEmail()="
 				+ getEmail() + "]";
 	}
 	
-	
+	/**
+	 * Description: Permite Acceder al valor de los atributos de un objeto loyal client
+	 * gets()*
+	 */
+	/**
+	 * Description: Permite modificar los valores de los atributos de un objeto loyal client
+	 */
 }

@@ -5,16 +5,27 @@ import java.io.Serializable;
 import exceptions.insufficientQuantityException;
 import exceptions.noMatchesException;
 import exceptions.unavaiableIdException;
+import logicInterfaces.ProductUpdater;
 
-public class Inventory implements Serializable{
+public class Inventory implements ProductUpdater, Serializable{
 	private UnityProduct firstUnity;
 	private WeightProduct firstWeight;
 	public Inventory() {
 		
 	}
+	/**
+	 * gets()*
+	 * Description: Permite obtener los valores de los atributos del objeto Inventory
+	 * @return
+	 */
 	public UnityProduct getFirstUnity() {
 		return firstUnity;
 	}
+	/** 
+	 * sets()*
+	 * Description: Permite modificar los valores de los atributos de Inventory
+	 * @param firstUnity
+	 */
 	public void setFirstUnity(UnityProduct firstUnity) {
 		this.firstUnity = firstUnity; 
 	}
@@ -25,6 +36,16 @@ public class Inventory implements Serializable{
 		this.firstWeight = firstWeight;
 	}
 	//-----------------------------------> ADDER OF UNITIES
+	/**
+	 * Description: Permite agregar un producto unity a la lista
+	 * @param id
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param quantity
+	 * @throws unavaiableIdException
+	 */
 	public void addUnityProductToTheList(String id, String name, String bestBefore, double price, String productType, int quantity) throws unavaiableIdException {
 		validateAvaiablityOfTheId(id);
 		validateAvaiablityOfTheIdWeight(id);
@@ -40,63 +61,12 @@ public class Inventory implements Serializable{
 			unityProduct.setPrevius(newReference);
 		}
 	}
-	/*
-	public String deleteUnityProductOfTheList(String name) throws noCharacterFindedException {
-		NarutoCharacter newReference = first;
-		NarutoCharacter before = null;
-		NarutoCharacter after = null;
-		String msg = "";
-		//NarutoCharacter temporalCharacter = null;
-		while(newReference != null) {
-			if(newReference.getName().equals(name)) {
-				
-				msg = newReference.toString();
-				before = newReference.getPrevius();
-				after = newReference.getNext();
-				if(before != null && after != null) {
-					before.setNext(after);
-					after.setPrevius(before);
-				}
-				else if(before == null && after == null) {
-					afterAndBeforeAreNull(newReference);
-				}
-				else if(before != null && after == null) {
-					afterAreNull(newReference);
-				}
-				else if(before == null && after != null) {
-					beforeAreNull(newReference);
-				}
-			}
-			newReference = newReference.getNext();
-		}
-		if(msg == "") {
-			throw new noCharacterFindedException("Error!");
-		}
-		return msg;
-	}
-	private String afterAndBeforeAreNull(NarutoCharacter nCharacter) {
-		NarutoCharacter newReference = nCharacter;
-		String msg ="Eliminado:"+" "+newReference.toString();
-		newReference = null;
-		return msg;
-	}
-	private String afterAreNull(NarutoCharacter nCharacter) {
-		NarutoCharacter newReference = nCharacter;
-		String msg = "Eliminado:"+ " "+newReference.toString();
-		NarutoCharacter newReferenceCharacter = newReference.getPrevius();
-		first = newReferenceCharacter;
-		first.setNext(null);
-		return msg;
-	}
-	private String beforeAreNull(NarutoCharacter nCharacter) {
-		NarutoCharacter newReference = nCharacter;
-		String msg = "Eliminado:"+ " "+newReference.toString();
-		NarutoCharacter newReferenceCharacter = newReference.getNext();
-		first = newReferenceCharacter;
-		first.setPrevius(null);
-		return msg;
-	}
-	*/
+	/**
+	 * Description: Permite buscar un producto de tipo unidad con su id
+	 * @param id
+	 * @return
+	 * @throws noMatchesException
+	 */
 	public UnityProduct searchUnityProduct(String id) throws noMatchesException {
 		validateExistenceOfId(id);
 		UnityProduct newReference = firstUnity;
@@ -111,6 +81,11 @@ public class Inventory implements Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: Permite validad si existe una id de producto unidad
+	 * @param id
+	 * @throws noMatchesException
+	 */
 	private void validateExistenceOfId(String id) throws noMatchesException {
 		UnityProduct newReference = firstUnity;
 		String msg = "";
@@ -126,6 +101,17 @@ public class Inventory implements Serializable{
 			throw new noMatchesException("Fatal failure! Check!");
 		}
 	}
+	/**
+	 * Description: Permite actualizar la informacion de los productos por unidad 
+	 * @param id
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param quantity
+	 * @return
+	 * @throws noMatchesException
+	 */
 	public String updateUnityProductData(String id, String name, String bestBefore, double price, String productType, int quantity) throws noMatchesException {
 		validateExistenceOfId(id);
 		UnityProduct unityToUpdate = firstUnity;
@@ -146,6 +132,11 @@ public class Inventory implements Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: Permite validar si una ID ya fue usada o no en unityProduct
+	 * @param id
+	 * @throws unavaiableIdException
+	 */
 	private void validateAvaiablityOfTheId(String id) throws unavaiableIdException{
 		UnityProduct newReference = firstUnity;
 		boolean centinel = false;
@@ -157,36 +148,16 @@ public class Inventory implements Serializable{
 			newReference = newReference.getNext();
 		}	
 	}
-	/*
-	public void organizeListWithBubble() {
-		UnityProduct newPrevius = null;
-		UnityProduct newNext = null;
-		UnityProduct oToOrganize = firstUnity;
-				while(oToOrganize != null ){
-				newNext = oToOrganize.getNext();
-				newPrevius = oToOrganize.getPrevius();
-				if(newPrevius != null && newNext != null) {
-					if(newPrevius.getId().compareTo(newNext.getId())>0) {
-						firstUnity = oToOrganize;
-						oToOrganize.getPrevius().setNext(oToOrganize.getNext());
-						oToOrganize.getPrevius().setPrevius(oToOrganize);
-						oToOrganize.getNext().setPrevius(oToOrganize.getPrevius());
-						oToOrganize.setNext(oToOrganize.getPrevius());	
-					}
-				}
-				else if(newPrevius == null && newNext != null) {
-					if(oToOrganize.getId().compareTo(newNext.getId())>0) {
-						firstUnity = newNext;
-						newNext.getPrevius().setNext(newNext.getNext());
-						newNext.getPrevius().setPrevius(newNext);
-						newNext.getNext().setPrevius(newNext.getPrevius());
-						newNext.setNext(newNext.getPrevius());
-					}
-				}
-			oToOrganize = oToOrganize.getNext();
-			}
-		}
-	*/
+	/**
+	 * Description: Permite agregar un producto de tipo peso a la lksta de produictos de peso
+	 * @param id
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param weight
+	 * @throws unavaiableIdException
+	 */
 	//-----------------------------------> ADDER OF WEIGHT
 	public void addWeightProductToTheList(String id, String name, String bestBefore, double price, String productType, double weight) throws unavaiableIdException {
 		validateAvaiablityOfTheId(id);
@@ -203,63 +174,12 @@ public class Inventory implements Serializable{
 			weightProduct.setPrevius(newReference);
 		}
 	}
-	/*
-	public String deleteUnityProductOfTheList(String name) throws noCharacterFindedException {
-		NarutoCharacter newReference = first;
-		NarutoCharacter before = null;
-		NarutoCharacter after = null;
-		String msg = "";
-		//NarutoCharacter temporalCharacter = null;
-		while(newReference != null) {
-			if(newReference.getName().equals(name)) {
-				
-				msg = newReference.toString();
-				before = newReference.getPrevius();
-				after = newReference.getNext();
-				if(before != null && after != null) {
-					before.setNext(after);
-					after.setPrevius(before);
-				}
-				else if(before == null && after == null) {
-					afterAndBeforeAreNull(newReference);
-				}
-				else if(before != null && after == null) {
-					afterAreNull(newReference);
-				}
-				else if(before == null && after != null) {
-					beforeAreNull(newReference);
-				}
-			}
-			newReference = newReference.getNext();
-		}
-		if(msg == "") {
-			throw new noCharacterFindedException("Error!");
-		}
-		return msg;
-	}
-	private String afterAndBeforeAreNull(NarutoCharacter nCharacter) {
-		NarutoCharacter newReference = nCharacter;
-		String msg ="Eliminado:"+" "+newReference.toString();
-		newReference = null;
-		return msg;
-	}
-	private String afterAreNull(NarutoCharacter nCharacter) {
-		NarutoCharacter newReference = nCharacter;
-		String msg = "Eliminado:"+ " "+newReference.toString();
-		NarutoCharacter newReferenceCharacter = newReference.getPrevius();
-		first = newReferenceCharacter;
-		first.setNext(null);
-		return msg;
-	}
-	private String beforeAreNull(NarutoCharacter nCharacter) {
-		NarutoCharacter newReference = nCharacter;
-		String msg = "Eliminado:"+ " "+newReference.toString();
-		NarutoCharacter newReferenceCharacter = newReference.getNext();
-		first = newReferenceCharacter;
-		first.setPrevius(null);
-		return msg;
-	}
-	*/
+	/**
+	 * Description: Permite buscar un producto de tipo peso en la lista de producto de peso con su id
+	 * @param id
+	 * @return
+	 * @throws noMatchesException
+	 */
 	public WeightProduct searchWeightProduct(String id) throws noMatchesException {
 		validateExistenceOfIdWeight(id);
 		WeightProduct newReference = firstWeight;
@@ -274,6 +194,11 @@ public class Inventory implements Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: Permite validar si existe un producto de tipo peso en la lista de productos de tipo peso
+	 * @param id
+	 * @throws noMatchesException
+	 */
 	private void validateExistenceOfIdWeight(String id) throws noMatchesException {
 		WeightProduct newReference = firstWeight;
 		String msg = "";
@@ -289,6 +214,17 @@ public class Inventory implements Serializable{
 			throw new noMatchesException("Fatal failure! Check!");
 		}
 	}
+	/**
+	 * Description: Permite actualiazar los productos de tipo peso
+	 * @param id
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param weight
+	 * @return
+	 * @throws noMatchesException
+	 */
 	public String updateWeightProductData(String id, String name, String bestBefore, double price, String productType, double weight) throws noMatchesException {
 		validateExistenceOfIdWeight(id);
 		WeightProduct weightToUpdate = firstWeight;
@@ -297,6 +233,7 @@ public class Inventory implements Serializable{
 		while(weightToUpdate != null && centinel == false) {
 			if(weightToUpdate.getId().equals(id)) {
 					msg ="El producto libreado actualizado fue"+" "+ weightToUpdate.toString();
+					updateInformartionProduct(weightToUpdate, id, name, bestBefore, price, productType, weight);
 					weightToUpdate.setId(id);
 					weightToUpdate.setName(name);
 					weightToUpdate.setBestBefore(bestBefore);
@@ -309,6 +246,11 @@ public class Inventory implements Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: Permite validar si se puede usar una id ingresada (Si esta repetida)
+	 * @param id
+	 * @throws unavaiableIdException
+	 */
 	private void validateAvaiablityOfTheIdWeight(String id) throws unavaiableIdException{
 		WeightProduct newReference = firstWeight;
 		boolean centinel = false;
@@ -320,6 +262,11 @@ public class Inventory implements Serializable{
 			newReference = newReference.getNext();
 		}	
 	}
+	/**
+	 * Description: Permite eliminar un producto de unidad la la lista de productos unidad
+	 * @param id
+	 * @throws noMatchesException
+	 */
 	public void deleteUnityProduct(String id) throws noMatchesException {
 		validateExistenceOfId(id);
         UnityProduct aux = firstUnity;
@@ -380,4 +327,11 @@ public class Inventory implements Serializable{
 		toUpdate.update(requiredQuantity);
 		return toUpdate;
 	}
+	@Override
+	public void updateInformartionProduct(WeightProduct weight, String id, String name, String bestBefore, double price,
+			String productType, double weigh) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

@@ -303,11 +303,11 @@ public class Fidelization implements ClientUpdater, Serializable{
 		return msg;
 	}
 	/**
-	 * Description: 
-	 * @param id
-	 * @param name
-	 * @param age
-	 * @param email
+	 * Description: Perimte igresar los nuevos atributos ue se e quieren cambiar a un cliente
+	 * @param id Nuevo id
+	 * @param name Nuevo nombre
+	 * @param age Nueva edad
+	 * @param email Buevo correo
 	 * @throws noMatchesException
 	 * @throws NullPointerException
 	 */
@@ -322,6 +322,15 @@ public class Fidelization implements ClientUpdater, Serializable{
 			throw new NullPointerException("No info");
 		}
 	}
+	/**
+	 * Descriotion: Si el metodo anterior no logra actualizar se llama a ete auxiliar
+	 * @param currentRoot Cliente corriente donde se encuentra poscionada la raiz
+	 * @param id Nueva id
+	 * @param name Nuevo nombre
+	 * @param age Nueva edad
+	 * @param email Nuevo email
+	 * @throws noMatchesException
+	 */
 	private void updateCurrentClientWithId(CurrentClient currentRoot, String id, String name, String age, String email) throws noMatchesException {
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
@@ -345,6 +354,9 @@ public class Fidelization implements ClientUpdater, Serializable{
 			}
 		}
 	}
+	/**
+	 * Description: Permite setaear los alores emialy edad delcliente corrente
+	 */
 	@Override
 	public void updateInformartionCurrent(CurrentClient toUpdate,String name, String age, String email) {
 		toUpdate.setName(name);

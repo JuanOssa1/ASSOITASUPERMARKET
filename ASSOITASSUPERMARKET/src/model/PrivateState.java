@@ -8,6 +8,9 @@ public class PrivateState extends Realstate implements Serializable{
 	}
 	
 	@Override
+	/**
+	 * Description: Convierte los valores de los atributos de private State a u String
+	 */
 	public String toString() {
 		return "PrivateState [getQuantity()=" + getQuantity() + ", getBuyYear()=" + getBuyYear() + ", getName()="
 				+ getName() + ", getId()=" + getId() + "]";

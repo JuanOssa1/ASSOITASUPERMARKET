@@ -16,7 +16,7 @@ public class CommercialInvoice implements Serializable{
 	public CommercialInvoice(String date,/* double totalPrice,*/ String paymentType, String factureNumber, ArrayList<Product> products, Client client) {
 		super(); 
 		this.date = date; 
-		/*this.totalPrice = totalPrice;*/
+		/*this.totalPrice = totalPrice;*/ 
 		this.paymentType = paymentType;
 		this.factureNumber = factureNumber;
 		//products = new ArrayList<Product>();
@@ -212,6 +212,33 @@ public class CommercialInvoice implements Serializable{
 		}
 		return msg;
 	}
+	public void ordenarSeleccionObjetosId() {
+        Product auxC;
+        for(int i = 0;i<products.size();i++) {
+            for(int j = i+1; j<products.size();j++) {
+                if(products.get(j).getId().compareTo(products.get(i).getId())<0) {
+                    auxC = products.get(i);
+                    products.set(i, products.get(j));
+                    products.set(j, auxC);
+                }
+            }
+        }
+    }
+	public void ordenarSeleccionObjetosName() {
+        Product auxC;
+        for(int i = 0;i<products.size();i++) {
+            for(int j = i+1; j<products.size();j++) {
+                if(products.get(j).getName().compareTo(products.get(i).getName())<0) {
+                    auxC = products.get(i);
+                    products.set(i, products.get(j));
+                    products.set(j, auxC);
+                }
+            }
+        }
+    }
+	
+	
+	
 	/**
 	 *Description: Convierte cada uno de los atributos de la clase CommercialInvoice a objetos de tipo String 
 	 *@return Un mensaje de tipo String con cada uno de los atributos de la clase commercial Invoice
@@ -221,5 +248,6 @@ public class CommercialInvoice implements Serializable{
 		return "CommercialInvoice [date=" + date + ", totalPrice=" + totalPrice + ", paymentType=" + paymentType
 				+ ", factureNumber=" + factureNumber + ", client=" + client + ", products=" + products + "]";
 	}
+	
 	
 }

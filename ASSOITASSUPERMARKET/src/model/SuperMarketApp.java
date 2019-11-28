@@ -43,11 +43,19 @@ public class SuperMarketApp {
 		cashRegister = new CashRegister(/*this*/);
 		//loadEverythig();
 	}
- 
+	/**
+	 * Description: Permite obtener los valores de los atributos del objeto de tipo superMarket
+	 * gets()*
+	 * @return
+	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
-
+	/**
+	 * Description: Permite actualizar cada uno de los atriubutos de un objeto tipo supermarket
+	 * sets()*
+	 * @param inventory
+	 */
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
@@ -83,7 +91,11 @@ public class SuperMarketApp {
 	public void setRealStates(ArrayList<Realstate> realStates) {
 		this.realStates = realStates;
 	}
-
+	/**
+	 * Description: Valida si la in de un trabajador existe
+	 * @param id
+	 * @throws unavaiableIdException
+	 */
 	// -----------------------> Workers
 	private void validateAvailabilityOfTheId(String id) throws unavaiableIdException {
 		for (int i = 0; i < workers.size(); i++) {
@@ -94,6 +106,17 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
+	/**
+	 * Description: Permine crear un nuevo trabajador de tipo gerente
+	 * params*: Cada uno de los valores que quiero asignar a los atributos
+	 * @param name
+	 * @param id
+	 * @param eps
+	 * @param salary
+	 * @param experience
+	 * @param contract
+	 * @throws unavaiableIdException
+	 */
 	public void createNewManager(String name, String id, String eps, String salary, String experience,
 			String contract) throws unavaiableIdException {
 		// "Letter C summary of -C-onverted"
@@ -114,6 +137,17 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
+	/**
+	 * Description: Permite crear un nuevo trajador de tipo administrador
+	 * params*: Cada uno de los valores que quiero asignar a los atributos del objeto de tipo administrador
+	 * @param name
+	 * @param id
+	 * @param eps
+	 * @param salary
+	 * @param experience
+	 * @return
+	 * @throws unavaiableIdException
+	 */
 	public String createNewAdministrator(String name, String id, String eps, String salary, String experience) throws unavaiableIdException {
 		String msg = "";
 		int salaryC = Integer.parseInt(salary);
@@ -132,6 +166,10 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
+	/**
+	 * Description: Permite eliminar un trabajador dando su id
+	 * @param Id ID del trabajador a eliminar
+	 */
 	public String deleteWorker(String id) {
 		String msg = "";
 		for (int i = 0; i < workers.size(); i++) {
@@ -146,6 +184,11 @@ public class SuperMarketApp {
 	}
 
 	// --------------------------> Realstates
+	/**
+	 * Description: Valida si una id ya esta usada o no
+	 * @param id Id que quiero comprobar
+	 * @throws unavaiableIdException
+	 */
 	private void validateAvailabilityOfTheIdRealstate(String id) throws unavaiableIdException {
 		for (int i = 0; i < realStates.size(); i++) {
 			if (realStates.get(i).getId().equals(id)) {
@@ -155,6 +198,16 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
+	
+	/**
+	 * Description: Permite crear inmobiliario de tipo privado
+	 * params*: Valores que le quiero asignar a cada uno de los atributos del objeto administrador
+	 * @param quantity
+	 * @param buyYear
+	 * @param name
+	 * @param id
+	 * @throws unavaiableIdException
+	 */
 	public void createNewPrivateState(String quantity, String buyYear, String name, String id) throws unavaiableIdException {
 		String msg = "";
 		int quantityC = Integer.parseInt(quantity);
@@ -172,6 +225,16 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
+	/**
+	 * Description: Permite crear un objeto de tipo inmbiliario publico
+	 * params*: Valor que le quiero asignar a cada uno de los atributos del objeto de inmobiliario publico
+	 * @param quantity
+	 * @param buyYear
+	 * @param name
+	 * @param id
+	 * @param maintenance
+	 * @throws unavaiableIdException
+	 */
 	public void createNewPublicState(String quantity, String buyYear, String name, String id, String maintenance) throws unavaiableIdException {
 		String msg = "Aniadido Exitosamente";
 		int quantityC = Integer.parseInt(quantity);
@@ -189,6 +252,11 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!
+	/**
+	 * Description: Permite eliminar un inmobiliario con la id asignada previamente
+	 * @param id Id del producto que quiero eliminar
+	 * @return
+	 */
 	public String deleteRealState(String id) {
 		String msg = "";
 		for (int i = 0; i < realStates.size(); i++) {
@@ -205,6 +273,17 @@ public class SuperMarketApp {
 	// ------------------------------------------>INVENTORY
 	// UNITY<----------------------------------------------------------------------------------------------------------------------------------------------------
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite agregar un producto de tipo unidad a la lsta de productos de tipo unidad
+	 * params* Valores que le quiero asignar a cada uno de los atributos del objeto tipo producto unidad
+	 * @param id
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param quantity
+	 * @throws unavaiableIdException
+	 */
 	public void addUnityProduct(String id, String name, String bestBefore, String price, String productType,
 			String quantity) throws unavaiableIdException {
 		double priceC = Double.parseDouble(price);
@@ -217,6 +296,11 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite buscar un producto de tipo unidad con su id
+	 * @param id ID del producto que quiero buscar
+	 * @return
+	 */
 	public UnityProduct searchUnityProduct(String id) {
 		UnityProduct unity = null;
 		try {
@@ -229,6 +313,16 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite actualizar el valor de los atributos de un objeto de tipo unity Product
+	 * params*: Cada uno de los valores de los atributos que quiero reasignar a un objeto
+	 * @param id: Id producto por unidad al cual le voy a actualizar los atrbutos
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param quantity
+	 */
 	public void updateUnityProduct(String id, String name, String bestBefore, String price, String productType,
 			String quantity) {
 		double priceC = Double.parseDouble(price);
@@ -242,6 +336,11 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite eliminar producto por unidad
+	 * @param id del producto que quiero
+	 * @throws noMatchesException
+	 */
 	public void deleteUnityProduct(String id) throws noMatchesException {
 		try {
 			inventory.deleteUnityProduct(id);
@@ -249,9 +348,21 @@ public class SuperMarketApp {
 			throw new noMatchesException("Error");
 		}
 	}
-
+	
 	// WEIGHT<---------------------------------------------------------------------------------------------------------------------------------------------------
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite un crear un producto de tipo peso y aniadirlo a la lista
+	 * 
+	 * @param id ID para buscar el producto a actualilzar
+	 * params*: Valores de los atributos que quiero reescribir
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param weight
+	 * @throws unavaiableIdException
+	 */
 	public void addWeightProduct(String id, String name, String bestBefore, String price, String productType,
 			String weight) throws unavaiableIdException {
 		Double priceC = Double.parseDouble(price);
@@ -264,6 +375,11 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite buscarun producto de tipo weightProduct
+	 * @param id ID del producto tipo peso que se quiere buscar
+	 * @return el producto buscado de lo contrario excepcion
+	 */
 	public WeightProduct searchWeightProduct(String id) {
 		WeightProduct weight = null;
 		try {
@@ -276,6 +392,16 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite actualizar un producto de tipo peso
+	 * @param id ID del producto que se quiere actualizar
+	 * params*: Valores que quiero reasignar a los atributos del objeto tipo peso
+	 * @param name
+	 * @param bestBefore
+	 * @param price
+	 * @param productType
+	 * @param weight
+	 */
 	public void updateWeightProduct(String id, String name, String bestBefore, String price, String productType,
 			String weight) {
 		Double priceC = Double.parseDouble(price);
@@ -290,6 +416,11 @@ public class SuperMarketApp {
 	}
 
 	// NOT TESTED!!!!
+	/**
+	 * Description: Permite elimiar unproducto de tipo peso de la lista
+	 * @param id ID del productoa eliminar
+	 * @throws noMatchesException
+	 */
 	public void deleteWeightProduct(String id) throws noMatchesException {
 		try {
 			inventory.deleteWeightProduct(id);
@@ -300,6 +431,18 @@ public class SuperMarketApp {
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------->FIDELIZATION
 	// TESTED!!!!
+	/**
+	 * Description: Permite agregar un cliente al arbol de clientes leales
+	 * params*: Valores con los cuales se creara el objeto de tipo loyalClient
+	 * @param id
+	 * @param name
+	 * @param age
+	 * @param email
+	 * @param points
+	 * @param discountPercent
+	 * @param dueCard
+	 * @throws repeatedCustomerException
+	 */
 	public void addLoyalClient(String id, String name, String age, String email, String points, String discountPercent,
 			String dueCard) throws repeatedCustomerException {
 		int pointsC = Integer.parseInt(points);
@@ -312,6 +455,11 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!!!!
+	/**
+	 * Description: Permite buscar un cliente de tipo leal
+	 * @param id Id que le corresponde a cliente leal que quiero buscar
+	 * @return
+	 */
 	public String searchLoyalClient(String id) {
 		String client = null;
 		try {
@@ -327,6 +475,17 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!!!!
+	/**
+	 * Description: Permite actualizar los atributos de un cliente leal 
+	 * @param id ID del cliente que quiero actualizar
+	 * params*: Valores que quiero reasignar a los atributos del objeto buscado
+	 * @param name
+	 * @param age
+	 * @param email
+	 * @param points
+	 * @param discountPercent
+	 * @param dueCard
+	 */
 	public void updateLoyalClient(String id, String name, String age, String email, String points,
 			String discountPercent, String dueCard) {
 		int pointsC = Integer.parseInt(points);
@@ -345,6 +504,15 @@ public class SuperMarketApp {
 	}
 	// CURRENT<------------------------------------------------------------------------------------------------------------------------------------------------------
 	// TESTED!!!!
+	/**
+	 * Description: Permite actualizar los valores de los atributos del cliente corrente
+	 * @param id ID del cliente que quiero actualizar
+	 * params*: Valores de los atributos que quiero reasignar
+	 * @param name
+	 * @param age
+	 * @param email
+	 * @throws repeatedCustomerException
+	 */
 	public void addCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
 		try {
 			fidelization.insertCurrentClient(id, name, age, email);
@@ -353,6 +521,11 @@ public class SuperMarketApp {
 		}
 	}
 	// TESTED!!!!
+	/**
+	 * Description: Permite buscar un cliente corriente con su id
+	 * @param id Id Del cliente corriente que quiero encontrar
+	 * @return String con los atributos de ese cliente corrente
+	 */
 	public String searchCurrentClient(String id) {
 		String msg = "";
 		try {
@@ -368,6 +541,14 @@ public class SuperMarketApp {
 	}
 
 	// TESTED!!!!
+	/**
+	 * Description: Permite actualizar un cliente corriente
+	 * @param id ID del cliente corriente que se va actualizar 
+	 * params*: Valores que quiero actualizar al cliente corriente
+	 * @param name
+	 * @param age
+	 * @param email
+	 */
 	public void updateCurrentClient(String id, String name, String age, String email) {
 		try {
 			fidelization.updateCurrentClientWithId(id, name, age, email);
@@ -379,17 +560,12 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-
-	// NOT TESTED
-	public void deleteCurrentClient(String id, double requiredQuantity) {
-		/*
-		  try { inventory.updateWeight(id, requiredQuantity);
-		  cashRegister.createInVoice(id, requiredQuantity); } catch (noMatchesException
-		  e) { e.printStackTrace(); } catch (insufficientQuantityException e) {
-		  e.printStackTrace(); }
-		*/
-	}
-
+	/**
+	 * Description: Permite actualizar el peso que hay en el inventario el producto de tipo peso 
+	 * @param id ID producto que quiero actualizar
+	 * @param requiredQuantity Cantidad que el usuario va a comprar
+	 * @return retorna el producto de tipo peso
+	 */
 	public WeightProduct updateQuantityWeight(String id, double requiredQuantity) {
 		WeightProduct productW = null;
 		try {
@@ -403,7 +579,12 @@ public class SuperMarketApp {
 		}
 		return productW;
 	}
-
+	/**
+	 * Description:Permite actualizar la cantidad de un producto que hy en el inventario
+	 * @param id
+	 * @param requiredQuantity
+	 * @return
+	 */
 	public UnityProduct updateQuantityUnity(String id, int requiredQuantity) {
 		UnityProduct productU = null;
 		try {
@@ -419,6 +600,18 @@ public class SuperMarketApp {
 	}
 
 	// ------------------------------------------>CASH REGISTER
+	/**
+	 * Description: Permite crear una factura y agregar productos por primera vez
+	 * @param productId ID del producto que se quiere agregar a la factura
+	 * @param requiredQuantity Cantidad requerida del producto
+	 * @param date Fecha de la compra
+	 * @param paymentType Medio de pago que uso en la compra
+	 * @param factureNumber: Numero de la facutra que se le quiere asignar
+	 * @param clientId : Id del cliente que hizo la compra
+	 * @throws noMatchesException
+	 * @throws insufficientQuantityException
+	 * @throws NullPointerException
+	 */
 	public void createInvoice(String productId, String requiredQuantity, String date, String paymentType,
 		String factureNumber, String clientId) throws noMatchesException, insufficientQuantityException, NullPointerException {
 		double requiredQuantityC = Double.parseDouble(requiredQuantity);
@@ -455,12 +648,22 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	public void addMoreProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) throws noMatchesException {
+	/**
+	 * Description: Permite agregar mas productos a una facutra que ya ha sido creada antes
+	 * @param invoiceNumber Numero de la factura a la cual voy a aniadir los nuevos productos
+	 * @param productId Id del producto que se quiere aniadir 
+	 * @param requiredQuantity Cantidad requerida de producto solciada por el usuario
+	 * @throws noMatchesException
+	 * @throws insufficientQuantityException
+	 */
+	public void addMoreProductsToTheInvoice(String invoiceNumber, String productId, double requiredQuantity) throws noMatchesException, insufficientQuantityException {
 		 CommercialInvoice invoice = null;
 		try {
 			invoice = cashRegister.searchInvoice(invoiceNumber);
 		} catch (noMatchesException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			throw new insufficientQuantityException("Error");
 		}
 		 Product product = searchGeneralProducts(productId);
 		 if(product instanceof WeightProduct) {
@@ -476,6 +679,12 @@ public class SuperMarketApp {
 				invoice.getProducts().add(tmpUnity);
 			}
 	}
+	/**
+	 * 
+	 * @param date Nuava fecha que quiero reasignar 
+	 * @param paymentType Nuevo tipp de pago que quiero reasginar
+	 * @param factureNumber numero de la factura que quiero actualizar
+	 */
 	public void updateInvoiceInformation(String date, String paymentType, String factureNumber) {
 		try {
 			/*CommercialInvoice commercial = */cashRegister.updateInvoiceData(date, paymentType, factureNumber);
@@ -484,6 +693,12 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	} 
+	/**
+	 * Description: Permite retornar un objeto de tipo String cin cada una de las propiedades de l factura
+	 * @param facturenumber Numero de la factura que se quiere imprimir 
+	 * @return Objeto de tipo string 
+	 * @throws noMatchesException
+	 */
 	public String printInvoice(String facturenumber) throws noMatchesException {
 		String msg = "";
 		try {
@@ -495,6 +710,12 @@ public class SuperMarketApp {
 	}
 	// ------------------------------------------>CODIGO GENERICO
 	//TESTED!
+	/**
+	 * Description: Permite buscar y retornar un loyalclient o un current client con su id
+	 * @param id Id del cliente que se quiere buscar
+	 * @return objeto de tipo Client
+	 * @throws noMatchesException
+	 */
 	public Client searchGeneralClient(String id) throws noMatchesException {
 		Client client = null;
 		boolean validator = false;
@@ -517,6 +738,12 @@ public class SuperMarketApp {
 		return client;
 	}
 	//TESTED!
+	/**
+	 * Description: Permite buscar productos tanto de unidad como de peso
+	 * @param id Id del producto que se quiere buscar
+	 * @return Product
+	 * @throws noMatchesException
+	 */
 	public Product searchGeneralProducts(String id) throws noMatchesException {
 		Product product = null;
 		boolean validator = false;
@@ -542,6 +769,10 @@ public class SuperMarketApp {
 	// ------------------------------------------> SISTEMAS DE CARGA
 	// POR VERFICIAR:
 	// ---->CHECK! writeManagers()
+	/**
+	 * Descripttion: Lee de archivo plano de los gerentes y lo carga al arraylist de trabajadores
+	 * @return
+	 */
 	public String loadManagers() {
 		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
@@ -571,7 +802,9 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
-
+	/**
+	 * Description: Permite guardar en el archivo plano la informacion que se encuentra en el arraylist de trabajadores
+	 */
 	public void saveManagers() {
 		try {
 			File file = new File(FLATWORKERS);
@@ -594,17 +827,15 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-	public void playCrazyFrog() {	
-		String path = "pictures//amigosTraiganCerveza.mp3";
-		Media media = new Media(new File(path).toURI().toString());
-		mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.setVolume(0.5);
-		mediaPlayer.play();
-	}
+	
 
 	// ------------------------------------------> SISTEMAS DE CARGA
 	// POR VERFICIAR:
 	// ---->CHECK! writeFlatRealStates()
+	/**
+	 * Descripttion: Lee de archivo plano del inmobiliario publico y lo carga al arraylist de inmobiliario
+	 * @return
+	 */
 	public String loadRealPublic() {
 		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
@@ -628,6 +859,9 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
+	/**
+	 * Permite guardar la informacion que hay en el arryalist de inmobiliario publico y lo carga
+	 */
 	public void saveRealStatesPublic() {
 		try {
 			File file = new File(FLATPUBLICSTATES);
@@ -645,7 +879,11 @@ public class SuperMarketApp {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	/**
+	 * Description: Lee del archivo plano las linel y las carga al ArrayList
+	 * @return
+	 */
 	public String loadRealPrivate() {
 		String msg = "DATOS CARGADOS CON EXITO!!!";
 		try {
@@ -668,6 +906,9 @@ public class SuperMarketApp {
 		}
 		return msg;
 	}
+	/**
+	 * Description: Permite guardar los inmmobiliarios privados en eun archivo plano
+	 */
 	public void saveRealStatesPrivate() {
 		try {
 			File file = new File(FLATPRIVATESTATES);
@@ -688,6 +929,9 @@ public class SuperMarketApp {
 	
 	
 	// ----------------------------------->SISTEMAS DE SERIALIZACION INVENTORY
+	/**
+	 * Description: Permite serializar el inventario de productos
+	 */
 	public void saveInventory() {
 		try {
 			File fl = new File(SERIALIZEINVENTORY);
@@ -700,7 +944,9 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Description: Permite deserializar el archivo de inventario
+	 */
 	public void loadInventory() {
 		File file = new File(SERIALIZEINVENTORY);
 		Inventory temporalInventory;
@@ -720,6 +966,9 @@ public class SuperMarketApp {
 	}
 
 	// ----------------------------------->SISTEMAS DE SERIALIZACION FIDELIZATION
+	/**
+	 * Description: Permite seralizar el programa de fidelizacion
+	 */
 	public void saveFidelization() {
 		try {
 			File fl = new File(SERIALIZEFIDELIZATION);
@@ -732,7 +981,9 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Description: Permite deserializar el programa de fidelizaciones
+	 */
 	public void loadFidelization() {
 		File file = new File(SERIALIZEFIDELIZATION);
 		Fidelization temporalFidelization;
@@ -740,7 +991,7 @@ public class SuperMarketApp {
 			FileInputStream fi = new FileInputStream(file);
 			ObjectInputStream co = new ObjectInputStream(fi);
 			temporalFidelization = (Fidelization) co.readObject();
-			fidelization = temporalFidelization;
+			fidelization = temporalFidelization; 
 			co.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace(); 
@@ -752,6 +1003,9 @@ public class SuperMarketApp {
 	}
 
 	// ----------------------------------->SISTEMAS DE SERIALIZACION CASHREGISTER
+	/**
+	 * Descrption: Permite serializar la caja registradora
+	 */
 	public void saveCashRegister() {
 		try {
 			File fl = new File(SERIALIZECASHREGISTER);
@@ -764,7 +1018,9 @@ public class SuperMarketApp {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Description: Permite deserializar la caja reistradoa
+	 */
 	public void loadCashRegisater() {
 		File file = new File(SERIALIZECASHREGISTER);
 		CashRegister temporalCashRegister;
@@ -785,6 +1041,9 @@ public class SuperMarketApp {
 
 	// SISTEMA GENERAL DE CARGA DE DATOS
 	// <-------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Description: Llama a todos los metodos de carga
+	 */
 	public void loadEverythig() {
 		loadCashRegisater();
 		loadFidelization();
@@ -796,6 +1055,9 @@ public class SuperMarketApp {
 
 	// SISTEMA GENERAL DE GUARDADO DE DATOS
 	// <----------------------------------------------------------------------------------------------------------------
+	/**
+	 * Description: Permite llmar todos los metodos de carga
+	 */
 	public void saveEverything() {
 		saveCashRegister();
 		saveFidelization();
@@ -804,8 +1066,13 @@ public class SuperMarketApp {
 		saveRealStatesPrivate();
 		saveManagers();
 	}
+	
 	//SISTEMAS DE ORDENAMIENTO WORKERS 
-	public void organizeWithiD(){
+	/**
+	 * Description: Permite ordenar el ArrayList  trabajdores por id
+	 *
+	 */
+	public void organizeWithiDInsercion(){
 		for (int i = 1; i<workers.size(); i++){
 			for(int j = i; j>0 && workers.get(j-1).getId().compareTo(workers.get(j).getId()) > 0; j--){
 				Worker tmp = workers.get(j);
@@ -814,6 +1081,9 @@ public class SuperMarketApp {
 			}	
 		}	
 	}
+	/**
+	 * Description: Permite ordenar el ArrayList de trabajadores 
+	 */
 	public void organizeWithName(){
 		for (int i = 1; i<workers.size(); i++){
 			for(int j = i; j>0 && workers.get(j-1).getName().compareTo(workers.get(j).getName()) > 0; j--){
@@ -824,7 +1094,10 @@ public class SuperMarketApp {
 		}	
 	}
 	//SISTEMAS DE ORDENAMIENTO REALSTATES
-	public void organizeWRealStates() {
+	/**
+	 *Description: Permite ordenar el inmobiliario por burbuja con base al id
+	 */
+	public void organizeWRealStatesBurbuja() {
 		Realstate tmp = null;
 		Realstate tmp1 = null;
 		for(int i = realStates.size(); i>0; i--) {
@@ -841,7 +1114,10 @@ public class SuperMarketApp {
 				}
 			}
 		}
-	}	
+	}
+	/**
+	 * Description: Permite ordenar el inmobiliario por cantidad 
+	 */
 	public void organizeWRealStatesQuantity() {
 		Realstate tmp = null;
 		Realstate tmp1 = null;
@@ -860,4 +1136,27 @@ public class SuperMarketApp {
 			}
 		}
 	}
+	/**
+	 * Description: Permite buscar trajadores por busqueda binaria con base al ID
+	 * @param valor Id del trabajador buscado
+	 * @return
+	 */
+	public Worker searchWorkerBinary(String valor) {
+        Worker aux = null;
+        boolean resultado = false;
+        int inicio = 0;
+        int fin = workers.size() - 1;
+        while (inicio <= fin && !resultado ) {
+            int medio = (inicio + fin ) / 2 ;
+            if (workers.get(medio).getId().compareTo(valor)==0 ) {
+                aux = workers.get(medio);
+            } else if (workers.get(medio).getId().compareToIgnoreCase(valor) > 0) {
+                fin = medio -1 ;
+            } else {
+                inicio = medio + 1;
+            }
+        }
+
+        return aux;
+    }
 }
