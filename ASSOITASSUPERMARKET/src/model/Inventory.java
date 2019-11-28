@@ -16,7 +16,7 @@ public class Inventory implements Serializable{
 		return firstUnity;
 	}
 	public void setFirstUnity(UnityProduct firstUnity) {
-		this.firstUnity = firstUnity;
+		this.firstUnity = firstUnity; 
 	}
 	public WeightProduct getFirstWeight() {
 		return firstWeight;
@@ -320,45 +320,56 @@ public class Inventory implements Serializable{
 			newReference = newReference.getNext();
 		}	
 	}
-	/*
-	public void organizeListWithBubbleWeight() {
-		WeightProduct newPrevius = null;
-		WeightProduct newNext = null;
-		WeightProduct oToOrganize = firstWeight;
-				while(oToOrganize != null ){
-				newNext = oToOrganize.getNext();
-				newPrevius = oToOrganize.getPrevius();
-				if(newPrevius != null && newNext != null) {
-					if(newPrevius.getId().compareTo(newNext.getId())>0) {
-						firstWeight = oToOrganize;
-						oToOrganize.getPrevius().setNext(oToOrganize.getNext());
-						oToOrganize.getPrevius().setPrevius(oToOrganize);
-						oToOrganize.getNext().setPrevius(oToOrganize.getPrevius());
-						oToOrganize.setNext(oToOrganize.getPrevius());	
-					}
-				}
-				else if(newPrevius == null && newNext != null) {
-					if(oToOrganize.getId().compareTo(newNext.getId())>0) {
-						firstWeight = newNext;
-						newNext.getPrevius().setNext(newNext.getNext());
-						newNext.getPrevius().setPrevius(newNext);
-						newNext.getNext().setPrevius(newNext.getPrevius());
-						newNext.setNext(newNext.getPrevius());
-					}
-				}
-			oToOrganize = oToOrganize.getNext();
-			}
-		}
-	/*
-	public void updateWeight(String id, double requiredQuantity) throws noMatchesException, insufficientQuantityException {
-		WeightProduct toUpdate = searchWeightProduct(id);
-		if((toUpdate.getWeight()-requiredQuantity)<0) {
-			throw new insufficientQuantityException("Epic Failure");
-		} else {
-			toUpdate.setWeight(toUpdate.getWeight()-requiredQuantity);
-		}
-	}
-	*/
+	public void deleteUnityProduct(String id) throws noMatchesException {
+		validateExistenceOfId(id);
+        UnityProduct aux = firstUnity;
+        boolean cent = false;
+        while(!cent && aux!=null) {
+            if(aux.getId().equals(id)) {
+            	firstUnity = firstUnity.getNext();
+                cent = true;
+            }else {
+                while(!cent && aux.getNext()!=null) {
+                    if(aux.getNext().getId().equals(id)) {
+                        cent = true;
+                        if(aux.getNext().getNext()!=null) {
+                            aux.setNext(aux.getNext().getNext());
+                            aux.getNext().setPrevius(aux);
+                        }else {
+                            aux.setNext(null);
+                        }
+                    }else {
+                        aux = aux.getNext();
+                    }
+                }
+            }
+        }
+    }
+	public void deleteWeightProduct(String id) throws noMatchesException {
+		validateExistenceOfIdWeight(id);
+        WeightProduct aux = firstWeight;
+        boolean cent = false;
+        while(!cent && aux!=null) {
+            if(aux.getId().equals(id)) {
+            	firstWeight = firstWeight.getNext();
+                cent = true;
+            }else {
+                while(!cent && aux.getNext()!=null) {
+                    if(aux.getNext().getId().equals(id)) {
+                        cent = true;
+                        if(aux.getNext().getNext()!=null) {
+                            aux.setNext(aux.getNext().getNext());
+                            aux.getNext().setPrevius(aux);
+                        }else {
+                            aux.setNext(null);
+                        }
+                    }else {
+                        aux = aux.getNext();
+                    }
+                }
+            }
+        }
+    }
 	public WeightProduct updateWeight(String id, double requiredQuantity) throws noMatchesException, insufficientQuantityException {
 		WeightProduct toUpdate = searchWeightProduct(id);
 		toUpdate.update(requiredQuantity);

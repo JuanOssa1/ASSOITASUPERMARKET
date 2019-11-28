@@ -23,7 +23,7 @@ class InventoryTest {
 		inventory.addWeightProductToTheList("6", "naranjas", "1 mes", 2600, "proteina", 20000);
 	}
 	@Test
-	void testInsertAndSearch() {
+	void testInsertAndSearch() { 
 		try {
 			setUpSceneInsert();
 			UnityProduct unity0 = inventory.searchUnityProduct("1");
@@ -136,6 +136,58 @@ class InventoryTest {
 			setUpSceneRepeatedGeneral();
 			fail("Se esperaba excepcion id no disponible");
 		} catch (unavaiableIdException e) {
+			System.out.println("Pass!");
+		}
+	}
+	@Test
+	void testDeleteUnityProductConsistent() {
+		try {
+			setUpSceneInsert();
+			inventory.deleteUnityProduct("2");
+			assertEquals("UnityProduct [quantity=20, getId()=1, getName()=Papas margarita, getBestBefore()=hoy, getPrice()=1000.0, getProductType()=Carbohidrato]",inventory.searchUnityProduct("1").toString());
+			assertEquals("UnityProduct [quantity=20, getId()=3, getName()=agua, getBestBefore()=ayer, getPrice()=3000.0, getProductType()=hidratante]", inventory.searchUnityProduct("3").toString());
+		} catch (unavaiableIdException e) {
+			fail();
+		} catch (noMatchesException e) {
+			fail();
+		}
+	}
+	@Test
+	void testTrueDeleteUnity() {
+		try {
+			setUpSceneInsert();
+			inventory.deleteUnityProduct("2");
+			inventory.searchUnityProduct("2");
+			fail("Se esperaba exception no matches");
+		} catch (unavaiableIdException e) {
+			fail();
+		} catch (noMatchesException e) {
+			System.out.println("Pass!");
+		}
+	}
+	@Test
+	void testDeleteWeightProductConsistent() {
+		try {
+			setUpSceneInsert();
+			inventory.deleteWeightProduct("5");
+			assertEquals("WeightProduct [weight=20000.0, getId()=4, getName()=carne, getBestBefore()=1 mes, getPrice()=2500.0, getProductType()=proteina]",inventory.searchWeightProduct("4").toString());
+			assertEquals("WeightProduct [weight=20000.0, getId()=6, getName()=naranjas, getBestBefore()=1 mes, getPrice()=2600.0, getProductType()=proteina]", inventory.searchWeightProduct("6").toString());
+		} catch (unavaiableIdException e) {
+			fail();
+		} catch (noMatchesException e) {
+			fail();
+		}
+	}
+	@Test
+	void testTrueDeleteWeight() {
+		try {
+			setUpSceneInsert();
+			inventory.deleteUnityProduct("5");
+			inventory.searchUnityProduct("5");
+			fail("Se esperaba exception no matches");
+		} catch (unavaiableIdException e) {
+			fail();
+		} catch (noMatchesException e) {
 			System.out.println("Pass!");
 		}
 	}

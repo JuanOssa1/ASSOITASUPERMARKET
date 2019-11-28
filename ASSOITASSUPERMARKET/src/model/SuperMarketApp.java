@@ -34,7 +34,7 @@ public class SuperMarketApp {
 	public static String SERIALIZEFIDELIZATION = "./marketRecords/fidelization.dat";
 	public static String SERIALIZECASHREGISTER = "./marketRecords/cashRegister.dat";
 
-	public SuperMarketApp() {
+	public SuperMarketApp() { 
 		workers = new ArrayList<Worker>();
 		realStates = new ArrayList<Realstate>();
 		inventory = new Inventory();
@@ -406,14 +406,15 @@ public class SuperMarketApp {
 	}
 
 	// ------------------------------------------>CASH REGISTER
-	public void createInvoice(String productId, double requiredQuantity, String date, String paymentType,
+	public void createInvoice(String productId, String requiredQuantity, String date, String paymentType,
 		String factureNumber, String clientId) throws noMatchesException, insufficientQuantityException {
+		double requiredQuantityC = Double.parseDouble(requiredQuantity);
 		ArrayList<Product> products = new ArrayList<Product>();
 		if (searchGeneralProducts(productId) instanceof WeightProduct) {
 			try {
-				inventory.updateWeight(productId, requiredQuantity);
+				inventory.updateWeight(productId, requiredQuantityC);
 				WeightProduct tmpWeight = (WeightProduct) searchGeneralProducts(productId);
-				tmpWeight.setWeight(requiredQuantity);
+				tmpWeight.setWeight(requiredQuantityC);
 				products.add(tmpWeight);
 			} catch (noMatchesException e) {
 				throw new noMatchesException("");
@@ -421,11 +422,11 @@ public class SuperMarketApp {
 				throw new insufficientQuantityException("");
 			}
 		} else {
-			int requiredQuantityC = (int) requiredQuantity;
+			int requiredQuantityC2 = (int) requiredQuantityC;
 			try {
-				inventory.updateUnity(productId, requiredQuantityC);
+				inventory.updateUnity(productId, requiredQuantityC2);
 				UnityProduct tmpUnity = (UnityProduct) searchGeneralProducts(productId);
-				tmpUnity.setQuantity(requiredQuantityC);
+				tmpUnity.setQuantity(requiredQuantityC2);
 				products.add(tmpUnity);
 			} catch (noMatchesException e) {
 				throw new noMatchesException("");
@@ -469,7 +470,7 @@ public class SuperMarketApp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	} 
 	public String printInvoice(String facturenumber) {
 		String msg = "";
 		try {

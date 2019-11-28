@@ -12,7 +12,7 @@ public class Administrator extends Worker implements Serializable{
 	public void addDate() {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 	@Override
 	public String toString() {
 		return "Administrator [getName()=" + getName() + ", getId()=" + getId() + ", getSalary()=" + getSalary()

@@ -15,7 +15,7 @@ public class CommercialInvoice implements Serializable{
 	public static final double IVA = 0.19;
 	public CommercialInvoice(String date,/* double totalPrice,*/ String paymentType, String factureNumber, ArrayList<Product> products, Client client) {
 		super();
-		this.date = date;
+		this.date = date; 
 		/*this.totalPrice = totalPrice;*/
 		this.paymentType = paymentType;
 		this.factureNumber = factureNumber;
@@ -87,15 +87,17 @@ public class CommercialInvoice implements Serializable{
 			if(products.get(i) instanceof WeightProduct) {
 				//Manager manager = (Manager) workers.get(i);
 				WeightProduct weight = (WeightProduct) products.get(i);
-				totalWeight = weight.getPrice()*weight.getWeight();
+				totalWeight += weight.getPrice()*weight.getWeight();
 			} else {
 				UnityProduct unity = (UnityProduct) products.get(i);
-				totalUnity = unity.getPrice()*unity.getQuantity();
+				totalUnity += unity.getPrice()*unity.getQuantity();
 			}
 		}
 		total = totalUnity + totalWeight;
 		return total;
 	}
+	//58100*0.3 = 17430
+	//iva 11039
 	public double calculateSavings() {
 		return subTotal()*calculateLoyalDiscount();
 	}
@@ -103,21 +105,21 @@ public class CommercialInvoice implements Serializable{
 		double tax = subTotal()*IVA;
 		return tax;
 	}
-	public /*double*/ void total() {
+	public double /*void*/ total() {
 		//double total = (subTotal()-calculateSavings())+calculateIVA();
 		//return total;
-		totalPrice =  (subTotal()-calculateSavings())+calculateIVA();
+		return totalPrice =  (subTotal()-calculateSavings())+calculateIVA();
 	}
-	public String printProducts() {
+	public String printProducts() { 
 		String msg = "";
 		for (int i = 0; i < products.size(); i++) {
 			if(products.get(i) instanceof WeightProduct) {
 				//Manager manager = (Manager) workers.get(i);
 				WeightProduct weight = (WeightProduct) products.get(i);
-				msg = weight.toString() + "\n";
+				msg += weight.toString() + "\n";
 			} else {
 				UnityProduct unity = (UnityProduct) products.get(i);
-				msg = unity.toString() + "\n";
+				msg += unity.toString() + "\n";
 			}
 		}
 		return msg;

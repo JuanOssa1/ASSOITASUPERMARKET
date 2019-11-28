@@ -31,7 +31,7 @@ public class Fidelization implements ClientUpdater, Serializable{
 		if(rootLoyal == null) {
 			rootLoyal = newLoyalClient;
 		} else {
-			insertLoyalClient(rootLoyal, newLoyalClient);
+			insertLoyalClient(rootLoyal, newLoyalClient); 
 		}
 	}
 	private void insertLoyalClient(LoyalClient currentRoot, LoyalClient newLoyalClient) throws repeatedCustomerException {

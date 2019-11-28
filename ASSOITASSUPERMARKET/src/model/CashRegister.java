@@ -1,4 +1,4 @@
-package model;
+ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,9 +13,10 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 	private SuperMarketApp superMarket;
 	public CashRegister(/*SuperMarketApp superMarket*/) {
 		/*this.superMarket = superMarket;*/
+		this.firstInvoice = null;
 	}
 	public CommercialInvoice getInvoiceRoot() {
-		return firstInvoice;
+		return firstInvoice; 
 	}
 	public void setInvoiceRoot(CommercialInvoice invoiceRoot) {
 		this.firstInvoice = invoiceRoot;
@@ -26,7 +27,15 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 	public void setSuperMarket(SuperMarketApp superMarket) {
 		this.superMarket = superMarket;
 	}
-	
+	/**
+	 * Description: Permite agregar productos a una factura
+	 * @param date
+	 * @param paymentType
+	 * @param factureNumber
+	 * @param products
+	 * @param client
+	 * @throws unavaiableIdException
+	 */
 	public void addInvoiceProductToTheList(String date/*, double totalPrice*/, String paymentType, String factureNumber, ArrayList<Product> products, Client client) throws unavaiableIdException {
 		validateAvaiablityOfTheFactureNumber(factureNumber);
 		CommercialInvoice commercialInvoice = new CommercialInvoice(date, /*totalPrice,*/paymentType, factureNumber, products, client);
@@ -42,7 +51,12 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 		}
 		
 	}
-	
+	/**
+	 * Descripcion: Permite buscar una factua en la lista de facturas
+	 * @param factureNumber
+	 * @return
+	 * @throws noMatchesException
+	 */
 	public CommercialInvoice searchInvoice(String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
 		CommercialInvoice newReference = firstInvoice;
@@ -57,6 +71,11 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: Verifica que la factura exista en la lista de facturas de lo contrario lanza excepcion
+	 * @param factureNumber
+	 * @throws noMatchesException
+	 */
 	private void validateExistenceOfFactureNumber(String factureNumber) throws noMatchesException {
 		CommercialInvoice newReference = firstInvoice;
 		String msg = "";
@@ -72,6 +91,13 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 			throw new noMatchesException("Fatal failure! Check!");
 		}
 	}
+	/**
+	 * Description: Permite actualizar la fecha y el tipo de pago de la factura 
+	 * @param date
+	 * @param paymentType
+	 * @param factureNumber
+	 * @throws noMatchesException
+	 */
 	public void updateInvoiceData(String date, String paymentType, String factureNumber) throws noMatchesException {
 		validateExistenceOfFactureNumber(factureNumber);
 		CommercialInvoice commercialInvoiceToUpdate = firstInvoice;
@@ -87,6 +113,11 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 		}
 		//return msg;
 	}
+	/**
+	 * Description: Valida si el numero de la factura ya esta en uso, de lo contrario lanza excepcion
+	 * @param factureNumber
+	 * @throws unavaiableIdException
+	 */
 	private void validateAvaiablityOfTheFactureNumber(String factureNumber) throws unavaiableIdException{
 		CommercialInvoice newCommercialInvoice = firstInvoice;
 		boolean centinel = false;
@@ -98,6 +129,7 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 			newCommercialInvoice = newCommercialInvoice.getNext();
 		}	
 	}
+	/*
 	public void organizeListWithBubble() {
 		CommercialInvoice newPrevius = null;
 		CommercialInvoice newNext = null;
@@ -126,6 +158,10 @@ public class CashRegister implements InvoiceUpdater, Serializable{
 			oToOrganize = oToOrganize.getNext();
 			}
 		}
+	*/
+	/**
+	 * Descripcion: Permite actualizar la fecha y el tipo de pago
+	 */
 	@Override
 	public void updateInformartionInvoice(CommercialInvoice toUpdate, String date, String paymentType) {
 		toUpdate.setDate(date);
