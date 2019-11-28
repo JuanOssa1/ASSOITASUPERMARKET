@@ -119,13 +119,8 @@ public class Inventory implements ProductUpdater, Serializable{
 		boolean centinel = false;
 		while(unityToUpdate != null && centinel == false) {
 			if(unityToUpdate.getId().equals(id)) {
-					msg ="El personaje actualizado fue:"+" "+ unityToUpdate.toString();
-					unityToUpdate.setId(id);
-					unityToUpdate.setName(name);
-					unityToUpdate.setBestBefore(bestBefore);
-					unityToUpdate.setPrice(price);
-					unityToUpdate.setProductType(productType);
-					unityToUpdate.setQuantity(quantity);
+					msg ="El  actualizado fue:"+" "+ unityToUpdate.toString();
+					updateInformationUnity(unityToUpdate,id,name,bestBefore,price,productType,quantity);
 					centinel = true;
 			}
 			unityToUpdate = unityToUpdate.getNext();
@@ -234,12 +229,6 @@ public class Inventory implements ProductUpdater, Serializable{
 			if(weightToUpdate.getId().equals(id)) {
 					msg ="El producto libreado actualizado fue"+" "+ weightToUpdate.toString();
 					updateInformartionProduct(weightToUpdate, id, name, bestBefore, price, productType, weight);
-					weightToUpdate.setId(id);
-					weightToUpdate.setName(name);
-					weightToUpdate.setBestBefore(bestBefore);
-					weightToUpdate.setPrice(price);
-					weightToUpdate.setProductType(productType);
-					weightToUpdate.setWeight(weight); 
 					centinel = true;
 			}
 			weightToUpdate = weightToUpdate.getNext();
@@ -328,9 +317,25 @@ public class Inventory implements ProductUpdater, Serializable{
 		return toUpdate;
 	}
 	@Override
-	public void updateInformartionProduct(WeightProduct weight, String id, String name, String bestBefore, double price,
+	public void updateInformartionProduct(WeightProduct weightToUpdate, String id, String name, String bestBefore, double price,
 			String productType, double weigh) {
-		// TODO Auto-generated method stub
+		weightToUpdate.setId(id);
+		weightToUpdate.setName(name);
+		weightToUpdate.setBestBefore(bestBefore);
+		weightToUpdate.setPrice(price);
+		weightToUpdate.setProductType(productType);
+		weightToUpdate.setWeight(weigh); 
+		
+	}
+	@Override
+	public void updateInformationUnity(UnityProduct unityToUpdate, String id, String name, String bestBefore, double price,
+			String productType, int quantity) {
+		unityToUpdate.setId(id);
+		unityToUpdate.setName(name);
+		unityToUpdate.setBestBefore(bestBefore);
+		unityToUpdate.setPrice(price);
+		unityToUpdate.setProductType(productType);
+		unityToUpdate.setQuantity(quantity);
 		
 	}
 	
