@@ -1,13 +1,14 @@
 package threads;
 
+import controllerWindow.WindowController;
 import model.SuperMarketApp;
 
 public class MusicThread extends Thread{
-	private SuperMarketApp superMarket;
-	public MusicThread(SuperMarketApp superMarket) {
-		this.superMarket = superMarket;
+	private WindowController win;
+	public MusicThread(WindowController win) {
+		this.win = win;
 	}
 	public void run() {
-		superMarket.playCrazyFrog();
+		win.startMusic();
 	}
 }

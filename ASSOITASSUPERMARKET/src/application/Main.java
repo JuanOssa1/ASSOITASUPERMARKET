@@ -13,7 +13,6 @@ public class Main extends Application {
             Parent root =  FXMLLoader.load(getClass().getResource("/controllerWindow/Window.fxml"));
             primaryStage.setTitle("Ossati Market 1.0");
             primaryStage.setScene(new Scene(root));
-//            primaryStage.setMaximized(true);
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();
