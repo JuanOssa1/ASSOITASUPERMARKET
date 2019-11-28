@@ -302,7 +302,7 @@ public class Inventory implements Serializable{
 					weightToUpdate.setBestBefore(bestBefore);
 					weightToUpdate.setPrice(price);
 					weightToUpdate.setProductType(productType);
-					weightToUpdate.setWeight(weight);
+					weightToUpdate.setWeight(weight); 
 					centinel = true;
 			}
 			weightToUpdate = weightToUpdate.getNext();

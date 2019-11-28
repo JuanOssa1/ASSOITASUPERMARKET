@@ -107,11 +107,11 @@ public class Fidelization implements ClientUpdater, Serializable{
 		return msg;
 	}
 	/**
-	 * Si 
-	 * @param currentRoot
-	 * @param id
-	 * @return
-	 * @throws noMatchesException
+	 * Description:Dado el caso que la raiz principal no coincida con la id se accede a este metodo para recorrer el arbol 
+	 * @param currentRoot Raiz donde se encuetra posicionada
+	 * @param id Id de la raiz buscada
+	 * @return El cliente leal buscado
+	 * @throws noMatchesException Si no se encuentra el cliente
 	 */
 	private LoyalClient searchLoyalClientWithId(LoyalClient currentRoot, String id) throws noMatchesException {
 		LoyalClient msg = null;
@@ -138,8 +138,18 @@ public class Fidelization implements ClientUpdater, Serializable{
 		}
 		return msg;
 	}
-	
-	
+	/**
+	 * Description: Permite actaulizar un cliente leal con su id
+	 * @param id nuevo Id del cliente
+	 * @param name nuevo nombre del cliente
+	 * @param age nueva edad del cliente
+	 * @param email nuevo correo del cliente
+	 * @param points nuevos puntos del cliente
+	 * @param discountPercent nuevo percentaje de descuento del cliente
+	 * @param dueCard nuevo banco del cliente del cliente
+	 * @throws noMatchesException  Si no se encuentra id
+	 * @throws NullPointerException
+	 */
 	public void updateLoyalClientWithId(String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException, NullPointerException {
 		if(rootLoyal != null) {
 			if(id.equals(rootLoyal.getId())) {
@@ -151,6 +161,17 @@ public class Fidelization implements ClientUpdater, Serializable{
 			throw new NullPointerException("No info");
 		}
 	}
+	/**
+	 * Description: Permite actaulizar un cliente leal con su id
+	 * @param id nuevo Id del cliente
+	 * @param name nuevo nombre del cliente
+	 * @param age nueva edad del cliente
+	 * @param email nuevo correo del cliente
+	 * @param points nuevos puntos del cliente
+	 * @param discountPercent nuevo percentaje de descuento del cliente
+	 * @param dueCard nuevo banco del cliente del cliente
+	 * @throws noMatchesException  Si no se encuentra id
+	 */
 	private void updateLoyalClientWithId(LoyalClient currentRoot, String id, String name, String age, String email, int points, double discountPercent, String dueCard) throws noMatchesException {
 		if(currentRoot.getId().compareTo(id)<0) {
 			if(currentRoot.getRight() != null) {
@@ -174,6 +195,9 @@ public class Fidelization implements ClientUpdater, Serializable{
 			}
 		}
 	}
+	/**
+	 * Description: Permite setear cada uno de los atributos menos la id de cliente leal
+	 */
 	@Override
 	public void updateInformartionLoyal(LoyalClient toUpdate, String name, String age, String email, int points, double discountPercent, String dueCard) {
 		toUpdate.setName(name);
@@ -185,6 +209,14 @@ public class Fidelization implements ClientUpdater, Serializable{
 	}
 	
 	//---------------------------------------------------> CURRENT CLIENT 
+	/**
+	 * Description: Permite insertar un clinte corriente a la lista de cliente
+	 * @param id Id del cliente corriente nuevo
+	 * @param name nuevo nombre del cliente
+	 * @param age nueva edad del cliente
+	 * @param email nuevo email del cliente
+	 * @throws repeatedCustomerException
+	 */
 	public void insertCurrentClient(String id, String name, String age, String email) throws repeatedCustomerException {
 		CurrentClient newCurrentClient = new CurrentClient( id,  name,  age,  email);
 		if(rootCurrent == null) {
@@ -193,6 +225,12 @@ public class Fidelization implements ClientUpdater, Serializable{
 			insertCurrentClient(rootCurrent, newCurrentClient);
 		}
 	}
+	/**
+	 * Description: Permite insertar un nuevo vliente en la lista de clientes
+	 * @param currentRoot Cliente que es raiz actual
+	 * @param newCurrentClient Nuev cliente que se quiere insertar
+	 * @throws repeatedCustomerException
+	 */
 	private void insertCurrentClient(CurrentClient currentRoot, CurrentClient newCurrentClient) throws repeatedCustomerException {
 		if(currentRoot.getId().compareTo(newCurrentClient.getId())!=0) {
 			if(currentRoot.getId().compareTo(newCurrentClient.getId())>0) {
@@ -212,6 +250,13 @@ public class Fidelization implements ClientUpdater, Serializable{
 			throw new repeatedCustomerException("Falla!");
 		}
 	}
+	/**
+	 * Description: Permite buscar el cliente corriente por su id
+	 * @param id iD del cliente que se quiere buscar
+	 * @return Cliente que le corresponde esa Id
+	 * @throws noMatchesException
+	 * @throws NullPointerException
+	 */
 	public CurrentClient searchCurrentClientWithId(String id) throws noMatchesException, NullPointerException {
 		CurrentClient msg = null;
 		if(rootCurrent != null) {
@@ -225,6 +270,13 @@ public class Fidelization implements ClientUpdater, Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: Permite buscar un cliente, si no se cumple la condicion del metodo anterior se llamaa a este
+	 * @param currentRoot Cliente donde se posciona la raiz actual
+	 * @param id Id del cliente que se esta buscando
+	 * @return El cliente corriente si en algun momento la id coincide
+	 * @throws noMatchesException
+	 */
 	private CurrentClient searchCurrentClientWithId(CurrentClient currentRoot, String id) throws noMatchesException {
 		CurrentClient msg = null;
 		if(currentRoot.getId().compareTo(id)<0) {
@@ -239,7 +291,7 @@ public class Fidelization implements ClientUpdater, Serializable{
 			}
 		}else {
 			if(currentRoot.getLeft() != null) {
-				if(currentRoot.getLeft().getId().equals(id)) {
+				if(currentRoot.getLeft().getId().equals(id)) { 
 					msg = currentRoot.getLeft()/*.toString()*/;
 				} else {
 					msg = searchCurrentClientWithId(currentRoot.getLeft(), id);
@@ -250,6 +302,15 @@ public class Fidelization implements ClientUpdater, Serializable{
 		}
 		return msg;
 	}
+	/**
+	 * Description: 
+	 * @param id
+	 * @param name
+	 * @param age
+	 * @param email
+	 * @throws noMatchesException
+	 * @throws NullPointerException
+	 */
 	public void updateCurrentClientWithId(String id, String name, String age, String email) throws noMatchesException, NullPointerException {
 		if(rootCurrent != null) {
 			if(id.equals(rootCurrent.getId())) {

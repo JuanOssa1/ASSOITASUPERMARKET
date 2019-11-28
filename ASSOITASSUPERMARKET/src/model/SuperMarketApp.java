@@ -32,7 +32,7 @@ public class SuperMarketApp {
 	public static String FLATPUBLICSTATES = "marketRecords//realStates.txt";
 	public static String FLATPRIVATESTATES = "marketRecords//privateStates.txt";
 	public static String SERIALIZEINVENTORY = "./marketRecords/inventory.dat";
-	public static String SERIALIZEFIDELIZATION = "./marketRecords/fidelization.dat";
+	public static String SERIALIZEFIDELIZATION = "./marketRecords/fidelization.dat"; 
 	public static String SERIALIZECASHREGISTER = "./marketRecords/cashRegister.dat";
 
 	public SuperMarketApp() { 
@@ -803,5 +803,61 @@ public class SuperMarketApp {
 		saveRealStatesPublic();
 		saveRealStatesPrivate();
 		saveManagers();
+	}
+	//SISTEMAS DE ORDENAMIENTO WORKERS 
+	public void organizeWithiD(){
+		for (int i = 1; i<workers.size(); i++){
+			for(int j = i; j>0 && workers.get(j-1).getId().compareTo(workers.get(j).getId()) > 0; j--){
+				Worker tmp = workers.get(j);
+				workers.set(j, workers.get(j-1));
+				workers.set(j-1, tmp);	
+			}	
+		}	
+	}
+	public void organizeWithName(){
+		for (int i = 1; i<workers.size(); i++){
+			for(int j = i; j>0 && workers.get(j-1).getName().compareTo(workers.get(j).getName()) > 0; j--){
+				Worker tmp = workers.get(j);
+				workers.set(j, workers.get(j-1));
+				workers.set(j-1, tmp);	
+			}	
+		}	
+	}
+	//SISTEMAS DE ORDENAMIENTO REALSTATES
+	public void organizeWRealStates() {
+		Realstate tmp = null;
+		Realstate tmp1 = null;
+		for(int i = realStates.size(); i>0; i--) {
+			for(int j = 0; j<-1-1; j++ ) {
+				if(realStates.get(j).getId().compareTo(realStates.get(j+1).getId())>0) {
+					tmp = realStates.get(j);
+					tmp1 = realStates.get(j+1);
+					realStates.set(j, tmp1);
+					realStates.set(j+1, tmp);
+				}
+				else {
+					realStates.set(j, tmp);
+					realStates.set(j+1, tmp1);
+				}
+			}
+		}
+	}	
+	public void organizeWRealStatesQuantity() {
+		Realstate tmp = null;
+		Realstate tmp1 = null;
+		for(int i = realStates.size(); i>0; i--) {
+			for(int j = 0; j<-1-1; j++ ) {
+				if(realStates.get(j).getQuantity()>realStates.get(j+1).getQuantity()) {
+					tmp = realStates.get(j);
+					tmp1 = realStates.get(j+1);
+					realStates.set(j, tmp1);
+					realStates.set(j+1, tmp);
+				}
+				else {
+					realStates.set(j, tmp);
+					realStates.set(j+1, tmp1);
+				}
+			}
+		}
 	}
 }
